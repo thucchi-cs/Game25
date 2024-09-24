@@ -1,6 +1,6 @@
 # Libraries imports
 import pygame
-import random
+import random, math
 
 # Person sprite
 class Person(pygame.sprite.Sprite):
@@ -8,21 +8,40 @@ class Person(pygame.sprite.Sprite):
     def __init__(self, pic, x, y):
         super().__init__()
         # Load image and position
-        self.image = pygame.image.load('graphics/' + pic)
+        self.image_path = 'graphics/' + pic
+        self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, (25,50))
-        self.image = pygame.transform.rotate(self.image, 90)
+        self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
         
-        self.rect.x = x
-        self.rect.y = y
+        # Rotation variable
+        self.angle = 0
+        self.rotation_spd = 10
+
+        
+
+        self.rect.centerx = x
+        self.rect.centery = y
     
     # Move sprite with arrow keys
     def move_arrows(self, key, wall):
-        self.rect.y -= 10 if (key[pygame.K_UP]) else 0
-        self.rect.y += 10 if (key[pygame.K_DOWN]) else 0
-        self.rect.x -= 10 if (key[pygame.K_LEFT]) else 0
-        self.rect.x += 10 if (key[pygame.K_RIGHT]) else 0
-            
+        # Movement
+        if key[pygame.K_UP]:
+            rise = math.sin(math.radians(self.angle)) * 10
+            run = math.cos(math.radians(self.angle)) * 10
+            self.rect.centerx += int(run)
+            self.rect.centery -= int(rise)
+        # Rotation
+        if key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
+            x, y = self.rect.centerx, self.rect.centery
+            rotation = self.rotation_spd if key[pygame.K_LEFT] else -self.rotation_spd
+            self.angle += rotation
+            self.image = pygame.image.load(self.image_path).convert_alpha()
+            self.image = pygame.transform.smoothscale(self.image, (25,50))
+            self.image = pygame.transform.rotate(self.image, self.angle-90)
+            self.rect = self.image.get_rect(center=(x, y))
+             
+
     def check_collision(self, coor1):
         return ((self.rect.right > coor1[0][0]) and (self.rect.x < coor1[0][1]) and (self.rect.bottom > coor1[0][0]) and (self.rect.y < coor1[0][1]))
 
