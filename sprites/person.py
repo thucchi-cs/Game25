@@ -18,38 +18,40 @@ class Person(pygame.sprite.Sprite):
         self.angle = 0
         self.rotation_spd = 10
 
-        
-
         self.rect.centerx = x
         self.rect.centery = y
+        self.speed = 5
     
     # Move sprite with arrow keys
     def move_arrows(self, key, wall):
-        # Movement
-        if key[pygame.K_UP]:
-            rise = math.sin(math.radians(self.angle)) * 10
-            run = math.cos(math.radians(self.angle)) * 10
-            self.rect.centerx += int(run)
-            self.rect.centery -= int(rise)
-        # Rotation
-        if key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
-            x, y = self.rect.centerx, self.rect.centery
-            rotation = self.rotation_spd if key[pygame.K_LEFT] else -self.rotation_spd
-            self.angle += rotation
-            self.image = pygame.image.load(self.image_path).convert_alpha()
-            self.image = pygame.transform.smoothscale(self.image, (25,50))
-            self.image = pygame.transform.rotate(self.image, self.angle-90)
-            self.rect = self.image.get_rect(center=(x, y))
-             
+        
+            # Movement
+            if key[pygame.K_UP]:
+                rise = math.sin(math.radians(self.angle)) * self.speed
+                run = math.cos(math.radians(self.angle)) * self.speed
+                self.rect.centerx += int(run)
+                self.rect.centery -= int(rise)
 
-    def check_collision(self, coor1):
-        return ((self.rect.right > coor1[0][0]) and (self.rect.x < coor1[0][1]) and (self.rect.bottom > coor1[0][0]) and (self.rect.y < coor1[0][1]))
+                if pygame.sprite.collide_mask(wall, self):
+                     self.rect.centerx -= int(run)
+                     self.rect.centery += int(rise)
 
-    def within(self, point, range_):
-        return (point in range(range_[0], range_[1]))
-    
-    def range_within(self, range1, range2):
-        return len(set(i for i in (list(range1) + list(range2)) if (list(range1) + list(range2)).count(i) > 1)) > 0
+            # Rotation
+            if key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
+                x, y = self.rect.centerx, self.rect.centery
+                rotation = self.rotation_spd if key[pygame.K_LEFT] else -self.rotation_spd
+                self.angle += rotation
+                self.image = pygame.image.load(self.image_path).convert_alpha()
+                self.image = pygame.transform.smoothscale(self.image, (25,50))
+                self.image = pygame.transform.rotate(self.image, self.angle-90)
+                self.rect = self.image.get_rect(center=(x, y))
+
+                if pygame.sprite.collide_mask(wall, self):
+                    self.angle -= rotation
+                    self.image = pygame.image.load(self.image_path).convert_alpha()
+                    self.image = pygame.transform.smoothscale(self.image, (25,50))
+                    self.image = pygame.transform.rotate(self.image, self.angle-90)
+                    self.rect = self.image.get_rect(center=(x, y))
 
     # Move sprite with wasd keys
     def move_wasd(self, key):
