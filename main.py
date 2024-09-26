@@ -27,19 +27,22 @@ pygame.mixer.music.play(-1)
 async def main():
     # Sprites
     people = pygame.sprite.Group()
-    guy = person.Person('guy.png', 0, 0)
-    girl = person.Person('girl.png', 0, 0)
-    small1 = person.Person('guy.png', 0, 0)
-    small2 = person.Person('girl.png', 0, 0)
+    # guy = person.Person('guy.png', 0, 0)
+    # girl = person.Person('girl.png', 0, 0)
+    # small1 = person.Person('guy.png', 0, 0)
+    # small2 = person.Person('girl.png', 0, 0)
     fly = person.Person('fly.png', 500, 300)
-    people.add(guy, girl, small1, small2, fly)
+    # NOTE: Unlike walls, all player controlled sprites cannot be used in sprite groups or loops, they have to be added to the level seperatly due to the seperate control schemes
+    people.add(fly)
 
     walls = pygame.sprite.Group()
     wall1 = wall.Wall((100, 50), (300, 100), 2)
-    walls.add(wall1)
+    wall2 = wall.Wall((400,50),(500,100),2)
+    wall3 = wall.Wall((600,400),(700,500),2)
+    walls.add(wall1,wall2,wall3)
     
     # Run level 1
-    await level1.level(people, guy, girl, small1, small2, fly, walls, wall1, SCREEN)
+    await level1.level(people, fly, walls, SCREEN)
 
 
 asyncio.run(main())

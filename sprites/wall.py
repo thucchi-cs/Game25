@@ -10,7 +10,7 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = pos[1]
         self.speed = speed
     def wall_move(self,direction):
-        if direction == 'Left':
+        if direction == 'L':
             self.rect.x -=self.speed
-        elif direction == 'Right':
+        elif direction == 'R':
             self.rect.x+=self.speed

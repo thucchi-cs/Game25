@@ -3,11 +3,11 @@ import asyncio
 import pygame
 
 # Level 1 loop
-async def level(people, guy, girl, small1, small2, fly, walls, wall1, SCREEN):
+async def level(people, fly, walls, SCREEN):
     clock = pygame.time.Clock()
     FPS = 40
     run = True
-
+    # Wall1 is wall_list[0]
     while run:
         clock.tick(FPS)
 
@@ -26,7 +26,7 @@ async def level(people, guy, girl, small1, small2, fly, walls, wall1, SCREEN):
         # girl.move_wasd(key)
         # small1.move1(key)
         # small2.move2(key)
-        fly.move_arrows(key, wall1)
+        fly.move_arrows(key, walls)
         # Screen is 1000 by 600 Left to Right
         # Draw on screen
         SCREEN.fill((255,255,255))

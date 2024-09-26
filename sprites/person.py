@@ -24,25 +24,31 @@ class Person(pygame.sprite.Sprite):
         self.speed = 5
     
     # Move sprite with arrow keys
-    def move_arrows(self, key, wall):
-        
+    def move_arrows(self, key, walls):
+
             # Movement
             if key[pygame.K_UP]:
                 rise = math.sin(math.radians(self.angle)) * self.speed
                 run = math.cos(math.radians(self.angle)) * self.speed
                 self.rect.centerx += int(run)
                 self.rect.centery -= int(rise)
+                for wall in walls:
+                    if pygame.sprite.collide_mask(wall, self):
+                        self.rect.centerx -= int(run)
+                        self.rect.centery += int(rise)
 
-                if pygame.sprite.collide_mask(wall, self):
-                     self.rect.centerx -= int(run)
-                     self.rect.centery += int(rise)
+                # Off Screen Movement 
+                for wall in walls:
+
+                    if self.rect.x > 900:
+                        wall.wall_move('L')
+
+                    elif self.rect.x < 100:
+                        wall.wall_move('R')
+
                 if self.rect.x > 900:
-                    print('right')
                     self.rect.x = 900
-                    wall.wall_move('Left')
                 elif self.rect.x < 100:
-                    print('left')
-                    wall.wall_move('Right')
                     self.rect.x = 100
 
             # Rotation
@@ -54,13 +60,13 @@ class Person(pygame.sprite.Sprite):
                 self.image = pygame.transform.smoothscale(self.image, (25,50))
                 self.image = pygame.transform.rotate(self.image, self.angle-90)
                 self.rect = self.image.get_rect(center=(x, y))
-
-                if pygame.sprite.collide_mask(wall, self):
-                    self.angle -= rotation
-                    self.image = pygame.image.load(self.image_path).convert_alpha()
-                    self.image = pygame.transform.smoothscale(self.image, (25,50))
-                    self.image = pygame.transform.rotate(self.image, self.angle-90)
-                    self.rect = self.image.get_rect(center=(x, y))
+                for wall in walls:
+                    if pygame.sprite.collide_mask(wall, self):
+                        self.angle -= rotation
+                        self.image = pygame.image.load(self.image_path).convert_alpha()
+                        self.image = pygame.transform.smoothscale(self.image, (25,50))
+                        self.image = pygame.transform.rotate(self.image, self.angle-90)
+                        self.rect = self.image.get_rect(center=(x, y))
             
 
             
