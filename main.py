@@ -35,7 +35,7 @@ async def main():
     people.add(guy, girl, small1, small2, fly)
 
     walls = pygame.sprite.Group()
-    wall1 = wall.Wall((100, 50), (300, 100))
+    wall1 = wall.Wall((100, 50), (300, 100), 2)
     walls.add(wall1)
     
     # Run level 1

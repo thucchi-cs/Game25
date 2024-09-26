@@ -27,7 +27,7 @@ async def level(people, guy, girl, small1, small2, fly, walls, wall1, SCREEN):
         # small1.move1(key)
         # small2.move2(key)
         fly.move_arrows(key, wall1)
-
+        # Screen is 1000 by 600 Left to Right
         # Draw on screen
         SCREEN.fill((255,255,255))
         walls.draw(SCREEN)

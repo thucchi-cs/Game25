@@ -2,6 +2,7 @@
 import pygame
 import random, math
 
+
 # Person sprite
 class Person(pygame.sprite.Sprite):
     # Constructor
@@ -35,6 +36,14 @@ class Person(pygame.sprite.Sprite):
                 if pygame.sprite.collide_mask(wall, self):
                      self.rect.centerx -= int(run)
                      self.rect.centery += int(rise)
+                if self.rect.x > 900:
+                    print('right')
+                    self.rect.x = 900
+                    wall.wall_move('Left')
+                elif self.rect.x < 100:
+                    print('left')
+                    wall.wall_move('Right')
+                    self.rect.x = 100
 
             # Rotation
             if key[pygame.K_LEFT] or key[pygame.K_RIGHT]:
@@ -52,6 +61,9 @@ class Person(pygame.sprite.Sprite):
                     self.image = pygame.transform.smoothscale(self.image, (25,50))
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
+            
+
+            
 
     # Move sprite with wasd keys
     def move_wasd(self, key):
