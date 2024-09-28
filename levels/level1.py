@@ -1,13 +1,16 @@
 # Libraries imports
 import asyncio
 import pygame
+from constants import *
 
 # Level 1 loop
-async def level(people, fly, walls, SCREEN):
+async def level():
+    # Time
     clock = pygame.time.Clock()
-    FPS = 40
     run = True
-    # Wall1 is wall_list[0]
+    quit = False
+    
+    # Level loop
     while run:
         clock.tick(FPS)
 
@@ -16,24 +19,27 @@ async def level(people, fly, walls, SCREEN):
             # Check to close game
             if event.type == pygame.QUIT:
                 run = False
+                quit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
+                    run = False
+                    quit = True
+                
+                # Check to skip level
+                if event.key == pygame.K_s:
                     run = False
 
         # Move sprites
         key = pygame.key.get_pressed()
-        # guy.move_arrows(key)
-        # girl.move_wasd(key)
-        # small1.move1(key)
-        # small2.move2(key)
         fly.move_arrows(key, walls)
-        # Screen is 1000 by 600 Left to Right
+
         # Draw on screen
         SCREEN.fill((255,255,255))
         walls.draw(SCREEN)
         people.draw(SCREEN)
-
         pygame.display.flip()
 
         # asyncio
         await asyncio.sleep(0)
+    
+    return quit

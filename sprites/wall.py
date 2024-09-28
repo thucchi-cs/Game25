@@ -1,6 +1,7 @@
 import pygame
 
 class Wall(pygame.sprite.Sprite):
+    # Constructor
     def __init__(self, size, pos,speed):
         super().__init__()
         self.image = pygame.image.load('graphics/wall.png')
@@ -9,7 +10,9 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.speed = speed
-    def wall_move(self,direction):
+
+    # Move off screen
+    def wall_move(self, direction):
         if direction == 'L':
             self.rect.x -=self.speed
         elif direction == 'R':
