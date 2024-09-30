@@ -26,7 +26,7 @@ async def level():
                     quit = True
                 
                 # Check to skip level
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_l:
                     run = False
 
         # Move sprites

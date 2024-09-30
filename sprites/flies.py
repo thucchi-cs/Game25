@@ -27,25 +27,23 @@ class Flies(pygame.sprite.Sprite):
     def move_arrows(self, key, walls):
         
         # Move Forward
-        if key[pygame.K_UP]:
-            # Move only within screen
-            if (self.rect.x > 0) and (self.rect.x < (1000 - self.rect.width)):
-                # Move
-                rise = math.sin(math.radians(self.angle)) * self.speed
-                run = math.cos(math.radians(self.angle)) * self.speed
-                self.rect.centerx += int(run)
-                self.rect.centery -= int(rise)
+        if key[pygame.K_UP] or key[pygame.K_DOWN]:
+            # Move
+            rise = math.sin(math.radians(self.angle)) * self.speed
+            run = math.cos(math.radians(self.angle)) * self.speed
+            self.rect.centerx += int(run) if key[pygame.K_UP] else -int(run)
+            self.rect.centery -= int(rise) if key[pygame.K_UP] else -int(rise)
 
-                # Prevent moving into walls
-                for wall in walls:
-                    if pygame.sprite.collide_mask(wall, self):
-                        self.rect.centerx -= int(run)
-                        self.rect.centery += int(rise)
+            # Prevent moving into walls
+            for wall in walls:
+                if pygame.sprite.collide_mask(wall, self):
+                    self.rect.centerx -= int(run) if key[pygame.K_UP] else -int(run)
+                    self.rect.centery += int(rise) if key[pygame.K_UP] else -int(rise)
 
             # Off Screen Movement 
-            else:
+            if (self.rect.x < 0) or (self.rect.x > (1000 - self.rect.width)):
                 for wall in walls:
-                    self.rect.x += 2 if (self.rect.x < 10) else -2
+                    self.rect.x = (1000-self.rect.width) if (self.rect.x > 900) else 0
                     wall.wall_move('R' if (self.rect.x < 10) else 'L')
                 
 
@@ -74,11 +72,50 @@ class Flies(pygame.sprite.Sprite):
             
 
     # Move sprite with wasd keys
-    def move_wasd(self, key):
-        self.rect.y -= self.speed if (key[pygame.K_w]) else 0
-        self.rect.y += self.speed if (key[pygame.K_s]) else 0
-        self.rect.x -= self.speed if (key[pygame.K_a]) else 0
-        self.rect.x += self.speed if (key[pygame.K_d]) else 0
+    def move_wasd(self, key, walls):
+        # Move Forward
+        if key[pygame.K_w] or key[pygame.K_s]:
+            # Move
+            rise = math.sin(math.radians(self.angle)) * self.speed
+            run = math.cos(math.radians(self.angle)) * self.speed
+            self.rect.centerx += int(run) if key[pygame.K_w] else -int(run)
+            self.rect.centery -= int(rise) if key[pygame.K_w] else -int(rise)
+
+            # Prevent moving into walls
+            for wall in walls:
+                if pygame.sprite.collide_mask(wall, self):
+                    self.rect.centerx -= int(run) if key[pygame.K_w] else -int(run)
+                    self.rect.centery += int(rise) if key[pygame.K_w] else -int(rise)
+
+            # Off Screen Movement 
+            if (self.rect.x < 0) or (self.rect.x > (1000 - self.rect.width)):
+                for wall in walls:
+                    self.rect.x = (1000-self.rect.width) if (self.rect.x > 900) else 0
+                    wall.wall_move('R' if (self.rect.x < 10) else 'L')
+                
+
+        # Rotate
+        if key[pygame.K_a] or key[pygame.K_d]:
+            
+            # Calculate rotation
+            rotation = self.rotation_spd if key[pygame.K_a] else -self.rotation_spd
+            self.angle += rotation
+
+            # Render image
+            x, y = self.rect.centerx, self.rect.centery
+            self.image = pygame.image.load(self.image_path).convert_alpha()
+            self.image = pygame.transform.smoothscale(self.image, (25,50))
+            self.image = pygame.transform.rotate(self.image, self.angle-90)
+            self.rect = self.image.get_rect(center=(x, y))
+
+            # Prevent moving into walls
+            for wall in walls:
+                if pygame.sprite.collide_mask(wall, self):
+                    self.angle -= rotation
+                    self.image = pygame.image.load(self.image_path).convert_alpha()
+                    self.image = pygame.transform.smoothscale(self.image, (25,50))
+                    self.image = pygame.transform.rotate(self.image, self.angle-90)
+                    self.rect = self.image.get_rect(center=(x, y))
 
     # Move with 1 and 2
     def move1(self, key):
