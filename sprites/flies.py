@@ -27,7 +27,7 @@ class Flies(pygame.sprite.Sprite):
     def move_arrows(self, key, walls):
         
         # Move Forward
-        if key[pygame.K_UP] or key[pygame.K_DOWN]:
+        if (key[pygame.K_UP] or key[pygame.K_DOWN]):
             # Move
             rise = math.sin(math.radians(self.angle)) * self.speed
             run = math.cos(math.radians(self.angle)) * self.speed
@@ -41,10 +41,10 @@ class Flies(pygame.sprite.Sprite):
                     self.rect.centery += int(rise) if key[pygame.K_UP] else -int(rise)
 
             # Off Screen Movement 
-            if (self.rect.x < 0) or (self.rect.x > (1000 - self.rect.width)):
+            if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
                 for wall in walls:
-                    self.rect.x = (1000-self.rect.width) if (self.rect.x > 900) else 0
-                    wall.wall_move('R' if (self.rect.x < 10) else 'L')
+                    self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
+                    wall.wall_move('U' if (self.rect.y < 100) else 'D')
                 
 
         # Rotate
