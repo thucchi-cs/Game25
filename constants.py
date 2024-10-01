@@ -10,6 +10,8 @@ import sprites.obstacles.rocks as rock
 import sprites.obstacles.water as water
 import sprites.obstacles.webs as web
 
+# Test
+
 # Set up screen
 WIDTH = 500
 HEIGHT = 600
