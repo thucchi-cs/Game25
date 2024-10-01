@@ -29,6 +29,10 @@ async def level():
                 if event.key == pygame.K_l:
                     run = False
 
+                # Press button
+                if event.key == pygame.K_SPACE:
+                    button1.press()
+
         # Move sprites
         key = pygame.key.get_pressed()
         fly.move_arrows(key, walls)
@@ -37,6 +41,7 @@ async def level():
         SCREEN.fill((255,255,255))
         walls.draw(SCREEN)
         people.draw(SCREEN)
+        buttons.draw(SCREEN)
         pygame.display.flip()
 
         # asyncio

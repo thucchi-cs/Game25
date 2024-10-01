@@ -13,7 +13,7 @@ class Wall(pygame.sprite.Sprite):
 
     # Move off screen
     def wall_move(self, direction):
-        if direction == 'L':
-            self.rect.x -=self.speed
-        elif direction == 'R':
-            self.rect.x+=self.speed
+        if direction == 'D':
+            self.rect.y -=self.speed
+        elif direction == 'U':
+            self.rect.y+=self.speed
