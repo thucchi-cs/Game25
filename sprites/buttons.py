@@ -12,12 +12,19 @@ class Buttons(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
+        self.pressed = False
+        
 
-    def press(self):
+    def press(self,waters):
         x, y = self.rect.centerx, self.rect.centery
         self.image_path = 'graphics/button-pressed.png' if self.image_path ==  'graphics/button.png' else  'graphics/button.png'
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect.centerx, self.rect.centery = x, y
+        if self.pressed == False:
+            return True
+        else: 
+            return False
+
 

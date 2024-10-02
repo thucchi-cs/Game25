@@ -23,6 +23,9 @@ class Rocks(pygame.sprite.Sprite):
             if self.rect.y < 0:
                 for exclamation in exclamations:
                     exclamation.spawnExclamation((self.rect.x,self.actualRY),self.counter)
+            else:
+                for exclamation in exclamations:
+                    exclamation.rect.x = 9000
             self.fall_rock()
         else:
             pass
@@ -53,6 +56,8 @@ class Rocks(pygame.sprite.Sprite):
             self.change +=moveSpeed
 
 
-    def remove(self):
-        pass
+    def remove(self,rocks):
+        if self.rect.y > 600:
+            self.groups[0].remove(self)
+            
 

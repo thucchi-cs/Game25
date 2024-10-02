@@ -27,22 +27,24 @@ FPS = 40
 # Sprites
 fly = flies.Flies(250, 300)
 wall1 = wall.Wall((100, 50), (300, 100), fly.rise)
-wall2 = wall.Wall((400,50),(500,100),fly.rise)
-wall3 = wall.Wall((600,400),(700,500),fly.rise)
+# wall2 = wall.Wall((400,50),(500,100),fly.rise)
+# wall3 = wall.Wall((600,400),(700,500),fly.rise)
 button1 = button.Buttons(250, 500)
 rock1 = rock.Rocks((100,100),(100,-3000),20,fly.rise)
 exclamation1 = exclamation.Exclamation((100,100),(9000,0))
-
+water1 = water.Water((100,200),(100,100))
 
 
 # Sprite Groups
 people = pygame.sprite.Group()
 people.add(fly)
 walls = pygame.sprite.Group()
-walls.add(wall1,wall2,wall3)
+walls.add(wall1)
 buttons = pygame.sprite.Group()
 buttons.add(button1)
 rocks = pygame.sprite.Group()
 rocks.add(rock1)
 exclamations = pygame.sprite.Group()
 exclamations.add(exclamation1)
+waters = pygame.sprite.Group()
+waters.add(water1)

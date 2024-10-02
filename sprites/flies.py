@@ -31,7 +31,7 @@ class Flies(pygame.sprite.Sprite):
 
     
     # Move sprite with arrow keys
-    def move_arrows(self, key, walls,rocks):
+    def move_arrows(self, key, walls,rocks,waters):
         
         # Move Forward
         if (key[pygame.K_UP] or key[pygame.K_DOWN]):
@@ -44,6 +44,10 @@ class Flies(pygame.sprite.Sprite):
             # Prevent moving into walls
             for wall in walls:
                 if pygame.sprite.collide_mask(wall, self):
+                    self.rect.centerx -= int(self.run) if key[pygame.K_UP] else -int(self.run)
+                    self.rect.centery += int(self.rise) if key[pygame.K_UP] else -int(self.rise)
+            for water in waters:
+                if pygame.sprite.collide_mask(water, self):
                     self.rect.centerx -= int(self.run) if key[pygame.K_UP] else -int(self.run)
                     self.rect.centery += int(self.rise) if key[pygame.K_UP] else -int(self.rise)
 
@@ -64,6 +68,9 @@ class Flies(pygame.sprite.Sprite):
                 for rock in rocks:
                     self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
                     rock.rock_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
+                for water in waters:
+                    self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
+                    water.water_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
             self.realX = self.rect.centerx + self.actualX
             self.realY = self.rect.centery + self.actualy
     
@@ -94,13 +101,19 @@ class Flies(pygame.sprite.Sprite):
                     self.image = pygame.transform.smoothscale(self.image, (25,50))
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
-            
+            for water in waters:
+                if pygame.sprite.collide_mask(water, self):
+                    self.angle -= rotation
+                    self.image = pygame.image.load(self.image_path).convert_alpha()
+                    self.image = pygame.transform.smoothscale(self.image, (25,50))
+                    self.image = pygame.transform.rotate(self.image, self.angle-90)
+                    self.rect = self.image.get_rect(center=(x, y))
     def collide_rock(self,rocks):
         for rock in rocks:
             if pygame.sprite.collide_mask(rock,self):
-                return 'dead'
+                return True
             else:
-                return 'alive'
+                return False
 
     # Move sprite with wasd keys
     def move_wasd(self, key, walls):

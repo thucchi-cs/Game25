@@ -9,7 +9,7 @@ async def level():
     clock = pygame.time.Clock()
     run = True
     quit = False
-    passed_line = False
+    pressed = False
     # Level loop
     while run:
         clock.tick(FPS)
@@ -30,17 +30,18 @@ async def level():
 
                 # Press button
                 if event.key == pygame.K_SPACE:
-                    button1.press()
+                    pressed = button1.press(waters)
 
         # Move sprites
         key = pygame.key.get_pressed()
-        fly.move_arrows(key, walls,rocks)
-        alive = fly.collide_rock(rocks)
+        fly.move_arrows(key, walls,rocks,waters)
 
-        print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),alive)
+        print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
 
         rock1.check_line(fly.realY,exclamations)
-        
+        water1.animate(pressed)
+        rock1.remove
+        water1.water_button_pressed(pressed)
         # Draw on screen
         SCREEN.fill((255,255,255))
         walls.draw(SCREEN)
@@ -48,6 +49,7 @@ async def level():
         buttons.draw(SCREEN)
         rocks.draw(SCREEN)
         exclamations.draw(SCREEN)
+        waters.draw(SCREEN)
         pygame.display.flip()
 
         # asyncio
