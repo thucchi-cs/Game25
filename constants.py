@@ -12,6 +12,8 @@ import sprites.obstacles.webs as web
 
 # Test
 
+PLAYERX = 0
+PLAYERY = 0
 # Set up screen
 WIDTH = 500
 HEIGHT = 600
@@ -23,10 +25,13 @@ FPS = 40
 
 # Sprites
 fly = flies.Flies(250, 300)
-wall1 = wall.Wall((100, 50), (300, 100), 2)
-wall2 = wall.Wall((400,50),(500,100),2)
-wall3 = wall.Wall((600,400),(700,500),2)
+wall1 = wall.Wall((100, 50), (300, 100), fly.rise)
+wall2 = wall.Wall((400,50),(500,100),fly.rise)
+wall3 = wall.Wall((600,400),(700,500),fly.rise)
 button1 = button.Buttons(250, 500)
+rock1 = rock.Rocks((100,100),(100,-3000),20,fly.rise)
+
+
 
 # Sprite Groups
 people = pygame.sprite.Group()
@@ -35,3 +40,5 @@ walls = pygame.sprite.Group()
 walls.add(wall1,wall2,wall3)
 buttons = pygame.sprite.Group()
 buttons.add(button1)
+rocks = pygame.sprite.Group()
+rocks.add(rock1)
