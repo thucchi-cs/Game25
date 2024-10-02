@@ -35,17 +35,11 @@ async def level():
         # Move sprites
         key = pygame.key.get_pressed()
         fly.move_arrows(key, walls,rocks)
+        alive = fly.collide_rock(rocks)
 
+        print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),alive)
 
-        print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y))
-
-
-        if rock1.check_line(fly.realY):
-            if rock1.rect.y < 0:
-                exclamation1.spawnExclamation((rock1.rect.x,rock1.actualRY),rock1.counter)
-            rock1.fall_rock()
-            
-
+        rock1.check_line(fly.realY,exclamations)
         
         # Draw on screen
         SCREEN.fill((255,255,255))

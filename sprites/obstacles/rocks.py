@@ -18,11 +18,14 @@ class Rocks(pygame.sprite.Sprite):
         self.counter = 0
         self.moveSpeed = int(moveSpeed)
     
-    def check_line(self,playerY):
-        if self.actualLY >= 0:
-            return True
+    def check_line(self,playerY,exclamations):
+        if self.actualLY >=0:
+            if self.rect.y < 0:
+                for exclamation in exclamations:
+                    exclamation.spawnExclamation((self.rect.x,self.actualRY),self.counter)
+            self.fall_rock()
         else:
-            return False
+            pass
         # It is going up, so Y. higher Y
 
 
@@ -52,3 +55,4 @@ class Rocks(pygame.sprite.Sprite):
 
     def remove(self):
         pass
+

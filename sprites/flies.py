@@ -47,6 +47,7 @@ class Flies(pygame.sprite.Sprite):
                     self.rect.centerx -= int(self.run) if key[pygame.K_UP] else -int(self.run)
                     self.rect.centery += int(self.rise) if key[pygame.K_UP] else -int(self.rise)
 
+
             # Off Screen Movement 
             if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
                 if self.rect.y < 0:
@@ -65,7 +66,7 @@ class Flies(pygame.sprite.Sprite):
                     rock.rock_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
             self.realX = self.rect.centerx + self.actualX
             self.realY = self.rect.centery + self.actualy
-                
+    
                                         
 
 
@@ -94,6 +95,12 @@ class Flies(pygame.sprite.Sprite):
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
             
+    def collide_rock(self,rocks):
+        for rock in rocks:
+            if pygame.sprite.collide_mask(rock,self):
+                return 'dead'
+            else:
+                return 'alive'
 
     # Move sprite with wasd keys
     def move_wasd(self, key, walls):
