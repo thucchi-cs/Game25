@@ -50,7 +50,7 @@ class Flies(pygame.sprite.Sprite):
             if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
                 for wall in walls:
                     self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
-                    wall.wall_move('U' if (self.rect.y < 100) else 'D')
+                    # wall.wall_move('U' if (self.rect.y < 100) else 'D')
 
             # Stay in screen
             if (self.rect.x < 0) or (self.rect.x > (500 - self.rect.width)):
@@ -87,3 +87,14 @@ class Flies(pygame.sprite.Sprite):
             if not not pygame.sprite.collide_mask(self, laser):
                 return True
         return False
+    
+    # Move with the elevator
+    def elevator_move(self, elevators):
+        for elevator in elevators:
+            if (self.elevator_collide(elevator)) and (elevator.moving) and (pygame.sprite.collide_mask(self, elevator)):
+                self.rect.y += elevator.speed
+
+    # Check if currently inside and touching a wall of elevator
+    def elevator_collide(self, elevator):
+        part = self.rect.width / 2
+        return (self.rect.x > (elevator.rect.x - part)) and (self.rect.right < (elevator.rect.right + part)) and (self.rect.y > (elevator.rect.y + 1)) and (self.rect.bottom < (elevator.rect.bottom - 1))
