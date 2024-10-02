@@ -26,7 +26,7 @@ async def level():
                     quit = True
                 
                 # Check to skip level
-                if event.key == pygame.K_l:
+                if event.key == pygame.K_TAB:
                     run = False
 
                 # Press button
