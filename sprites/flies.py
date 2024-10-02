@@ -81,3 +81,9 @@ class Flies(pygame.sprite.Sprite):
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
             
+    # Check collision with lasers
+    def check_lasers(self, lasers):
+        for laser in lasers:
+            if not not pygame.sprite.collide_mask(self, laser):
+                return True
+        return False

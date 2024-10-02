@@ -31,17 +31,23 @@ async def level():
 
                 # Press button
                 if event.key == pygame.K_SPACE:
-                    button1.press()
+                    button1.press(lasers)
 
         # Move sprites
         key = pygame.key.get_pressed()
         fly.move_arrows(key, walls)
 
+        # debug dead
+        print(fly.check_lasers(lasers))
+
         # Draw on screen
         SCREEN.fill((255,255,255))
-        walls.draw(SCREEN)
-        people.draw(SCREEN)
-        buttons.draw(SCREEN)
+        # walls.draw(SCREEN)
+        # people.draw(SCREEN)
+        # buttons.draw(SCREEN)
+        # lasers.draw(SCREEN)
+        lasers.update()
+        all.draw(SCREEN)
         pygame.display.flip()
 
         # asyncio
