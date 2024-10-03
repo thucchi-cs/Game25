@@ -16,7 +16,7 @@ class Buttons(pygame.sprite.Sprite):
         
 
     # When pressed
-    def press(self,waters, lasers, elevators):
+    def press(self, lasers, elevators):
         # Change image
         x, y = self.rect.centerx, self.rect.centery
         self.image_path = 'graphics/button-pressed.png' if self.image_path ==  'graphics/button.png' else  'graphics/button.png'
@@ -24,10 +24,6 @@ class Buttons(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect.centerx, self.rect.centery = x, y
-        if self.pressed == False:
-            return True
-        else: 
-            return False
 
         # Remove obstacle
         for laser in lasers:
@@ -36,14 +32,10 @@ class Buttons(pygame.sprite.Sprite):
         # Move elevator
         for elevator in elevators:
             elevator.moving = True
+        
+        # Return state of button
+        self.pressed = False if self.pressed else True
+        return self.pressed
 
-
-        # Remove obstacle
-        for laser in lasers:
-            laser.blinking = True
-
-        # Move elevator
-        for elevator in elevators:
-            elevator.moving = True
 
 

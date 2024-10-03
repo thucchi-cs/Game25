@@ -42,7 +42,7 @@ class Rocks(pygame.sprite.Sprite):
         else:
             pass
 
-    def rock_move(self,direction,moveSpeed):
+    def scroll(self,direction,moveSpeed):
 
         if direction == 'D':
             self.rect.y +=moveSpeed # Speed is always 2, so -2 y per thing

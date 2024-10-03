@@ -14,6 +14,8 @@ class Flies(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (25,50))
         self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
+
+        # Positioning
         self.rect.centerx = x
         self.rect.centery = y
         self.actualX = 0
@@ -23,7 +25,6 @@ class Flies(pygame.sprite.Sprite):
         self.rise = 0.00
         self.run = 0.00
 
-        
         # Movements variables
         self.angle = 0
         self.rotation_spd = 10
@@ -48,15 +49,10 @@ class Flies(pygame.sprite.Sprite):
             self.rect.centery -= int(self.rise) if key[self.up_key] else -int(self.rise)
 
             # Prevent moving into walls
-            for wall in walls:
-                if pygame.sprite.collide_mask(wall, self):
+            for object in pygame.sprite.Group(walls, waters):
+                if pygame.sprite.collide_mask(object, self):
                     self.rect.centerx -= int(self.run) if key[self.up_key] else -int(self.run)
                     self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
-            for water in waters:
-                if pygame.sprite.collide_mask(water, self):
-                    self.rect.centerx -= int(self.run) if key[pygame.K_UP] else -int(self.run)
-                    self.rect.centery += int(self.rise) if key[pygame.K_UP] else -int(self.rise)
-
 
             # Off Screen Movement 
             if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
@@ -65,29 +61,18 @@ class Flies(pygame.sprite.Sprite):
                 elif self.rect.y > (600-self.rect.height):
                     self.actualy += -int(self.rise)
 
-
-                for wall in walls:
+                for object in pygame.sprite.Group(walls, rocks, waters):
                     self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
-                    wall.wall_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
+                    object.scroll('U' if (self.rect.y < 100) else 'D',int(self.rise))
 
-
-                for rock in rocks:
-                    self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
-                    rock.rock_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
-                for water in waters:
-                    self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
-                    water.water_move('U' if (self.rect.y < 100) else 'D',int(self.rise))
+            # Adjust positions
             self.realX = self.rect.centerx + self.actualX
             self.realY = self.rect.centery + self.actualy
-    
-                                        
-
-
 
             # Stay in screen
             if (self.rect.x < 0) or (self.rect.x > (500 - self.rect.width)):
-                self.rect.centerx -= int(run) if key[self.up_key] else -int(run)
-                self.rect.centery += int(rise) if key[self.up_key] else -int(rise)
+                self.rect.centerx -= int(self.run) if key[self.up_key] else -int(self.run)
+                self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
                 
 
         # Rotate
@@ -105,20 +90,15 @@ class Flies(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center=(x, y))
 
             # Prevent moving into walls
-            for wall in walls:
-                if pygame.sprite.collide_mask(wall, self):
+            for object in pygame.sprite.Group(walls, waters):
+                if pygame.sprite.collide_mask(object, self):
                     self.angle -= rotation
                     self.image = pygame.image.load(self.image_path).convert_alpha()
                     self.image = pygame.transform.smoothscale(self.image, (25,50))
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
-            for water in waters:
-                if pygame.sprite.collide_mask(water, self):
-                    self.angle -= rotation
-                    self.image = pygame.image.load(self.image_path).convert_alpha()
-                    self.image = pygame.transform.smoothscale(self.image, (25,50))
-                    self.image = pygame.transform.rotate(self.image, self.angle-90)
-                    self.rect = self.image.get_rect(center=(x, y))
+
+    # Check for collision with rocks          
     def collide_rock(self,rocks):
         for rock in rocks:
             if pygame.sprite.collide_mask(rock,self):

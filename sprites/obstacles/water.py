@@ -52,7 +52,7 @@ class Water(pygame.sprite.Sprite):
             else:
                 self.counter = 0
         
-    def water_move(self, direction,speed):
+    def scroll(self, direction,speed):
         if direction == 'D':
             self.rect.y +=speed 
             self.realY += speed
@@ -76,10 +76,6 @@ class Water(pygame.sprite.Sprite):
         elif pressed:
             self.rect.x = 9000
             self.realX = 9000
-        # else:
-        #     self.rect.x = self.pos[0]
-        #     self.realX = self.pos[0]
-        
 
     def remove(self):
         pass
