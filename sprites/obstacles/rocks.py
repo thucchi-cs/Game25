@@ -1,6 +1,6 @@
 import pygame
 
-class Rocks(pygame.sprite.Sprite):
+class Rock(pygame.sprite.Sprite):
     # Constructor
     def __init__(self):
         super().__init__()

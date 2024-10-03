@@ -12,6 +12,7 @@ class Buttons(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
+        self.pressed = False
 
     def press(self):
         x, y = self.rect.centerx, self.rect.centery
@@ -20,4 +21,5 @@ class Buttons(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect.centerx, self.rect.centery = x, y
+        self.pressed = not self.pressed
 

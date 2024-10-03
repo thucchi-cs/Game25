@@ -22,9 +22,12 @@ class Flies(pygame.sprite.Sprite):
         self.rotation_spd = 10
         self.speed = 5
 
+        # Stuck variable restricts movement when in web
+        self.stuck = False
+
     
     # Move sprite with arrow keys
-    def move_arrows(self, key, walls):
+    def move_arrows(self, key, walls, gates):
         
         # Move Forward
         if (key[pygame.K_UP] or key[pygame.K_DOWN]):
@@ -34,9 +37,13 @@ class Flies(pygame.sprite.Sprite):
             self.rect.centerx += int(run) if key[pygame.K_UP] else -int(run)
             self.rect.centery -= int(rise) if key[pygame.K_UP] else -int(rise)
 
-            # Prevent moving into walls
+            # Prevent moving into walls and gates
             for wall in walls:
                 if pygame.sprite.collide_mask(wall, self):
+                    self.rect.centerx -= int(run) if key[pygame.K_UP] else -int(run)
+                    self.rect.centery += int(rise) if key[pygame.K_UP] else -int(rise)
+            for gate in gates:
+                if pygame.sprite.collide_mask(gate, self):
                     self.rect.centerx -= int(run) if key[pygame.K_UP] else -int(run)
                     self.rect.centery += int(rise) if key[pygame.K_UP] else -int(rise)
 
@@ -69,10 +76,17 @@ class Flies(pygame.sprite.Sprite):
                     self.image = pygame.transform.smoothscale(self.image, (25,50))
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
+            for gate in gates:
+                if pygame.sprite.collide_mask(gate, self):
+                    self.angle -= rotation
+                    self.image = pygame.image.load(self.image_path).convert_alpha()
+                    self.image = pygame.transform.smoothscale(self.image, (25,50))
+                    self.image = pygame.transform.rotate(self.image, self.angle-90)
+                    self.rect = self.image.get_rect(center=(x, y))
             
 
     # Move sprite with wasd keys
-    def move_wasd(self, key, walls):
+    def move_wasd(self, key, walls, gates):
         # Move Forward
         if key[pygame.K_w] or key[pygame.K_s]:
             # Move
@@ -81,9 +95,13 @@ class Flies(pygame.sprite.Sprite):
             self.rect.centerx += int(run) if key[pygame.K_w] else -int(run)
             self.rect.centery -= int(rise) if key[pygame.K_w] else -int(rise)
 
-            # Prevent moving into walls
+            # Prevent moving into walls and gates
             for wall in walls:
                 if pygame.sprite.collide_mask(wall, self):
+                    self.rect.centerx -= int(run) if key[pygame.K_w] else -int(run)
+                    self.rect.centery += int(rise) if key[pygame.K_w] else -int(rise)
+            for gate in gates:
+                if pygame.sprite.collide_mask(gate, self):
                     self.rect.centerx -= int(run) if key[pygame.K_w] else -int(run)
                     self.rect.centery += int(rise) if key[pygame.K_w] else -int(rise)
 
@@ -116,6 +134,13 @@ class Flies(pygame.sprite.Sprite):
                     self.image = pygame.transform.smoothscale(self.image, (25,50))
                     self.image = pygame.transform.rotate(self.image, self.angle-90)
                     self.rect = self.image.get_rect(center=(x, y))
+            for gate in gates:
+                if pygame.sprite.collide_mask(gate, self):
+                    self.angle -= rotation
+                    self.image = pygame.image.load(self.image_path).convert_alpha()
+                    self.image = pygame.transform.smoothscale(self.image, (25,50))
+                    self.image = pygame.transform.rotate(self.image, self.angle-90)
+                    self.rect = self.image.get_rect(center=(x, y))
 
     # Move with 1 and 2
     def move1(self, key):
@@ -126,3 +151,9 @@ class Flies(pygame.sprite.Sprite):
     def move2(self, key):
         self.rect.x -= self.speed if (key[pygame.K_9]) else 0
         self.rect.x += self.speed if (key[pygame.K_0]) else 0
+
+
+    def check_web(self, webs):
+        collided_web = pygame.sprite.spritecollideany(self, webs)
+        if collided_web and math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size:
+            self.stuck = True

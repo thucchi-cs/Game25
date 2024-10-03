@@ -31,17 +31,35 @@ async def level():
 
                 # Press button
                 if event.key == pygame.K_SPACE:
+                    fly.stuck = False
                     button1.press()
+        
+        # Check for web collision
+        for fly in players:
+            fly.check_web(webs)
 
         # Move sprites
         key = pygame.key.get_pressed()
-        fly.move_arrows(key, walls)
+        if key[pygame.K_SPACE]:
+            fly.stuck = False
+    
+        if not fly.stuck:
+            fly.move_arrows(key, walls, gates)
+        
+        # Open gate if button pressed
+        if button1.pressed and not gate1.open:
+            gate1.unlock()
+        elif not button1.pressed and not gate1.closed:
+            gate1.lock()
 
         # Draw on screen
         SCREEN.fill((255,255,255))
         walls.draw(SCREEN)
-        people.draw(SCREEN)
+        players.draw(SCREEN)
         buttons.draw(SCREEN)
+        webs.draw(SCREEN)
+        gates.draw(SCREEN)
+
         pygame.display.flip()
 
         # asyncio
