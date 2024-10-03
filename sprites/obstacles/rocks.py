@@ -4,28 +4,29 @@ class Rocks(pygame.sprite.Sprite):
     # Constructor
     def __init__(self,size,rPos,speed,moveSpeed):
         super().__init__()
+        # Load image
         self.image = pygame.image.load("graphics/rock.png")
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.rect.x = rPos[0]
         self.rect.y = rPos[1]
-        self.speed = speed
+
+        # Movements variables
         self.lineX = rPos[0]
         self.lineY = rPos[1] + 2000
         self.actualRY = rPos[1]
         self.actualLY = self.actualRY + 2000
-        self.change = 0
+        self.speed = speed
         self.counter = 0
         self.moveSpeed = int(moveSpeed)
+        self.exclamation = self.Exclamation((100,100),(9000,0))
     
-    def check_line(self,playerY,exclamations):
+    def check_line(self):
         if self.actualLY >=0:
             if self.rect.y < 0:
-                for exclamation in exclamations:
-                    exclamation.spawnExclamation((self.rect.x,self.actualRY),self.counter)
+                self.exclamation.spawnExclamation((self.rect.x,self.actualRY),self.counter)
             else:
-                for exclamation in exclamations:
-                    exclamation.rect.x = 9000
+                self.exclamation.rect.x = 9000
             self.fall_rock()
         else:
             pass
@@ -47,17 +48,39 @@ class Rocks(pygame.sprite.Sprite):
             self.rect.y +=moveSpeed # Speed is always 2, so -2 y per thing
             self.actualLY += moveSpeed
             self.actualRY += moveSpeed
-            self.change += moveSpeed
 
         elif direction == 'U':
             self.rect.y += moveSpeed
             self.actualRY += moveSpeed
             self.actualLY += moveSpeed
-            self.change +=moveSpeed
 
 
     def remove(self,rocks):
         if self.rect.y > 600:
             self.groups[0].remove(self)
             
+
+    class Exclamation(pygame.sprite.Sprite):
+        # Constructor
+        def __init__(self,size,pos):
+            super().__init__()
+            self.image = pygame.image.load("graphics/Exclamation-Point.png")
+            self.image = pygame.transform.scale(self.image,size)
+            self.rect = self.image.get_rect()
+            self.rect.x = pos[0]
+            self.rect.y = pos[1]
+            self.realX = pos[0]
+            self.realY = pos[1]
+        def spawnExclamation(self,rPos,counter):
+            # Only call this once
+            if counter == 0:
+                self.rect.x = rPos[0]
+                self.rect.y = rPos[1] + 2250
+                self.realX = rPos[0]    
+                self.realY = rPos[1]        
+            if counter % 20 >= 0 and counter % 20 <=5:
+                self.rect.x = self.realX
+                self.rect.y = self.realY + 2250
+            else:
+                self.rect.x = 9000
 

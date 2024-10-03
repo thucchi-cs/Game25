@@ -38,7 +38,7 @@ async def level():
 
         print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
 
-        rock1.check_line(fly.realY,exclamations)
+        rock1.check_line()
         water1.animate(pressed)
         rock1.remove
         water1.water_button_pressed(pressed)

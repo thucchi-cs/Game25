@@ -9,12 +9,8 @@ import sprites.obstacles.lasers as laser
 import sprites.obstacles.rocks as rock
 import sprites.obstacles.water as water
 import sprites.obstacles.webs as web
-import sprites.obstacles.exclamation as exclamation
 
-# Test
 
-PLAYERX = 0
-PLAYERY = 0
 # Set up screen
 WIDTH = 500
 HEIGHT = 600
@@ -31,7 +27,7 @@ wall1 = wall.Wall((100, 50), (300, 100), fly.rise)
 # wall3 = wall.Wall((600,400),(700,500),fly.rise)
 button1 = button.Buttons(250, 500)
 rock1 = rock.Rocks((100,100),(100,-3000),20,fly.rise)
-exclamation1 = exclamation.Exclamation((100,100),(9000,0))
+# exclamation1 = exclamation.Exclamation((100,100),(9000,0))
 water1 = water.Water((100,200),(100,100))
 
 
@@ -45,6 +41,6 @@ buttons.add(button1)
 rocks = pygame.sprite.Group()
 rocks.add(rock1)
 exclamations = pygame.sprite.Group()
-exclamations.add(exclamation1)
+exclamations.add(rock1.exclamation)
 waters = pygame.sprite.Group()
 waters.add(water1)
