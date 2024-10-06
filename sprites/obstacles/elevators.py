@@ -24,11 +24,12 @@ class Elevators(pygame.sprite.Sprite):
         else:
             self.moving = False
 
-    # Update animation
+    # Update - periodic
     def update(self):
         if self.clearing:
             self.animation()
 
+    # Scroll with screen
     def scroll(self, direction,speed):
         if direction == 'D':
             self.rect.y +=speed 

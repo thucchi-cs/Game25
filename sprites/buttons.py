@@ -27,7 +27,7 @@ class Buttons(pygame.sprite.Sprite):
         self.rect.centerx, self.rect.centery = x, y
         self.pressed = not self.pressed
 
-        # Remove obstacle
+        # Remove/add obstacle
         self.obstacle.clearing = self.pressed
         self.obstacle.appearing = not self.pressed
 

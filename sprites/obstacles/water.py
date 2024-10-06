@@ -4,6 +4,7 @@ class Water(pygame.sprite.Sprite):
     # Constructor
     def __init__(self,pos,size):
         super().__init__()
+        # Load image
         self.image = pygame.image.load("graphics/water.png")
         self.image = pygame.transform.scale(self.image,size)
         self.rect = self.image.get_rect()
@@ -13,19 +14,26 @@ class Water(pygame.sprite.Sprite):
         self.rect.y = pos[1]
         self.realX = pos[0]
         self.realY = pos[1]
+
+        # Timing variables
         self.counter = 0
         self.counter2 = 0
         self.counter3 = 1
 
+        # Animation variables
         self.clearing = False
         self.appearing = False
         self.appear = False
         self.show = True
 
+    # Update - periodic
     def update(self):
+        # Animate appearing and disappearing if needed
         if self.clearing or self.appearing:
             self.animation()
+
         else:
+            # Water flowing animation
             self.counter +=1
             if self.counter == 1 or self.counter == 2:
                 self.image = pygame.image.load("graphics/water-2.png")
@@ -44,6 +52,7 @@ class Water(pygame.sprite.Sprite):
             self.rect.y = self.realY
             self.rect.x = self.realX if self.show else 9000
         
+    # Scroll with screen
     def scroll(self, direction,speed):
         if direction == 'D':
             self.rect.y +=speed 
@@ -52,6 +61,7 @@ class Water(pygame.sprite.Sprite):
             self.rect.y+=speed
             self.realY += speed
 
+    # Animate opening and closing
     def animation(self):
         if self.counter2 <= 24:
             self.counter2 += 1

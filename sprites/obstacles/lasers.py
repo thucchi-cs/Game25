@@ -29,9 +29,11 @@ class Lasers(pygame.sprite.Sprite):
             self.clearing = False
             self.appearing = False
 
-    # Animation
+    # Update - periodic
     def update(self):
+        # Animate if needed
         if self.clearing or self.appearing:
             self.animation()
 
+        # Show or hide sprite
         self.rect.centerx = self.originalX if self.show else (601 + self.rect.width)

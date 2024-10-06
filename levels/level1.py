@@ -34,20 +34,18 @@ async def level():
                     fly.stuck = False
                     button1.press(lasers, elevators, waters, gates)
         
-        # Move sprites
+        # Move sprites and interact with other elements
         key = pygame.key.get_pressed()   
         for fly in players:
             fly.move_arrows(key, walls, gates, rocks, waters)
             fly.elevator_move(elevators)
             fly.check_web(webs)
             dead = fly.collide_rock(rocks) or fly.check_lasers(lasers)
+        rock1.remove
         
+        # Debug prints
         print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         print(dead)
-        
-        # interact flies with obstacles
-        rock1.check_line() 
-        rock1.remove
         
         # Draw on screen
         SCREEN.fill((255,255,255))

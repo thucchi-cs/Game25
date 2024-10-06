@@ -27,6 +27,7 @@ class Gate(pygame.sprite.Sprite):
         self.clearing = False
         self.appearing = False
     
+    # Animate opening and closing
     def animation(self):
         # Move forward one in the list of image paths
         self.path_index += 1 if self.clearing else -1
@@ -47,7 +48,9 @@ class Gate(pygame.sprite.Sprite):
             self.clearing = False
             self.appearing = False
     
+    # Update - periodic
     def update(self):
+        # Animate if needed
         if self.clearing or self.appearing:
             self.animation()
 

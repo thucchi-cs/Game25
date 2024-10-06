@@ -110,7 +110,7 @@ class Flies(pygame.sprite.Sprite):
                         self.image = pygame.transform.rotate(self.image, self.angle-90)
                         self.rect = self.image.get_rect(center=(x, y))
 
-
+    # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size:

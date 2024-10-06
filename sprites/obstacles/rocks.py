@@ -21,6 +21,11 @@ class Rocks(pygame.sprite.Sprite):
         self.moveSpeed = int(moveSpeed)
         self.exclamation = self.Exclamation((100,100),(9000,0))
     
+    # Update - periodic
+    def update(self):
+        self.check_line()
+
+    # Check if fly has reached the invisible line
     def check_line(self):
         if self.actualLY >=0:
             if self.rect.y < 0:
@@ -28,22 +33,19 @@ class Rocks(pygame.sprite.Sprite):
             else:
                 self.exclamation.rect.x = 9000
             self.fall_rock()
-        else:
-            pass
         # It is going up, so Y. higher Y
 
 
-        # Width is 500. 500 / 5 = 100 length rocks... ?
+    # Width is 500. 500 / 5 = 100 length rocks... ?
+    # Animate rock falling down
     def fall_rock(self):
         self.counter +=1
         if self.counter % 2 == 1:
             self.actualRY += self.speed
             self.rect.y = self.actualRY
-        else:
-            pass
 
+    # Scroll with screen
     def scroll(self,direction,moveSpeed):
-
         if direction == 'D':
             self.rect.y +=moveSpeed # Speed is always 2, so -2 y per thing
             self.actualLY += moveSpeed
@@ -54,12 +56,12 @@ class Rocks(pygame.sprite.Sprite):
             self.actualRY += moveSpeed
             self.actualLY += moveSpeed
 
-
-    def remove(self,rocks):
+    # Remove from sprite groups
+    def remove(self):
         if self.rect.y > 600:
             self.groups[0].remove(self)
-            
 
+    # Warning exclamation mark
     class Exclamation(pygame.sprite.Sprite):
         # Constructor
         def __init__(self,size,pos):
@@ -71,6 +73,8 @@ class Rocks(pygame.sprite.Sprite):
             self.rect.y = pos[1]
             self.realX = pos[0]
             self.realY = pos[1]
+
+        # Show on screen
         def spawnExclamation(self,rPos,counter):
             # Only call this once
             if counter == 0:
