@@ -1,6 +1,6 @@
 import pygame
 
-class Elevators(pygame.sprite.Sprite):
+class Elevator(pygame.sprite.Sprite):
     # Constructor
     def __init__(self, x, y, size, flipped, y2):
         super().__init__()

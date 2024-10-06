@@ -24,6 +24,7 @@ class Buttons(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
         self.rect.centerx, self.rect.centery = x, y
+        self.pressed = not self.pressed
 
         # Remove obstacle
         for laser in lasers:
@@ -34,7 +35,7 @@ class Buttons(pygame.sprite.Sprite):
             elevator.moving = True
         
         # Return state of button
-        self.pressed = False if self.pressed else True
+        self.pressed = not self.pressed
         return self.pressed
 
 

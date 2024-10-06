@@ -1,6 +1,6 @@
 import pygame
 
-class Lasers(pygame.sprite.Sprite):
+class Laser(pygame.sprite.Sprite):
     # Constructor
     def __init__(self, x, y, n, size, angle):
         super().__init__()
