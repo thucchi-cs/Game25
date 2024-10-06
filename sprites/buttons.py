@@ -2,7 +2,7 @@ import pygame
 
 class Buttons(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, x, y):
+    def __init__(self, x, y, obstacle):
         super().__init__()
         # Load image
         self.size = (50, 25)
@@ -13,10 +13,11 @@ class Buttons(pygame.sprite.Sprite):
         self.rect.centerx = x
         self.rect.centery = y
         self.pressed = False
+        self.obstacle = obstacle
         
 
     # When pressed
-    def press(self, lasers, elevators):
+    def press(self, lasers, elevators, waters, gates):
         # Change image
         x, y = self.rect.centerx, self.rect.centery
         self.image_path = 'graphics/button-pressed.png' if self.image_path ==  'graphics/button.png' else  'graphics/button.png'
@@ -27,15 +28,10 @@ class Buttons(pygame.sprite.Sprite):
         self.pressed = not self.pressed
 
         # Remove obstacle
-        for laser in lasers:
-            laser.blinking = True
+        self.obstacle.clearing = self.pressed
+        self.obstacle.appearing = not self.pressed
 
-        # Move elevator
-        for elevator in elevators:
-            elevator.moving = True
-        
         # Return state of button
-        self.pressed = not self.pressed
         return self.pressed
 
 

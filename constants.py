@@ -29,7 +29,6 @@ IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 # Sprites
 fly = flies.Flies(250, 300, ARROWS)
 wall1 = wall.Wall((100, 50), (300, 100), fly.rise)
-button1 = button.Buttons(250, 500)
 web1 = web.Web(50, (100, 200))
 gate1 = gate.Gate(50, (200,200), 1)
 rock1 = rock.Rocks((100,100),(100,-3000),20,fly.rise)
@@ -39,6 +38,7 @@ laser2 = laser.Lasers(250, 100, 2, (500, 10), 45)
 laser3 = laser.Lasers(100, 300, 3, (250, 15), 122)
 elevator1 = elevator.Elevators(100, 100, (100, 200), True, 300)
 elevator2 = elevator.Elevators(400, 300, (50, 100), False, 100)
+button1 = button.Buttons(250, 500, elevator1)
 
 # Sprite Groups
 players = pygame.sprite.Group()
@@ -62,4 +62,4 @@ elevators.add(elevator1, elevator2)
 walls = pygame.sprite.Group()
 walls.add(wall1, elevators)
 all = pygame.sprite.Group()
-all.add(buttons, rocks, exclamations, waters, lasers, elevators, walls, players)
+all.add(buttons, rocks, exclamations, waters, lasers, elevators, walls, webs, players, gates)

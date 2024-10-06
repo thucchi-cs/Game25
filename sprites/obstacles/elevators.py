@@ -1,6 +1,6 @@
 import pygame
 
-class Elevator(pygame.sprite.Sprite):
+class Elevators(pygame.sprite.Sprite):
     # Constructor
     def __init__(self, x, y, size, flipped, y2):
         super().__init__()
@@ -14,10 +14,11 @@ class Elevator(pygame.sprite.Sprite):
         # Moving varibles
         self.dest = y2
         self.speed = 3 if (self.dest > self.rect.y) else -3
-        self.moving = False
+        self.clearing = False
+        self.appearing = False
 
     # Move to destination
-    def remove(self):
+    def animation(self):
         if abs(self.rect.y - self.dest) > 3:
             self.rect.y += self.speed
         else:
@@ -25,5 +26,11 @@ class Elevator(pygame.sprite.Sprite):
 
     # Update animation
     def update(self):
-        if self.moving:
-            self.remove()
+        if self.clearing:
+            self.animation()
+
+    def scroll(self, direction,speed):
+        if direction == 'D':
+            self.rect.y +=speed 
+        elif direction == 'U':
+            self.rect.y+=speed

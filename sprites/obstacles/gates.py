@@ -24,41 +24,30 @@ class Gate(pygame.sprite.Sprite):
         # Open and closed variables
         self.open = False
         self.closed = True
-
+        self.clearing = False
+        self.appearing = False
     
-    def unlock(self):
-        if self.path_index < 17:
-            # Move forward one in the list of image paths
-            self.path_index += 1
-            self.image_path = self.image_paths[self.path_index]
-            # Render new image
-            self.image = pygame.image.load(self.image_path)
-            original_width, original_height = self.image.get_size()
-            aspect_ratio = original_width / original_height
-            self.height = int(self.size / aspect_ratio)
-            self.image = pygame.transform.smoothscale(self.image, (self.size,self.height))
-            # Rotation based off direction
-            rotation = 90 * self.direction
-            self.image = pygame.transform.rotate(self.image, rotation)
-            self.rect = self.image.get_rect(topleft=self.pos)
+    def animation(self):
+        # Move forward one in the list of image paths
+        self.path_index += 1 if self.clearing else -1
+        self.image_path = self.image_paths[self.path_index]
+        # Render new image
+        self.image = pygame.image.load(self.image_path)
+        original_width, original_height = self.image.get_size()
+        aspect_ratio = original_width / original_height
+        self.height = int(self.size / aspect_ratio)
+        self.image = pygame.transform.smoothscale(self.image, (self.size,self.height))
+        # Rotation based off direction
+        rotation = 90 * self.direction
+        self.image = pygame.transform.rotate(self.image, rotation)
+        self.rect = self.image.get_rect(topleft=self.pos)
+        if self.path_index == 17 or self.path_index == 0:
             self.open = True if self.path_index == 17 else False
             self.closed = True if self.path_index == 0 else False
-
+            self.clearing = False
+            self.appearing = False
     
-    def lock(self):
-        if self.path_index > 0:
-            # Move back one in the list of image paths
-            self.path_index -= 1
-            self.image_path = self.image_paths[self.path_index]
-            # Render new image
-            self.image = pygame.image.load(self.image_path)
-            original_width, original_height = self.image.get_size()
-            aspect_ratio = original_width / original_height
-            self.height = int(self.size / aspect_ratio)
-            self.image = pygame.transform.smoothscale(self.image, (self.size,self.height))
-            # Rotation based off direction
-            rotation = 90 * self.direction
-            self.image = pygame.transform.rotate(self.image, rotation)
-            self.rect = self.image.get_rect(topleft=self.pos)
-            self.closed = True if self.path_index == 0 else False
-            self.open = True if self.path_index == 17 else False
+    def update(self):
+        if self.clearing or self.appearing:
+            self.animation()
+

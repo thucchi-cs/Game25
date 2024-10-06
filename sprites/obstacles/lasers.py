@@ -1,6 +1,6 @@
 import pygame
 
-class Laser(pygame.sprite.Sprite):
+class Lasers(pygame.sprite.Sprite):
     # Constructor
     def __init__(self, x, y, n, size, angle):
         super().__init__()
@@ -15,20 +15,23 @@ class Laser(pygame.sprite.Sprite):
 
         # Animation variables
         self.counter = 0
-        self.blinking = False
+        self.clearing = False
+        self.appearing = False
         self.show = True
         
     # Blink animation
-    def remove(self):
+    def animation(self):
         self.show = not ((self.counter % 8 >= 0) and (self.counter % 8 <= 2))
         self.counter += 1
         if self.counter > 25:
-            self.show = False
-            self.blinking = False
+            self.counter = 0
+            self.show = self.appearing
+            self.clearing = False
+            self.appearing = False
 
     # Animation
     def update(self):
-        if self.blinking:
-            self.remove()
+        if self.clearing or self.appearing:
+            self.animation()
 
         self.rect.centerx = self.originalX if self.show else (601 + self.rect.width)
