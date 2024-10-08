@@ -2,8 +2,7 @@
 import asyncio
 import pygame
 from constants import *
-import helpers as h
-
+import levels.helpers as h
 # Level 1 loop
 async def level():
     # Time
