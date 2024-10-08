@@ -48,19 +48,17 @@ class Water(pygame.sprite.Sprite):
             else:
                 self.counter = 0
             self.image = pygame.transform.scale(self.image,self.size)
-            self.rect = self.image.get_rect()
-            self.rect.y = self.realY
             self.rect.x = self.realX if self.show else 9000
         
     # Scroll with screen
     def scroll(self, direction,speed):
-        if direction == 'D':
-            self.rect.y +=speed 
-            self.realY += speed
-        elif direction == 'U':
-            self.rect.y+=speed
-            self.realY += speed
-
+        # if direction == 'D':
+        #     self.rect.y +=speed 
+        #     self.realY += speed
+        # elif direction == 'U':
+        #     self.rect.y+=speed
+        #     self.realY += speed
+        pass
     # Animate opening and closing
     def animation(self):
         if self.counter2 <= 24:
@@ -70,9 +68,6 @@ class Water(pygame.sprite.Sprite):
             if self.counter2 % 5 >= 0 and self.counter2 % 5 <=2:
                 self.image = pygame.image.load("graphics/water-"+str(self.counter3)+"-open.png")
                 self.image = pygame.transform.scale(self.image,self.size)
-                self.rect = self.image.get_rect()
-                self.rect.x = self.realX
-                self.rect.y = self.realY
             else:
                 self.rect.x = self.pos[0]
                 self.realX = self.pos[0]

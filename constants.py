@@ -20,6 +20,10 @@ pygame.display.set_caption("TSA Game 2025")
 # Frames timing
 FPS = 40    
 
+# Autoscrolling speed
+SPEED = 1
+SPEEDFACTOR = 2
+
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
 WASD = [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]
@@ -27,22 +31,26 @@ TFGH = [pygame.K_t, pygame.K_g, pygame.K_f, pygame.K_h]
 IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 
 # Sprites
-fly = flies.Flies(250, 300, ARROWS)
-wall1 = wall.Wall((100, 50), (300, 100), fly.rise)
+fly1 = flies.Flies(250, 300, ARROWS)
+fly2 = flies.Flies(250, 300, WASD)
+fly3 = flies.Flies(250, 300, TFGH)
+fly4 = flies.Flies(250, 300, IJKL)
+
+wall1 = wall.Wall((100, 50), (300, 100))
 web1 = web.Web(50, (100, 200))
 gate1 = gate.Gate(50, (200,200), 1)
-rock1 = rock.Rocks((100,100),(100,-3000),20,fly.rise)
+rock1 = rock.Rocks((100,100),(100,-3000),20)
 water1 = water.Water((100,200),(100,100))
 laser1 = laser.Lasers(250, 400, 1, (200, 5), 0)
 laser2 = laser.Lasers(250, 100, 2, (500, 10), 45)
 laser3 = laser.Lasers(100, 300, 3, (250, 15), 122)
 elevator1 = elevator.Elevators(100, 100, (100, 200), True, 300)
 elevator2 = elevator.Elevators(400, 300, (50, 100), False, 100)
-button1 = button.Buttons(250, 500, elevator1)
+button1 = button.Buttons(250, 500, gate1)
 
 # Sprite Groups
 players = pygame.sprite.Group()
-players.add(fly)
+players.add(fly1, fly2, fly3, fly4)
 buttons = pygame.sprite.Group()
 buttons.add(button1)
 webs = pygame.sprite.Group()

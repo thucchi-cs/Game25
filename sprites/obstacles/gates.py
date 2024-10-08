@@ -41,7 +41,6 @@ class Gate(pygame.sprite.Sprite):
         # Rotation based off direction
         rotation = 90 * self.direction
         self.image = pygame.transform.rotate(self.image, rotation)
-        self.rect = self.image.get_rect(topleft=self.pos)
         if self.path_index == 17 or self.path_index == 0:
             self.open = True if self.path_index == 17 else False
             self.closed = True if self.path_index == 0 else False

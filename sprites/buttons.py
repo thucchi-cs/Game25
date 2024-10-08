@@ -13,7 +13,7 @@ class Buttons(pygame.sprite.Sprite):
         self.rect.centerx = x
         self.rect.centery = y
         self.pressed = False
-        self.obstacle = obstacle
+        self.obstacle = obstacle  
         
 
     # When pressed

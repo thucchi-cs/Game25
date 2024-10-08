@@ -11,7 +11,8 @@ class Flies(pygame.sprite.Sprite):
         # Load image and position
         self.image_path = 'graphics/fly.png'
         self.image = pygame.image.load(self.image_path)
-        self.image = pygame.transform.scale(self.image, (25,50))
+        self.size = (12, 24)
+        self.image = pygame.transform.scale(self.image, self.size)
         self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
 
@@ -66,9 +67,7 @@ class Flies(pygame.sprite.Sprite):
                     elif self.rect.y > (600-self.rect.height):
                         self.actualy += -int(self.rise)
 
-                    for object in pygame.sprite.Group(walls, rocks, waters):
-                        self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
-                        object.scroll('U' if (self.rect.y < 100) else 'D',int(self.rise))
+                    self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
 
                 # Adjust positions
                 self.realX = self.rect.centerx + self.actualX
@@ -90,23 +89,16 @@ class Flies(pygame.sprite.Sprite):
                 # Render image
                 x, y = self.rect.centerx, self.rect.centery
                 self.image = pygame.image.load(self.image_path).convert_alpha()
-                self.image = pygame.transform.smoothscale(self.image, (25,50))
+                self.image = pygame.transform.smoothscale(self.image, self.size)
                 self.image = pygame.transform.rotate(self.image, self.angle-90)
                 self.rect = self.image.get_rect(center=(x, y))
 
                 # Prevent moving into walls
-                for object in pygame.sprite.Group(walls, waters):
+                for object in pygame.sprite.Group(walls, waters, gates):
                     if pygame.sprite.collide_mask(object, self):
                         self.angle -= rotation
                         self.image = pygame.image.load(self.image_path).convert_alpha()
-                        self.image = pygame.transform.smoothscale(self.image, (25,50))
-                        self.image = pygame.transform.rotate(self.image, self.angle-90)
-                        self.rect = self.image.get_rect(center=(x, y))
-                for gate in gates:
-                    if pygame.sprite.collide_mask(gate, self):
-                        self.angle -= rotation
-                        self.image = pygame.image.load(self.image_path).convert_alpha()
-                        self.image = pygame.transform.smoothscale(self.image, (25,50))
+                        self.image = pygame.transform.smoothscale(self.image, self.size)
                         self.image = pygame.transform.rotate(self.image, self.angle-90)
                         self.rect = self.image.get_rect(center=(x, y))
 

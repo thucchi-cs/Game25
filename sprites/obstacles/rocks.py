@@ -2,7 +2,7 @@ import pygame
 
 class Rocks(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self,size,rPos,speed,moveSpeed):
+    def __init__(self,size,rPos,speed):
         super().__init__()
         # Load image
         self.image = pygame.image.load("graphics/rock.png")
@@ -18,7 +18,6 @@ class Rocks(pygame.sprite.Sprite):
         self.actualLY = self.actualRY + 2000
         self.speed = speed
         self.counter = 0
-        self.moveSpeed = int(moveSpeed)
         self.exclamation = self.Exclamation((100,100),(9000,0))
     
     # Update - periodic
@@ -46,15 +45,16 @@ class Rocks(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self,direction,moveSpeed):
-        if direction == 'D':
-            self.rect.y +=moveSpeed # Speed is always 2, so -2 y per thing
-            self.actualLY += moveSpeed
-            self.actualRY += moveSpeed
+        # if direction == 'D':
+        #     self.rect.y +=moveSpeed # Speed is always 2, so -2 y per thing
+        #     self.actualLY += moveSpeed
+        #     self.actualRY += moveSpeed
 
-        elif direction == 'U':
-            self.rect.y += moveSpeed
-            self.actualRY += moveSpeed
-            self.actualLY += moveSpeed
+        # elif direction == 'U':
+        #     self.rect.y += moveSpeed
+        #     self.actualRY += moveSpeed
+        #     self.actualLY += moveSpeed
+        pass
 
     # Remove from sprite groups
     def remove(self):
