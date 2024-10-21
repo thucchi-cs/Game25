@@ -2,7 +2,7 @@ import pygame
 
 class Buttons(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, x, y, obstacle):
+    def __init__(self, x, y, obstacle,blank=None,blank2=None):
         super().__init__()
         # Load image
         self.size = (50, 25)

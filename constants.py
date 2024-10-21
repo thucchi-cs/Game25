@@ -30,6 +30,11 @@ WASD = [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]
 TFGH = [pygame.K_t, pygame.K_g, pygame.K_f, pygame.K_h]
 IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 
+OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
+            'elevator': elevator.Elevators, 'gate': gate.Gate,
+            'laser': laser.Lasers, 'rock': rock.Rocks,
+            'water': water.Water, 'web': web.Web}
+
 # Sprites
 fly1 = flies.Flies(250, 300, ARROWS)
 fly2 = flies.Flies(250, 300, WASD)
@@ -46,7 +51,7 @@ laser2 = laser.Lasers(250, 100, 2, (500, 10), 45)
 laser3 = laser.Lasers(100, 300, 3, (250, 15), 122)
 elevator1 = elevator.Elevators(100, 100, (100, 200), True, 300)
 elevator2 = elevator.Elevators(400, 300, (50, 100), False, 100)
-button1 = button.Buttons(250, 500, gate1)
+button1 = OBJECTS['btn'](250, 500, water1)
 
 # Sprite Groups
 players = pygame.sprite.Group()
