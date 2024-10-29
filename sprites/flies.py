@@ -134,3 +134,6 @@ class Flies(pygame.sprite.Sprite):
     def elevator_collide(self, elevator):
         part = self.rect.width / 2
         return (self.rect.x > (elevator.rect.x - part)) and (self.rect.right < (elevator.rect.right + part)) and (self.rect.y > (elevator.rect.y + 1)) and (self.rect.bottom < (elevator.rect.bottom - 1))
+
+    def check_btn(self, btn):
+        return pygame.sprite.collide_mask(self, btn)

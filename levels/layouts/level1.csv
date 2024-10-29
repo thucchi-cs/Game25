@@ -1,1 +1,3 @@
-thing,x,y,w,h,rot
+thing,arg1,arg2,arg3,arg4
+laser,100 300,3,250 15,122
+btn, 100 300

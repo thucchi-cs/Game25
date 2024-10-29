@@ -12,6 +12,8 @@ async def level():
     dead = False
     counter = 0
 
+    h.load_layout(None)
+
     # Level loop
     while run:
         clock.tick(FPS)
@@ -35,7 +37,7 @@ async def level():
                 # Press button
                 if event.key == pygame.K_SPACE:
                     fly.stuck = False
-                    button1.press(lasers, elevators, waters, gates)
+                    # buttons.sprites()[0].press(lasers, elevators, waters, gates)
         
         # Move sprites and interact with other elements
         key = pygame.key.get_pressed() 

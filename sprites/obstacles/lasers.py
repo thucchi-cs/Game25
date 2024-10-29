@@ -2,7 +2,7 @@ import pygame
 
 class Lasers(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, x, y, n, size, angle):
+    def __init__(self, pos, n, size, angle):
         super().__init__()
         # Load image
         self.image_path = 'graphics/laser' + str(n) + '.png'
@@ -10,8 +10,8 @@ class Lasers(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, size)
         self.image = pygame.transform.rotate(self.image, angle)
         self.rect = self.image.get_rect()
-        self.rect.centerx, self.rect.y = x, y
-        self.originalX = x
+        self.rect.centerx, self.rect.y = pos[0], pos[1]
+        self.originalX = pos[0]
 
         # Animation variables
         self.counter = 0
