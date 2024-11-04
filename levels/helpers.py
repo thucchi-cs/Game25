@@ -16,7 +16,8 @@ def move_players(key):
         fly.check_web(webs)
         if fly.stuck:
             other_flies = [i for i in players if i != fly]
-            save_words = fly.save_friend(other_flies)
+            fly.save_friend(other_flies)
+
 
 # Auto scroll
 def auto_scroll(counter):

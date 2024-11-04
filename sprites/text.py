@@ -13,3 +13,5 @@ class Text:
     def blit_text(self, screen):
         self.text_var = self.font.render(self.text, True, self.text_color)  
         screen.blit(self.text_var, self.textRect)
+    
+    

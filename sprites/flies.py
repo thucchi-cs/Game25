@@ -46,8 +46,6 @@ class Flies(pygame.sprite.Sprite):
     
     # Move sprite with arrow keys
     def move_arrows(self, key, obstacles):
-        if key[pygame.K_SPACE]:
-            self.stuck = False
         if not self.stuck:
             # Move Forward
             if (key[self.up_key] or key[self.down_key]):
@@ -110,8 +108,6 @@ class Flies(pygame.sprite.Sprite):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and self.vulnerable:
             self.stuck = True
-        else:
-            self.stuck = False
 
     # Check for collision with rocks          
     def collide_rock(self, rocks):
@@ -156,11 +152,11 @@ class Flies(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         close_friend = False
         for fly in flies:
-            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 20:
-                close_friend = True
+            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 50:
+                close_friend = fly
         words = "Press Space To Save Your Friend!" if close_friend else "Save Your Friend!"
-        constants.save_words = words
-        if close_friend and keys[pygame.K_SPACE]:
+        constants.save_text.text = words
+        if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
             self.stuck = False
             self.vulnerabe = False
             self.safe_timer = 20

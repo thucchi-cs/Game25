@@ -63,7 +63,6 @@ async def level():
         SCREEN.fill((255,255,255))
         all.draw(SCREEN)
         if save_display:
-            save_text = text.Text("freesansbold.ttf", 50, save_words, (0,255,0), 250, 300)
             save_text.blit_text(SCREEN)
         txt.blit_text(SCREEN)
         all.update()

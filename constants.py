@@ -49,8 +49,8 @@ txt = text.Text("fonts/wingding.ttf", 12, "My name is Ronin Gambill", "red", 100
 
 web1 = web.Web(25, (100, 100))
 
-save_words = "Test"
-save_text = text.Text("freesansbold.ttf", 10, save_words, (0,255,0), 250, 300)
+
+save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)
 # Sprite Groups
 players = pygame.sprite.Group()
 players.add(fly1, fly2)
