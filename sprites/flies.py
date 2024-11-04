@@ -2,6 +2,7 @@
 import pygame
 import math
 import constants
+import sprites.text as text
 
 # Person sprite
 class Flies(pygame.sprite.Sprite):
@@ -33,7 +34,8 @@ class Flies(pygame.sprite.Sprite):
 
         # Stuck variable restricts movement when in web
         self.stuck = False
-        self.pressing_btn = False
+        self.vulnerable = True
+        self.safe_timer = 0
 
         # Keys for movements
         self.up_key = keys[0]
@@ -106,7 +108,7 @@ class Flies(pygame.sprite.Sprite):
     # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
-        if collided_web and math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size:
+        if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and self.vulnerable:
             self.stuck = True
         else:
             self.stuck = False
@@ -124,6 +126,11 @@ class Flies(pygame.sprite.Sprite):
             if pygame.sprite.collide_mask(self, laser):
                 return True
         return False
+    def check_end(self,ends):
+        for end in ends:
+            if pygame.sprite.collide_mask(self,end):
+                return True
+        return False
 
     # Move with the elevator
     def elevator_move(self, elevators):
@@ -138,15 +145,29 @@ class Flies(pygame.sprite.Sprite):
 
     # Check if press button
     def check_btn(self, btns):
+        pygame.sprite.collide_rect_ratio(0.5)
         for btn in btns:
-            if pygame.sprite.collide_mask(self, btn):
-                if not self.pressing_btn:
+            if pygame.sprite.collide_rect(self, btn.collide):
+                if not btn.pressed:
                     btn.press()
-                    self.pressing_btn = True
-                return True
-        self.pressing_btn = False
-        return False
+
+    # Save friend method for when fly gets stuck
+    def save_friend(self, flies):
+        keys = pygame.key.get_pressed()
+        close_friend = False
+        for fly in flies:
+            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 20:
+                close_friend = True
+        words = "Press Space To Save Your Friend!" if close_friend else "Save Your Friend!"
+        constants.save_words = words
+        if close_friend and keys[pygame.K_SPACE]:
+            self.stuck = False
+            self.vulnerabe = False
+            self.safe_timer = 20
+        return words
     
+
+   
     # Scroll with screen
     def scroll(self):
         self.rect.y += constants.SPEED

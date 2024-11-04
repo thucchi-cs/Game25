@@ -9,6 +9,8 @@ import sprites.obstacles.lasers as laser
 import sprites.obstacles.rocks as rock
 import sprites.obstacles.water as water
 import sprites.obstacles.webs as web
+import sprites.text as text
+import sprites.obstacles.end as end
 
 
 # Set up screen
@@ -17,11 +19,13 @@ HEIGHT = 600
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("TSA Game 2025")
 
+pygame.font.init()
+
 # Frames timing
 FPS = 40    
 
 # Autoscrolling speed
-SPEED = 1
+SPEED = 0
 SPEEDFACTOR = 2
 
 # Control keys
@@ -33,21 +37,27 @@ IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
             'elevator': elevator.Elevators, 'gate': gate.Gate,
             'laser': laser.Lasers, 'rock': rock.Rocks,
-            'water': water.Water, 'web': web.Web}
+            'water': water.Water, 'web': web.Web, 'end': end.End}
 
 # Sprites
 fly1 = flies.Flies(250, 300, ARROWS)
-# fly2 = flies.Flies(250, 300, WASD)
+fly2 = flies.Flies(250, 300, WASD)
 # fly3 = flies.Flies(250, 300, TFGH)
 # fly4 = flies.Flies(250, 300, IJKL)
 
+txt = text.Text("fonts/wingding.ttf", 12, "My name is Ronin Gambill", "red", 100, 100)
+
+web1 = web.Web(25, (100, 100))
+
+save_words = "Test"
+save_text = text.Text("freesansbold.ttf", 10, save_words, (0,255,0), 250, 300)
 # Sprite Groups
 players = pygame.sprite.Group()
-players.add(fly1)
+players.add(fly1, fly2)
 buttons = pygame.sprite.Group()
 # buttons.add(button1)
 webs = pygame.sprite.Group()
-# webs.add(web1)
+webs.add(web1)
 gates = pygame.sprite.Group()
 # gates.add(gate1)
 rocks = pygame.sprite.Group()
@@ -62,10 +72,12 @@ elevators = pygame.sprite.Group()
 # elevators.add(elevator1, elevator2)
 walls = pygame.sprite.Group()
 # walls.add(wall1, elevators)
+ends = pygame.sprite.Group()
+
 all = pygame.sprite.Group()
-all.add(buttons, rocks, exclamations, waters, lasers, elevators, walls, webs, players, gates)
+all.add(buttons, rocks, exclamations, waters, lasers, elevators, walls, webs, players, gates,ends)
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates,
             'laser': lasers, 'rock': rocks,
-            'water': waters, 'web': webs}
+            'water': waters, 'web': webs, 'end': ends}
