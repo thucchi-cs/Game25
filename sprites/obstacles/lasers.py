@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Lasers(pygame.sprite.Sprite):
     # Constructor
@@ -37,3 +38,7 @@ class Lasers(pygame.sprite.Sprite):
 
         # Show or hide sprite
         self.rect.centerx = self.originalX if self.show else (601 + self.rect.width)
+
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED

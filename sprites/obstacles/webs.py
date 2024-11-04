@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Web(pygame.sprite.Sprite):
     # Constructor
@@ -10,3 +11,7 @@ class Web(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, (size,size))
         self.rect = self.image.get_rect(center=pos)
+
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED

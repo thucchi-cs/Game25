@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Buttons(pygame.sprite.Sprite):
     # Constructor
@@ -34,5 +35,7 @@ class Buttons(pygame.sprite.Sprite):
         # Return state of button
         return self.pressed
 
-
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED
 

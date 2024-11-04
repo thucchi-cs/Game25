@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Gate(pygame.sprite.Sprite):
     # Constructor
@@ -53,3 +54,6 @@ class Gate(pygame.sprite.Sprite):
         if self.clearing or self.appearing:
             self.animation()
 
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED

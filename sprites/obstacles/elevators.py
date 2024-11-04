@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Elevators(pygame.sprite.Sprite):
     # Constructor
@@ -30,8 +31,6 @@ class Elevators(pygame.sprite.Sprite):
             self.animation()
 
     # Scroll with screen
-    def scroll(self, direction,speed):
-        if direction == 'D':
-            self.rect.y +=speed 
-        elif direction == 'U':
-            self.rect.y+=speed
+    def scroll(self):
+        self.rect.y += constants.SPEED
+        self.dest += constants.SPEED

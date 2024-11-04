@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Wall(pygame.sprite.Sprite):
     # Constructor
@@ -12,12 +13,6 @@ class Wall(pygame.sprite.Sprite):
         self.actualX = pos[0]
         self.actualY = pos[1]
 
-    # Move off screen
-    def scroll(self, direction,speed):
-        # if direction == 'D':
-        #     self.rect.y +=speed 
-        #     self.actualY += speed
-        # elif direction == 'U':
-        #     self.rect.y+=speed
-        #     self.actualY += speed
-        pass
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED

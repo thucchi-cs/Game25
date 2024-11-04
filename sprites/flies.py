@@ -1,7 +1,7 @@
 # Libraries imports
 import pygame
 import math
-
+import constants
 
 # Person sprite
 class Flies(pygame.sprite.Sprite):
@@ -33,6 +33,7 @@ class Flies(pygame.sprite.Sprite):
 
         # Stuck variable restricts movement when in web
         self.stuck = False
+        self.pressing_btn = False
 
         # Keys for movements
         self.up_key = keys[0]
@@ -42,7 +43,7 @@ class Flies(pygame.sprite.Sprite):
 
     
     # Move sprite with arrow keys
-    def move_arrows(self, key, walls, gates, rocks, waters):
+    def move_arrows(self, key, obstacles):
         if key[pygame.K_SPACE]:
             self.stuck = False
         if not self.stuck:
@@ -55,7 +56,7 @@ class Flies(pygame.sprite.Sprite):
                 self.rect.centery -= int(self.rise) if key[self.up_key] else -int(self.rise)
 
                 # Prevent moving into walls and gates
-                for object in pygame.sprite.Group(walls, waters, gates):
+                for object in obstacles:
                     if pygame.sprite.collide_mask(object, self):
                         self.rect.centerx -= int(self.run) if key[self.up_key] else -int(self.run)
                         self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
@@ -94,7 +95,7 @@ class Flies(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect(center=(x, y))
 
                 # Prevent moving into walls
-                for object in pygame.sprite.Group(walls, waters, gates):
+                for object in obstacles:
                     if pygame.sprite.collide_mask(object, self):
                         self.angle -= rotation
                         self.image = pygame.image.load(self.image_path).convert_alpha()
@@ -135,5 +136,17 @@ class Flies(pygame.sprite.Sprite):
         part = self.rect.width / 2
         return (self.rect.x > (elevator.rect.x - part)) and (self.rect.right < (elevator.rect.right + part)) and (self.rect.y > (elevator.rect.y + 1)) and (self.rect.bottom < (elevator.rect.bottom - 1))
 
-    def check_btn(self, btn):
-        return pygame.sprite.collide_mask(self, btn)
+    # Check if press button
+    def check_btn(self, btns):
+        for btn in btns:
+            if pygame.sprite.collide_mask(self, btn):
+                if not self.pressing_btn:
+                    btn.press()
+                    self.pressing_btn = True
+                return True
+        self.pressing_btn = False
+        return False
+    
+    # Scroll with screen
+    def scroll(self):
+        self.rect.y += constants.SPEED

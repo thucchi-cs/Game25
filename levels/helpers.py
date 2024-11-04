@@ -1,37 +1,55 @@
 # import pygame
-import csv
+import json
 from constants import *
 
-def move_players(key, walls, gates, rocks, waters):
+# Move all players
+def move_players(key):
     for fly in players:
-        fly.move_arrows(key, walls, gates, rocks, waters)
+        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, waters, elevators, buttons))
+        fly.elevator_move(elevators)
+        fly.check_web(webs)
+        fly.check_btn(buttons)
 
+# Auto scroll
+def auto_scroll(counter):
+    if counter % SPEEDFACTOR == 0:
+        for sprite in all:
+            sprite.scroll()
 
-def load_layout(file):
-    # read csv file into a dictionary
-    file = open('levels/layouts/level1.csv')
-    layout = csv.DictReader(file)
-    for obj in layout:
-        args = []
-        if obj['thing'] == 'btn':
-            pos = obj['arg1'].split()
+# Load the level layout from json file
+def load_layout(filename):
+    # Open and load file
+    file = open('levels/layouts/' + filename, 'r')
+    data = json.load(file)
+    
+    # Create each object in json file
+    for obj,args in data.items():
+        object = obj[:-1]
+        # Arguments to be passed in when making the object
+        arguments = []
+
+        # Create buttons
+        if object == 'btn':
+            # Create arguments
+            pos = args['pos'][1:-1]
+            pos = pos.split(',')
             pos = (int(pos[0]), int(pos[1]))
             sprite = all.sprites()[-1]
-            args = [pos, sprite]
+            arguments = [pos, sprite]
+
+        # Create obstacles
         else:
-            for k,v in obj.items():
-                if k != 'thing' and v != None:
-                    try:
-                        v = int(v)
-                    except:
-                        if ' ' in v:
-                            v = v.split()
-                            v = (int(v[0]), int(v[1]))
-                        else:
-                            v = bool(v)
+            # Iterate through the arguments
+            for v in args.values():
+                # Convert to tuple if necessary
+                if (type(v) == str) and (('(' in v) and (')' in v)):
+                    v = v[1:-1]
+                    v = v.split(',')
+                    v = (int(v[0]), int(v[1]))
+                # Add arguments to list
+                arguments.append(v)
 
-                    args.append(v)
-                    print(v, type(v))
-
-        temp = OBJECTS[obj['thing']](*args)
+        # Create object and add to groups
+        temp = OBJECTS[object](*arguments)
+        GROUPS[object].add(temp)
         all.add(temp)

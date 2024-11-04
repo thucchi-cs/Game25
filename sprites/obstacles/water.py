@@ -1,4 +1,5 @@
 import pygame
+import constants
 
 class Water(pygame.sprite.Sprite):
     # Constructor
@@ -51,14 +52,9 @@ class Water(pygame.sprite.Sprite):
             self.rect.x = self.realX if self.show else 9000
         
     # Scroll with screen
-    def scroll(self, direction,speed):
-        # if direction == 'D':
-        #     self.rect.y +=speed 
-        #     self.realY += speed
-        # elif direction == 'U':
-        #     self.rect.y+=speed
-        #     self.realY += speed
-        pass
+    def scroll(self):
+        self.rect.y += constants.SPEED
+        
     # Animate opening and closing
     def animation(self):
         if self.counter2 <= 24:
