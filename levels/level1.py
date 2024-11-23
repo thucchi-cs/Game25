@@ -33,11 +33,6 @@ async def level():
                 # Check to skip level
                 if event.key == pygame.K_TAB:
                     run = False
-
-                # Press button
-                if event.key == pygame.K_SPACE:
-                    for btn in buttons.sprites():
-                        btn.press()
         
         # Move sprites and interact with other elements
         key = pygame.key.get_pressed() 

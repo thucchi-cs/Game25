@@ -3,12 +3,19 @@ import constants
 
 class Buttons(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, pos, rot, obstacle):
+    def __init__(self, pos, rot, temp, obstacle):
         super().__init__()
         # Load image
         self.size = (50, 25)
         self.rot = rot
-        self.image_path = 'graphics/button.png'
+        self.temp = temp
+        self.images = [
+            'graphics/button.png' if not temp else 'graphics/button_temp.png',
+            'graphics/button-pressed.png' if not temp else 'graphics/button_temp-pressed.png'
+        ]
+        self.counter = 0
+        self.image_index = 0
+        self.image_path = self.images[0]
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, self.size)
         self.image = pygame.transform.rotate(self.image, self.rot)
@@ -24,7 +31,8 @@ class Buttons(pygame.sprite.Sprite):
     def press(self):
         # Change image
         x, y = self.rect.centerx, self.rect.centery
-        self.image_path = 'graphics/button-pressed.png' if self.image_path ==  'graphics/button.png' else  'graphics/button.png'
+        self.image_index = 1 - self.image_index
+        self.image_path = self.images[self.image_index]
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, self.size)
         self.image = pygame.transform.rotate(self.image, self.rot)
@@ -45,6 +53,11 @@ class Buttons(pygame.sprite.Sprite):
 
     def update(self):
         self.collide.update(self.rect)
+        if self.temp and self.pressed:
+            self.counter += 1
+            if self.counter >= 100:
+                self.press()
+                self.counter = 0
 
     class Collide_Box(pygame.sprite.Sprite):
         def __init__(self, rect):
