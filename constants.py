@@ -42,8 +42,8 @@ OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall,
 # Sprites
 fly1 = flies.Flies(250, 300, ARROWS)
 fly2 = flies.Flies(250, 300, WASD)
-# fly3 = flies.Flies(250, 300, TFGH)
-# fly4 = flies.Flies(250, 300, IJKL)
+fly3 = flies.Flies(250, 300, TFGH)
+fly4 = flies.Flies(250, 300, IJKL)
 
 txt = text.Text("fonts/wingding.ttf", 12, "My name is Ronin Gambill", "red", 100, 100)
 
@@ -52,8 +52,9 @@ web1 = web.Web(25, (100, 100))
 
 save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)
 # Sprite Groups
+playercount = 4
 players = pygame.sprite.Group()
-players.add(fly1, fly2)
+players.add(fly1, fly2,fly3,fly4)
 buttons = pygame.sprite.Group()
 # buttons.add(button1)
 webs = pygame.sprite.Group()
