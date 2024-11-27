@@ -45,37 +45,23 @@ fly2 = flies.Flies(250, 300, WASD)
 # fly3 = flies.Flies(250, 300, TFGH)
 # fly4 = flies.Flies(250, 300, IJKL)
 
-txt = text.Text("fonts/wingding.ttf", 12, "My name is Ronin Gambill", "red", 100, 100)
-
-web1 = web.Web(25, (100, 100))
-
 
 save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)
 # Sprite Groups
 players = pygame.sprite.Group()
 players.add(fly1, fly2)
 buttons = pygame.sprite.Group()
-# buttons.add(button1)
 webs = pygame.sprite.Group()
-webs.add(web1)
 gates = pygame.sprite.Group()
-# gates.add(gate1)
 rocks = pygame.sprite.Group()
-# rocks.add(rock1)
 exclamations = pygame.sprite.Group()
-# exclamations.add(rock1.exclamation)
 waters = pygame.sprite.Group()
-# waters.add(water1)
 lasers = pygame.sprite.Group()
-# lasers.add(laser1, laser2, laser3)
 elevators = pygame.sprite.Group()
-# elevators.add(elevator1, elevator2)
 walls = pygame.sprite.Group()
-# walls.add(wall1, elevators)
 ends = pygame.sprite.Group()
 
-all = pygame.sprite.Group()
-all.add(buttons, rocks, exclamations, waters, lasers, elevators, walls, webs, players, gates,ends)
+all = pygame.sprite.Group(players)
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates,

@@ -3,9 +3,9 @@ import constants
 
 class Gate(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, size, pos, direction):
+    def __init__(self, size, pos, rotation):
         super().__init__()
-        self.direction = direction
+        self.rotation = rotation
         self.size = size
         self.pos = pos
         # Image path variables
@@ -19,7 +19,6 @@ class Gate(pygame.sprite.Sprite):
         self.height = int(size / aspect_ratio)
         self.image = pygame.transform.smoothscale(self.image, (size,self.height))
         # Rotation based off direction
-        rotation = 90 * direction
         self.image = pygame.transform.rotate(self.image, rotation)
         self.rect = self.image.get_rect(topleft=pos)
         # Open and closed variables
@@ -40,8 +39,7 @@ class Gate(pygame.sprite.Sprite):
         self.height = int(self.size / aspect_ratio)
         self.image = pygame.transform.smoothscale(self.image, (self.size,self.height))
         # Rotation based off direction
-        rotation = 90 * self.direction
-        self.image = pygame.transform.rotate(self.image, rotation)
+        self.image = pygame.transform.rotate(self.image, self.rotation)
         if self.path_index == 17 or self.path_index == 0:
             self.open = True if self.path_index == 17 else False
             self.closed = True if self.path_index == 0 else False

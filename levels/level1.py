@@ -59,7 +59,6 @@ async def level():
         all.draw(SCREEN)
         if save_display:
             save_text.blit_text(SCREEN)
-        txt.blit_text(SCREEN)
         all.update()
         pygame.display.flip()
 

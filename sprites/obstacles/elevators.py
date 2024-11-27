@@ -14,20 +14,22 @@ class Elevators(pygame.sprite.Sprite):
         
         # Moving varibles
         self.dest = y2
+        self.start = pos[1]
         self.speed = 3 if (self.dest > self.rect.y) else -3
         self.clearing = False
         self.appearing = False
 
     # Move to destination
     def animation(self):
-        if abs(self.rect.y - self.dest) > 3:
-            self.rect.y += self.speed
+        if ((abs(self.rect.y - self.dest) > 3) and self.clearing) or ((abs(self.rect.y - self.start) > 3) and self.appearing):
+            self.rect.y += self.speed if self.clearing else -self.speed
         else:
-            self.moving = False
+            self.clearing = False
+            self.appearing = False
 
     # Update - periodic
     def update(self):
-        if self.clearing:
+        if self.clearing or self.appearing:
             self.animation()
 
     # Scroll with screen
