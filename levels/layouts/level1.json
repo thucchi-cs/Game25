@@ -40,6 +40,6 @@
     "btn3": {
         "pos": "(320, 162)",
         "rot": 180,
-        "temp": false
+        "temp": true
     }
 }

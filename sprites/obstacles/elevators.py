@@ -36,3 +36,4 @@ class Elevators(pygame.sprite.Sprite):
     def scroll(self):
         self.rect.y += constants.SPEED
         self.dest += constants.SPEED
+        self.start += constants.SPEED
