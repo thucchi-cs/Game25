@@ -5,6 +5,7 @@ import pygame
 # Files imports
 import levels.level1 as level1
 import levels.title as title
+import levels.grid as grid
 from constants import *
 
 # Music
@@ -14,6 +15,12 @@ pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.2)
 # Game
 async def main():
+
+    # show reference grid
+    quit = await grid.screen()
+    if quit:
+        return
+
     # Run main menu
     quit = await title.menu()
     if quit:
