@@ -122,6 +122,7 @@ class Flies(pygame.sprite.Sprite):
             if pygame.sprite.collide_mask(self, laser):
                 return True
         return False
+    # Check collision with the end 
     def check_end(self,ends):
         for end in ends:
             if pygame.sprite.collide_mask(self,end):

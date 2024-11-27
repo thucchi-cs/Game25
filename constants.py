@@ -34,22 +34,19 @@ WASD = [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]
 TFGH = [pygame.K_t, pygame.K_g, pygame.K_f, pygame.K_h]
 IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 
-OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
-            'elevator': elevator.Elevators, 'gate': gate.Gate,
-            'laser': laser.Lasers, 'rock': rock.Rocks,
-            'water': water.Water, 'web': web.Web, 'end': end.End}
-
 # Sprites
 fly1 = flies.Flies(250, 300, ARROWS)
 fly2 = flies.Flies(250, 300, WASD)
-# fly3 = flies.Flies(250, 300, TFGH)
-# fly4 = flies.Flies(250, 300, IJKL)
+fly3 = flies.Flies(250, 300, TFGH)
+fly4 = flies.Flies(250, 300, IJKL)
 
-
+# Text for web
 save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)
+
 # Sprite Groups
+playercount = 4
 players = pygame.sprite.Group()
-players.add(fly1, fly2)
+players.add(fly1, fly2,fly3,fly4)
 buttons = pygame.sprite.Group()
 webs = pygame.sprite.Group()
 gates = pygame.sprite.Group()
@@ -60,8 +57,13 @@ lasers = pygame.sprite.Group()
 elevators = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 ends = pygame.sprite.Group()
-
 all = pygame.sprite.Group(players)
+
+# Sprites and groups dicts for json planning
+OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
+            'elevator': elevator.Elevators, 'gate': gate.Gate,
+            'laser': laser.Lasers, 'rock': rock.Rocks,
+            'water': water.Water, 'web': web.Web, 'end': end.End}
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates,

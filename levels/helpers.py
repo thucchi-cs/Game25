@@ -18,6 +18,11 @@ def move_players(key):
             other_flies = [i for i in players if i != fly]
             fly.save_friend(other_flies)
 
+        # Check if player reached the end
+        if fly.check_end(ends):
+                players.remove(fly)
+                all.remove(fly)
+
 
 # Auto scroll
 def auto_scroll(counter):

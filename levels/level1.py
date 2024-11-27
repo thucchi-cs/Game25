@@ -33,6 +33,8 @@ async def level():
                 # Check to skip level
                 if event.key == pygame.K_TAB:
                     run = False
+        if len(players.sprites()) == 0:
+            run = False
         
         # Move sprites and interact with other elements
         key = pygame.key.get_pressed() 
@@ -40,12 +42,9 @@ async def level():
         save_display = False
         for fly in players:
             dead = fly.collide_rock(rocks) or fly.check_lasers(lasers)
-            
+            # Check for web collision
             if fly.stuck:
                 save_display = True
-        # if finished:
-        #     run=False
-        #     quit=True
 
         # Debug prints
         # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
