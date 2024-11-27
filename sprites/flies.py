@@ -132,7 +132,7 @@ class Flies(pygame.sprite.Sprite):
     # Move with the elevator
     def elevator_move(self, elevators):
         for elevator in elevators:
-            if (self.elevator_collide(elevator)) and (elevator.clearing) and (pygame.sprite.collide_mask(self, elevator)):
+            if (self.elevator_collide(elevator)) and (elevator.clearing or elevator.appearing) and (pygame.sprite.collide_mask(self, elevator)):
                 self.rect.y += elevator.speed
 
     # Check if currently inside and touching a wall of elevator
@@ -163,7 +163,9 @@ class Flies(pygame.sprite.Sprite):
             self.safe_timer = 20
         return words
     
-
+    # Move to given coordinates, center is anchor
+    def move_to(self, pos):
+        self.rect.center = pos
    
     # Scroll with screen
     def scroll(self):

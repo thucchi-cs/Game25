@@ -25,8 +25,8 @@ pygame.font.init()
 FPS = 40    
 
 # Autoscrolling speed
-SPEED = 0
-SPEEDFACTOR = 2
+SPEED = 1
+SPEEDFACTOR = 5
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
@@ -35,10 +35,10 @@ TFGH = [pygame.K_t, pygame.K_g, pygame.K_f, pygame.K_h]
 IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 
 # Sprites
-fly1 = flies.Flies(250, 300, ARROWS)
-fly2 = flies.Flies(250, 300, WASD)
-fly3 = flies.Flies(250, 300, TFGH)
-fly4 = flies.Flies(250, 300, IJKL)
+fly1 = flies.Flies(275, 500, ARROWS)
+fly2 = flies.Flies(225, 500, WASD)
+fly3 = flies.Flies(175, 500, TFGH)
+fly4 = flies.Flies(325, 500, IJKL)
 
 # Text for web
 save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)

@@ -16,6 +16,8 @@ async def screen():
         pygame.draw.line(SCREEN, (255, 0, 0), (i, 0), (i, HEIGHT))
     for i in range(step, HEIGHT, step):
         pygame.draw.line(SCREEN, (0, 0, 255), (0, i), (WIDTH, i))
+    pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
+    pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
 
     pygame.display.flip()
 

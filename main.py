@@ -17,9 +17,9 @@ pygame.mixer.music.set_volume(0.2)
 async def main():
 
     # show reference grid
-    quit = await grid.screen()
-    if quit:
-        return
+    # quit = await grid.screen()
+    # if quit:
+    #     return
 
     # Run main menu
     quit = await title.menu()

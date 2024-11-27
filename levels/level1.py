@@ -52,9 +52,10 @@ async def level():
 
         # Auto Scroll
         h.auto_scroll(counter)
+        print(pygame.mouse.get_pos())
 
         # Draw on screen
-        SCREEN.fill((255,255,255))
+        SCREEN.fill((92, 64, 51))
         all.draw(SCREEN)
         if save_display:
             save_text.blit_text(SCREEN)
