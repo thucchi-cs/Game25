@@ -16,7 +16,7 @@ pygame.mixer.music.set_volume(0.2)
 # Game
 async def main():
 
-    # show reference grid
+    # show reference grid - comment / uncomment to show / hide reference grid 
     # quit = await grid.screen()
     # if quit:
     #     return

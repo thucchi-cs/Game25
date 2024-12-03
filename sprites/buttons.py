@@ -53,16 +53,22 @@ class Buttons(pygame.sprite.Sprite):
 
     def update(self):
         self.collide.update(self.rect)
-        if self.temp and self.pressed:
+        collide_fly = False
+        for fly in constants.players:
+            if self.collide.rect.colliderect(fly):
+                collide_fly = True
+                break
+        if self.temp and self.pressed and not collide_fly:
             self.counter += 1
             if self.counter >= 100:
                 self.press()
                 self.counter = 0
+        pygame.draw.rect(constants.SCREEN, (255,255,255),(self.collide.rect),1)
 
     class Collide_Box(pygame.sprite.Sprite):
         def __init__(self, rect):
             super().__init__()
-            self.shell = 2
-            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + self.shell, rect.height + self.shell)
+            self.shell = 3
+            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)
         def update(self, rect):
-            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + self.shell, rect.height + self.shell)
+            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)
