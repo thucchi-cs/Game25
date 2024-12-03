@@ -34,8 +34,6 @@ class Flies(pygame.sprite.Sprite):
 
         # Stuck variable restricts movement when in web
         self.stuck = False
-        self.vulnerable = True
-        self.safe_timer = 0
 
         # Keys for movements
         self.up_key = keys[0]
@@ -106,7 +104,7 @@ class Flies(pygame.sprite.Sprite):
     # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
-        if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and self.vulnerable:
+        if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size):
             self.stuck = True
 
     # Check for collision with rocks          
@@ -159,9 +157,6 @@ class Flies(pygame.sprite.Sprite):
         constants.save_text.text = words
         if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
             self.stuck = False
-            self.vulnerabe = False
-            self.safe_timer = 20
-        return words
     
     # Move to given coordinates, center is anchor
     def move_to(self, pos):

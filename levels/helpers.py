@@ -10,9 +10,6 @@ def move_players(key):
         fly.check_web(webs)
         fly.check_btn(buttons)
 
-        if not fly.vulnerable:
-            fly.safe_timer -= 1
-            fly.vulnerable = True if fly.safe_timer < 1 else False
         fly.check_web(webs)
         if fly.stuck:
             other_flies = [i for i in players if i != fly]
