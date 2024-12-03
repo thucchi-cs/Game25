@@ -41,7 +41,7 @@ fly3 = flies.Flies(175, 500, TFGH)
 fly4 = flies.Flies(325, 500, IJKL)
 
 # Text for web
-save_text = text.Text("freesansbold.ttf", 25, "Test", (0,255,0), 250, 300)
+save_text = text.Text("freesansbold.ttf", 50, "Test", (83,83,140), 250, 50)
 
 # Sprite Groups
 playercount = 4
