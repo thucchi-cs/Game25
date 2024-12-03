@@ -133,7 +133,7 @@ class Flies(pygame.sprite.Sprite):
     def elevator_move(self, elevators):
         for elevator in elevators:
             if (self.elevator_collide(elevator)) and (elevator.clearing or elevator.appearing) and (pygame.sprite.collide_mask(self, elevator)):
-                self.rect.y += elevator.speed
+                self.rect.y += elevator.speed if elevator.clearing else -elevator.speed
 
     # Check if currently inside and touching a wall of elevator
     def elevator_collide(self, elevator):
