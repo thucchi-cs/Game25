@@ -29,7 +29,7 @@
     "btn2": {
         "pos": "(180, 162)",
         "rot": 180,
-        "temp": false
+        "temp": true
     },
     "elevator1": {
         "pos":"(430, 150)",
@@ -45,5 +45,17 @@
     "web1":{
         "size": 50,
         "pos": "(400, 500)"
+    },
+    "gate1":{
+        "size": 50,
+        "pos":"(423,427)",
+        "direction":90
+
+    },
+    "btn4":{
+        "pos":"(0,423)",
+        "rot": 180,
+        "temp": true
+
     }
 }
