@@ -12,7 +12,6 @@ class Wall(pygame.sprite.Sprite):
         self.speed = Kspeed
         self.actualX = pos[0]
         self.actualY = pos[1]
-        # TEST
 
     # Move off screen
     def scroll(self, direction,speed):
