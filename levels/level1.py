@@ -11,7 +11,7 @@ async def level():
     quit = False
     dead = False
     counter = 0
-
+    zero_pos = 0
     h.load_layout('level1.json')
 
     # Level loop
@@ -51,11 +51,23 @@ async def level():
         # print(dead)
 
         # Auto Scroll
-        h.auto_scroll(counter)
-        print(pygame.mouse.get_pos())
+        scroll = h.auto_scroll(counter)
 
+        zero_pos += SPEED if scroll else 0
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
         SCREEN.fill((92, 64, 51))
+
+
+
+        step = 50
+        for i in range(step, WIDTH, step):
+            pygame.draw.line(SCREEN, (255, 0, 0), (i, 0), (i, HEIGHT))
+        for i in range(step, HEIGHT, step):
+            pygame.draw.line(SCREEN, (0, 0, 255), (0, i), (WIDTH, i))
+        pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
+        pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
         all.draw(SCREEN)
         if save_display:
             save_text.blit_text(SCREEN)

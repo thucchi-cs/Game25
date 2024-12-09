@@ -27,9 +27,11 @@ def move_players(key):
 # Auto scroll
 def auto_scroll(counter):
     if counter % SPEEDFACTOR == 0:
+
         for sprite in all:
             sprite.scroll()
-
+        return True
+    return False
 # Load the level layout from json file
 def load_layout(filename):
     # Open and load file
