@@ -2,18 +2,23 @@
 import asyncio
 import pygame
 from constants import *
-
+import levels.helpers as h
 # Level 1 loop
 async def level():
     # Time
     clock = pygame.time.Clock()
     run = True
     quit = False
-    pressed = False
+    dead = False
+    counter = 0
+    zero_pos = 0
+    h.load_layout('level1.json')
 
     # Level loop
     while run:
         clock.tick(FPS)
+        counter += 1
+
         # Event handles
         for event in pygame.event.get():
             # Check to close game
@@ -28,29 +33,45 @@ async def level():
                 # Check to skip level
                 if event.key == pygame.K_TAB:
                     run = False
-
-                # Press button
-                if event.key == pygame.K_SPACE:
-                    pressed = button1.press(lasers, elevators)
-
-        # Move sprites
-        key = pygame.key.get_pressed()
-        fly.move_arrows(key, walls,rocks,waters)
-
-        print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
-
-        # interact flies with obstacles
-        fly.elevator_move(elevators)
-        rock1.check_line()
-        water1.animate(pressed)
-        rock1.remove
-        water1.water_button_pressed(pressed)
+        if len(players.sprites()) == 0:
+            run = False
         
+        # Move sprites and interact with other elements
+        key = pygame.key.get_pressed() 
+        h.move_players(key)
+        save_display = False
+        for fly in players:
+            dead = fly.collide_rock(rocks) or fly.check_lasers(lasers)
+            # Check for web collision
+            if fly.stuck:
+                save_display = True
+
+        # Debug prints
+        # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
+        # print(dead)
+
+        # Auto Scroll
+        scroll = h.auto_scroll(counter)
+
+        zero_pos += SPEED if scroll else 0
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
-        SCREEN.fill((255,255,255))
-        lasers.update()
-        elevators.update()
+        SCREEN.fill((92, 64, 51))
+
+
+
+        step = 50
+        for i in range(step, WIDTH, step):
+            pygame.draw.line(SCREEN, (255, 0, 0), (i, 0), (i, HEIGHT))
+        for i in range(step, HEIGHT, step):
+            pygame.draw.line(SCREEN, (0, 0, 255), (0, i), (WIDTH, i))
+        pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
+        pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
         all.draw(SCREEN)
+        if save_display:
+            save_text.blit_text(SCREEN)
+        all.update()
         pygame.display.flip()
 
         # asyncio
