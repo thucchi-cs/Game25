@@ -4,6 +4,7 @@ import pygame
 
 # Files imports
 import levels.level1 as level1
+import levels.level3 as level3
 import levels.title as title
 import levels.grid as grid
 from constants import *
@@ -22,9 +23,9 @@ async def main():
     #     return
 
     # Run main menu
-    quit = await title.menu()
-    if quit:
-        return
+    # quit = await title.menu()
+    # if quit:
+    #     return
     
     # Run level1
     quit = await level1.level()

@@ -22,7 +22,14 @@ class Elevators(pygame.sprite.Sprite):
     # Move to destination
     def animation(self):
         if ((abs(self.rect.y - self.dest) > 3) and self.clearing) or ((abs(self.rect.y - self.start) > 3) and self.appearing):
+            # Move
             self.rect.y += self.speed if self.clearing else -self.speed
+            
+            # Avoid crushing a fly
+            for fly in constants.players:
+                if pygame.sprite.collide_mask(self, fly) and not fly.elevator_collide(self):
+                    self.rect.y -= self.speed if self.clearing else -self.speed
+                    
         else:
             self.clearing = False
             self.appearing = False
