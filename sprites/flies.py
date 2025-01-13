@@ -7,14 +7,14 @@ import sprites.text as text
 # Person sprite
 class Flies(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, x, y, keys):
+    def __init__(self, x, y, keys, n):
         super().__init__()
         # Load image and position
-        self.image_path = 'graphics/fly.png'
+        self.dead = 'graphics/flydead.png'
+        self.image_path = 'graphics/fly'+str(n)+'.png'
         self.image = pygame.image.load(self.image_path)
         self.size = (25, 35)
         self.image = pygame.transform.scale(self.image, self.size)
-        self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
 
         # Positioning
@@ -28,7 +28,7 @@ class Flies(pygame.sprite.Sprite):
         self.run = 0.00
 
         # Movements variables
-        self.angle = 0
+        self.angle = 90
         self.rotation_spd = 10
         self.speed = 5
 
@@ -86,26 +86,29 @@ class Flies(pygame.sprite.Sprite):
                 self.angle += rotation
 
                 # Render image
-                x, y = self.rect.centerx, self.rect.centery
-                self.image = pygame.image.load(self.image_path).convert_alpha()
-                self.image = pygame.transform.smoothscale(self.image, self.size)
-                self.image = pygame.transform.rotate(self.image, self.angle-90)
-                self.rect = self.image.get_rect(center=(x, y))
+                self.render_image(self.image_path)
 
                 # Prevent moving into walls
                 for object in obstacles:
                     if pygame.sprite.collide_mask(object, self):
                         self.angle -= rotation
-                        self.image = pygame.image.load(self.image_path).convert_alpha()
-                        self.image = pygame.transform.smoothscale(self.image, self.size)
-                        self.image = pygame.transform.rotate(self.image, self.angle-90)
-                        self.rect = self.image.get_rect(center=(x, y))
+                        self.render_image(self.image_path)
 
     # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size):
             self.stuck = True
+            self.render_image(self.dead)
+        else:
+            self.render_image(self.image_path)
+            
+    def render_image(self, image):
+        x, y = self.rect.centerx, self.rect.centery
+        self.image = pygame.image.load(image).convert_alpha()
+        self.image = pygame.transform.smoothscale(self.image, self.size)
+        self.image = pygame.transform.rotate(self.image, self.angle-90)
+        self.rect = self.image.get_rect(center=(x, y))
 
     # Check for collision with rocks          
     def collide_rock(self, rocks):

@@ -15,7 +15,9 @@ class Elevators(pygame.sprite.Sprite):
         # Moving varibles
         self.dest = y2
         self.start = pos[1]
-        self.speed = 3 if (self.dest > self.rect.y) else -3
+        dist = abs(self.start - self.dest)
+        self.speed = dist // 50
+        self.speed *= 1 if self.dest > self.rect.y else -1
         self.clearing = False
         self.appearing = False
 

@@ -28,7 +28,7 @@ async def main():
     #     return
     
     # Run level1
-    quit = await level1.level()
+    quit = await level3.level()
     if quit:
         return
 

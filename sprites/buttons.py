@@ -10,8 +10,8 @@ class Buttons(pygame.sprite.Sprite):
         self.rot = rot
         self.temp = temp
         self.images = [
-            'graphics/button.png' if not temp else 'graphics/button_temp.png',
-            'graphics/button-pressed.png' if not temp else 'graphics/button_temp-pressed.png'
+            'graphics/ButtonRedUp.png' if not temp else 'graphics/ButtonGreenUp.png',
+            'graphics/ButtonRedDown.png' if not temp else 'graphics/ButtonGreenDown.png'
         ]
         self.counter = 0
         self.image_index = 0
@@ -63,7 +63,7 @@ class Buttons(pygame.sprite.Sprite):
             if self.counter >= 100:
                 self.press()
                 self.counter = 0
-        pygame.draw.rect(constants.SCREEN, (255,255,255),(self.collide.rect),1)
+        # pygame.draw.rect(constants.SCREEN, (255,255,255),(self.collide.rect),1)
 
     class Collide_Box(pygame.sprite.Sprite):
         def __init__(self, rect):

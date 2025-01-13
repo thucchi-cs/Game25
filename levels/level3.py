@@ -1,7 +1,8 @@
 # Libraries imports
 import asyncio
 import pygame
-from constants import *
+# from constants import *
+import constants
 import levels.helpers as h
 # Level 3 loop
 async def level():
@@ -13,10 +14,19 @@ async def level():
     counter = 0
     zero_pos = 0
     h.load_layout('level3.json')
+    
+    for sprite in constants.all:
+        sprite.rect.y -= 200
+    for e in constants.elevators:
+        e.dest -= 200
+        e.start -= 200
+    # for f in constants.frogs:
+    #     f.pos = (f.pos[0], f.pos[1]-200)
+    zero_pos -= 200
 
     # Level loop
     while run:
-        clock.tick(FPS)
+        clock.tick(constants.FPS)
         counter += 1
 
         # Event handles
@@ -33,15 +43,21 @@ async def level():
                 # Check to skip level
                 if event.key == pygame.K_TAB:
                     run = False
-        if len(players.sprites()) == 0:
+                    
+                # Stop scroll cheat code
+                if event.key == pygame.K_BACKSPACE:
+                    constants.SPEED = 0 if constants.SPEED else 1
+              
+        # Win level      
+        if len(constants.players.sprites()) == 0:
             run = False
         
         # Move sprites and interact with other elements
         key = pygame.key.get_pressed() 
         h.move_players(key)
         save_display = False
-        for fly in players:
-            dead = fly.collide_rock(rocks) or fly.check_lasers(lasers)
+        for fly in constants.players:
+            dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers)
             # Check for web collision
             if fly.stuck:
                 save_display = True
@@ -53,25 +69,26 @@ async def level():
         # Auto Scroll
         scroll = h.auto_scroll(counter)
 
-        zero_pos += SPEED if scroll else 0
+        zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
         print(coor)
         # Draw on screen
-        SCREEN.fill((92, 64, 51))
+        constants.SCREEN.fill((92, 64, 51))
 
 
 
         step = 50
-        for i in range(step, WIDTH, step):
-            pygame.draw.line(SCREEN, (255, 0, 0), (i, 0), (i, HEIGHT))
-        for i in range(step, HEIGHT, step):
-            pygame.draw.line(SCREEN, (0, 0, 255), (0, i), (WIDTH, i))
-        pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
-        pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
-        all.draw(SCREEN)
+        for i in range(step, constants.WIDTH, step):
+            pygame.draw.line(constants.SCREEN, (255, 0, 0), (i, 0), (i, constants.HEIGHT))
+        for i in range(step, constants.HEIGHT, step):
+            pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
+        pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
+        pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
+        
+        constants.all.draw(constants.SCREEN)
         if save_display:
-            save_text.blit_text(SCREEN)
-        all.update()
+            constants.save_text.blit_text(constants.SCREEN)
+        constants.all.update()
         pygame.display.flip()
 
         # asyncio
