@@ -43,6 +43,11 @@
         "rotation": 0,
         "temp": true
     },
+    "frog1": {
+        "pos": "(50, 350)",
+        "flip": false,
+        "wait_time": 0.3
+    },
     "end1":{
         "pos":"(250,0)",
         "scale": 0.1

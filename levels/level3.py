@@ -15,14 +15,15 @@ async def level():
     zero_pos = 0
     h.load_layout('level3.json')
     
+    skip = 1100
     for sprite in constants.all:
-        sprite.rect.y -= 200
+        sprite.rect.y += skip
     for e in constants.elevators:
-        e.dest -= 200
-        e.start -= 200
-    # for f in constants.frogs:
-    #     f.pos = (f.pos[0], f.pos[1]-200)
-    zero_pos -= 200
+        e.dest += skip
+        e.start += skip
+    for f in constants.frogs:
+        f.pos = (f.pos[0], f.pos[1]+skip)
+    zero_pos += skip
 
     # Level loop
     while run:
