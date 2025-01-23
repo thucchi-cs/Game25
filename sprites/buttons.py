@@ -68,7 +68,7 @@ class Buttons(pygame.sprite.Sprite):
     class Collide_Box(pygame.sprite.Sprite):
         def __init__(self, rect):
             super().__init__()
-            self.shell = 3
+            self.shell = 2
             self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)
         def update(self, rect):
             self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)

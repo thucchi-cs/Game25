@@ -15,7 +15,7 @@ async def level():
     zero_pos = 0
     h.load_layout('level3.json')
     
-    skip = 1100
+    skip = 1400
     for sprite in constants.all:
         sprite.rect.y += skip
     for e in constants.elevators:
