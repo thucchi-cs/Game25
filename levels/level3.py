@@ -15,7 +15,7 @@ async def level():
     zero_pos = 0
     h.load_layout('level3.json')
     
-    skip = 1400
+    skip = 800
     for sprite in constants.all:
         sprite.rect.y += skip
     for e in constants.elevators:
@@ -78,13 +78,13 @@ async def level():
 
 
 
-        step = 50
-        for i in range(step, constants.WIDTH, step):
-            pygame.draw.line(constants.SCREEN, (255, 0, 0), (i, 0), (i, constants.HEIGHT))
-        for i in range(step, constants.HEIGHT, step):
-            pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
-        pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
-        pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
+        # step = 50
+        # for i in range(step, constants.WIDTH, step):
+        #     pygame.draw.line(constants.SCREEN, (255, 0, 0), (i, 0), (i, constants.HEIGHT))
+        # for i in range(step, constants.HEIGHT, step):
+        #     pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
+        # pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
+        # pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
         
         constants.all.draw(constants.SCREEN)
         if save_display:

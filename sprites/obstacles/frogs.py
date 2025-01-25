@@ -25,9 +25,9 @@ class Frog(pygame.sprite.Sprite):
         if self.wait == 0:
             self.animate()
 
-        if self.index == 7 or self.index == 1:
+        if self.index == 8 or self.index == 1:
             self.wait += 1
-            if self.wait >= self.wait_time:
+            if ((self.wait >= self.wait_time) and self.index == 1) or ((self.wait >= 20) and self.index == 8):
                 self.wait = 0
         
     
@@ -36,7 +36,9 @@ class Frog(pygame.sprite.Sprite):
         if self.counter % 3 == 0:
             # print(self.index)
             self.index += 1
-            self.index %= 10
+            if self.index == 7 or self.index == 6:
+                self.index = 8
+            self.index %= 11
             self.image_path = 'graphics/frog'+str(self.index)+'.png'
             self.image = pygame.image.load(self.image_path)
             self.image = pygame.transform.scale(self.image, self.size)
