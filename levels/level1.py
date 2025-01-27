@@ -13,7 +13,9 @@ async def level():
     counter = 0
     zero_pos = 0
     h.load_layout('level1.json')
-
+    # for sprite in all:
+    #     sprite.rect.y += 700
+        
     # Level loop
     while run:
         clock.tick(FPS)
@@ -55,10 +57,9 @@ async def level():
 
         zero_pos += SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
         SCREEN.fill((92, 64, 51))
-
 
 
         step = 50

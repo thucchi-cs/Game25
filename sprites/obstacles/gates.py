@@ -29,7 +29,8 @@ class Gate(pygame.sprite.Sprite):
     
     # Animate opening and closing
     def animation(self):
-        # Move forward one in the list of image paths
+        # Move forward or backwoards one in the list of image paths
+        # Depending on if the gate is opening or closing
         self.path_index += 1 if self.clearing else -1
         self.image_path = self.image_paths[self.path_index]
         # Render new image

@@ -12,7 +12,7 @@ class Flies(pygame.sprite.Sprite):
         # Load image and position
         self.image_path = 'graphics/fly.png'
         self.image = pygame.image.load(self.image_path)
-        self.size = (12, 24)
+        self.size = (25, 35)
         self.image = pygame.transform.scale(self.image, self.size)
         self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()

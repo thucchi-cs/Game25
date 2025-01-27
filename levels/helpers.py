@@ -37,7 +37,10 @@ def load_layout(filename):
     
     # Create each object in json file
     for obj,args in data.items():
-        object = obj[:-1]
+        i = -1
+        while not obj[:i].isalpha():
+            i -= 1
+        object = obj[:i]
         # Arguments to be passed in when making the object
         arguments = []
 
@@ -47,7 +50,7 @@ def load_layout(filename):
             if (type(v) == str) and (('(' in v) and (')' in v)):
                 v = v[1:-1]
                 v = v.split(',')
-                v = (int(v[0]), int(v[1]))
+                v = (float(v[0]), float(v[1]))
             # Add arguments to list
             arguments.append(v)
         
