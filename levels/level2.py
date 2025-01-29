@@ -12,7 +12,7 @@ async def level():
     dead = False
     counter = 0
     zero_pos = 0
-    h.load_layout('level1.json')
+    h.load_layout('level2.json')
 
     # Level loop
     while run:
@@ -68,7 +68,28 @@ async def level():
             pygame.draw.line(SCREEN, (0, 0, 255), (0, i), (WIDTH, i))
         pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
         pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
+        mouse_pos = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+
+        last_sprite = all.sprites()[-1]
+
+
+        if str(last_sprite).startswith("<Buttons") or str(last_sprite).startswith("<Web"):
+            print("Center Center object found")
+            last_sprite.rect.centerx = mouse_pos[0]
+            last_sprite.rect.centery = mouse_pos[1]
+        elif str(last_sprite).startswith("<Wall") or str(last_sprite).startswith("<Gate") or str(last_sprite).startswith("<Water") or str(last_sprite).startswith("<Rocks"):
+            print("Top left found")
+            last_sprite.rect.x = mouse_pos[0]
+            last_sprite.rect.y = mouse_pos[1]
+        elif str(last_sprite).startswith("<Lasers") or str(last_sprite).startswith("<Elevators"):
+            print("Center Top found")
+            last_sprite.rect.centerx = mouse_pos[0]
+            last_sprite.rect.y = mouse_pos[1]
         all.draw(SCREEN)
+
+        
+
+
         
         if save_display:
             save_text.blit_text(SCREEN)
