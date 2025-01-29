@@ -63,3 +63,9 @@ def load_layout(filename):
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
         all.add(temp)
+
+
+def transistion():
+    pass
+
+

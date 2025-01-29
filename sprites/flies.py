@@ -104,7 +104,7 @@ class Flies(pygame.sprite.Sprite):
     # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
-        if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size):
+        if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
 
     # Check for collision with rocks          
@@ -151,9 +151,9 @@ class Flies(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         close_friend = False
         for fly in flies:
-            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 50:
+            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 75:
                 close_friend = fly
-        words = "Press Space To Save Your Friend!" if close_friend else "Save Your Friend!"
+        words = "Hold Space To Save Your Friend!" if close_friend else "Save Your Friend!"
         constants.save_text.text = words
         if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
             self.stuck = False
