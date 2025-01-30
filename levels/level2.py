@@ -13,7 +13,8 @@ async def level():
     counter = 0
     zero_pos = 0
     h.load_layout('level2.json')
-
+    for sprite in all:
+        sprite.rect.y +=100
     # Level loop
     while run:
         clock.tick(FPS)
@@ -53,9 +54,9 @@ async def level():
         # Auto Scroll
         scroll = h.auto_scroll(counter)
 
-        zero_pos += SPEED if scroll else 0
-        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # zero_pos += SPEED if scroll else 0
+        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        # print(coor)
         # Draw on screen
         SCREEN.fill((92, 64, 51))
 
@@ -71,6 +72,7 @@ async def level():
         mouse_pos = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
         last_sprite = all.sprites()[-1]
+        print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-100)
 
 
         if str(last_sprite).startswith("<Buttons") or str(last_sprite).startswith("<Web"):

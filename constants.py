@@ -12,6 +12,7 @@ import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
 
+# Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
 # Set up screen
 WIDTH = 500
@@ -25,9 +26,14 @@ pygame.font.init()
 FPS = 40    
 
 # Autoscrolling speed
-SPEED = 1
+SPEED = 0
 SPEEDFACTOR = 5
+    # "gate1":{
+    #     "size": 50,
+    #     "pos":"(276,171)",
+    #     "direction":0
 
+    # }
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
 WASD = [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]

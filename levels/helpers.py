@@ -37,7 +37,10 @@ def load_layout(filename):
     
     # Create each object in json file
     for obj,args in data.items():
-        object = obj[:-1]
+        i = -1
+        while not obj[:i].isalpha():
+            i -= 1
+        object = obj[:i]
         # Arguments to be passed in when making the object
         arguments = []
 
