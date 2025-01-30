@@ -1,6 +1,7 @@
 # import pygame
 import json
 from constants import *
+import sprites.flies
 
 # Move all players
 def move_players(key):
@@ -66,6 +67,10 @@ def load_layout(filename):
 
 
 def transition():
-    pass
+    global all
+    for obj in all.sprites()[:]:
+        if type(obj) != flies.Flies:
+            print(type(obj))
+            all.remove(obj)
 
 

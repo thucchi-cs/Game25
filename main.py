@@ -32,10 +32,10 @@ async def main():
     quit = await level1.level()
     if quit:
         return
-
-    # quit = await level3.level()
-    # if quit:
-    #     return
+    helpers.transition()
+    quit = await level3.level()
+    if quit:
+        return
 
 
 
