@@ -37,7 +37,9 @@ async def menu():
                     run = False
                     quit = True
                 if event.key == pygame.K_TAB:
-                    run = False
+                    players.remove(fly3,fly4)
+                    all.remove(fly3,fly4)
+                    run=False
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:

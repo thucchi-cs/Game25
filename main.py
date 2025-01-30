@@ -4,9 +4,11 @@ import pygame
 
 # Files imports
 import levels.level1 as level1
+import levels.level3 as level3
 import levels.title as title
 import levels.grid as grid
 from constants import *
+import levels.helpers as helpers
 
 # Music
 pygame.mixer.init()
@@ -30,6 +32,10 @@ async def main():
     quit = await level1.level()
     if quit:
         return
+
+    # quit = await level3.level()
+    # if quit:
+    #     return
 
 
 

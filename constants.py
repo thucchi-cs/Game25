@@ -8,6 +8,7 @@ import sprites.obstacles.gates as gate
 import sprites.obstacles.lasers as laser
 import sprites.obstacles.rocks as rock
 import sprites.obstacles.water as water
+import sprites.obstacles.frogs as frog
 import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
@@ -26,7 +27,7 @@ FPS = 40
 
 # Autoscrolling speed
 SPEED = 1
-SPEEDFACTOR = 3
+SPEEDFACTOR = 1
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
@@ -35,10 +36,10 @@ TFGH = [pygame.K_t, pygame.K_g, pygame.K_f, pygame.K_h]
 IJKL = [pygame.K_i, pygame.K_k, pygame.K_j, pygame.K_l]
 
 # Sprites
-fly1 = flies.Flies(275, 500, ARROWS)
-fly2 = flies.Flies(225, 500, WASD)
-fly3 = flies.Flies(175, 500, TFGH)
-fly4 = flies.Flies(325, 500, IJKL)
+fly1 = flies.Flies(275, 500, ARROWS, 1)
+fly2 = flies.Flies(225, 500, WASD, 2)
+fly3 = flies.Flies(175, 500, TFGH, 3)
+fly4 = flies.Flies(325, 500, IJKL, 4)
 
 # Text for web
 save_text = text.Text("freesansbold.ttf", 30, "Test", (83,83,140), 250, 50)
@@ -57,15 +58,16 @@ lasers = pygame.sprite.Group()
 elevators = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 ends = pygame.sprite.Group()
+frogs = pygame.sprite.Group()
 all = pygame.sprite.Group(players)
 
 # Sprites and groups dicts for json planning
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
             'elevator': elevator.Elevators, 'gate': gate.Gate,
             'laser': laser.Lasers, 'rock': rock.Rocks,
-            'water': water.Water, 'web': web.Web, 'end': end.End}
+            'water': water.Water, 'frog': frog.Frog, 'web': web.Web, 'end': end.End}
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates,
             'laser': lasers, 'rock': rocks,
-            'water': waters, 'web': webs, 'end': ends}
+            'water': waters, 'frog': frogs, 'web': webs, 'end': ends}

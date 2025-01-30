@@ -5,7 +5,7 @@ from constants import *
 # Move all players
 def move_players(key):
     for fly in players:
-        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, waters, elevators, buttons, lasers))
+        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, waters, elevators, buttons, lasers, frogs))
         fly.elevator_move(elevators)
         fly.check_web(webs)
         fly.check_btn(buttons)
@@ -65,7 +65,7 @@ def load_layout(filename):
         all.add(temp)
 
 
-def transistion():
+def transition():
     pass
 
 
