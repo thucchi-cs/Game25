@@ -95,21 +95,14 @@ class Flies(pygame.sprite.Sprite):
                 # Prevent moving into walls
                 for object in obstacles:
                     if pygame.sprite.collide_mask(object, self):
-                        smth = pygame.sprite.collide_mask(self, object)
-                        print("fly: ", self.rect.x, self.rect.y, self.rect.right, self.rect.bottom)
-                        print("obj: ", object.rect.x, object.rect.y, object.rect.right, object.rect.bottom)     
-                        self.angle -= rotation
+                        # self.angle -= rotation
                         if abs(self.rect.x - object.rect.right) <= 7:
-                            print(self.rect.x, object.rect.right)
                             self.rect.x -= (self.rect.x - object.rect.right)
                         if abs(self.rect.right - object.rect.x) <= 7:
-                            print("hi", self.rect.right, object.rect.x)
                             self.rect.x -= (self.rect.right - object.rect.x)
                         if 0 < self.rect.bottom - object.rect.y <= 7:
-                            print("hi", self.rect.right, object.rect.x)
                             self.rect.y -= (self.rect.bottom - object.rect.y)
                         if 0 < object.rect.bottom - self.rect.y <= 7:
-                            print("hi", self.rect.right, object.rect.x)
                             self.rect.y += (object.rect.bottom - self.rect.y)
                         self.render_image(self.image_path)
 

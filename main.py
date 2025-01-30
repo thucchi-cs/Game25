@@ -23,9 +23,9 @@ async def main():
     #     return
 
     # Run main menu
-    # quit = await title.menu()
-    # if quit:
-    #     return
+    quit = await title.menu()
+    if quit:
+        return
     
     # Run level1
     quit = await level3.level()

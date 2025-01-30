@@ -7,7 +7,7 @@ class End(pygame.sprite.Sprite):
         super().__init__()
         # Load image
         self.image = pygame.image.load("graphics/yayyy.png")
-        self.image = pygame.transform.scale_by(self.image, scale)
+        self.image = pygame.transform.smoothscale(self.image, scale)
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]
         self.rect.y = pos[1]

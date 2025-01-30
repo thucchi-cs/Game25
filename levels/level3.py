@@ -15,7 +15,7 @@ async def level():
     zero_pos = 0
     h.load_layout('level3.json')
     
-    skip = -300
+    skip = 0
     for sprite in constants.all:
         sprite.rect.y += skip
     for e in constants.elevators:
@@ -72,7 +72,7 @@ async def level():
 
         zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
