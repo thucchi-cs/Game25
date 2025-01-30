@@ -3,7 +3,7 @@ import asyncio
 import pygame
 
 # Files imports
-import levels.level1 as level1
+# import levels.level1 as level1
 import levels.level3 as level3
 import levels.title as title
 import levels.grid as grid
