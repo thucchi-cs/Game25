@@ -26,8 +26,8 @@ pygame.font.init()
 FPS = 40    
 
 # Autoscrolling speed
-SPEED = 0
-SPEEDFACTOR = 5
+SPEED = 1
+SPEEDFACTOR = 4
     # "gate1":{
     #     "size": 50,
     #     "pos":"(276,171)",

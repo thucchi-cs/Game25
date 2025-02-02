@@ -12,9 +12,10 @@ async def level():
     dead = False
     counter = 0
     zero_pos = 0
+    offset = 0
     h.load_layout('level2.json')
     for sprite in all:
-        sprite.rect.y +=100
+        sprite.rect.y +=offset
     # Level loop
     while run:
         clock.tick(FPS)
@@ -72,14 +73,14 @@ async def level():
         mouse_pos = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
 
         last_sprite = all.sprites()[-1]
-        print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-100)
+        print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-offset)
 
 
         if str(last_sprite).startswith("<Buttons") or str(last_sprite).startswith("<Web"):
             print("Center Center object found")
             last_sprite.rect.centerx = mouse_pos[0]
             last_sprite.rect.centery = mouse_pos[1]
-        elif str(last_sprite).startswith("<Wall") or str(last_sprite).startswith("<Gate") or str(last_sprite).startswith("<Water") or str(last_sprite).startswith("<Rocks"):
+        elif str(last_sprite).startswith("<Wall") or str(last_sprite).startswith("<Gate") or str(last_sprite).startswith("<Water") or str(last_sprite).startswith("<Rocks") or str(last_sprite).startswith("<End"):
             print("Top left found")
             last_sprite.rect.x = mouse_pos[0]
             last_sprite.rect.y = mouse_pos[1]
