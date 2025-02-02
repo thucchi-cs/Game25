@@ -70,7 +70,9 @@ async def level():
         all.draw(SCREEN)
         if save_display:
             save_text.blit_text(SCREEN)
-        all.update()
+        for sprite in all.sprites():
+            if sprite.rect.bottom > 0 and sprite.rect.top < 600:
+                sprite.update()
         pygame.display.flip()
 
         # asyncio

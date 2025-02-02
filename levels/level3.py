@@ -71,8 +71,8 @@ async def level():
         scroll = h.auto_scroll(counter)
 
         zero_pos += constants.SPEED if scroll else 0
-        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        # print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
@@ -89,7 +89,10 @@ async def level():
         constants.all.draw(constants.SCREEN)
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
-        constants.all.update()
+        for sprite in constants.all.sprites():
+            if sprite.rect.bottom > 0 and sprite.rect.top < 600:
+                # sprite.draw(constants.SCREEN)
+                sprite.update()
         pygame.display.flip()
 
         # asyncio

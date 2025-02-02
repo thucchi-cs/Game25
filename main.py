@@ -28,11 +28,22 @@ async def main():
     if quit:
         return
     
+    # Run level one transition
+    quit = await helpers.transition(1)
+    if quit:
+        return
+    
     # Run level1
     quit = await level1.level()
     if quit:
         return
-    helpers.transition()
+
+    # Run level one transition
+    quit = await helpers.transition(2)
+    if quit:
+        return
+    
+    # Run level3
     quit = await level3.level()
     if quit:
         return
