@@ -5,7 +5,7 @@ import pygame
 import constants
 import levels.helpers as h
 # Level 3 loop
-async def level():
+async def level(lvl):
     # Time
     clock = pygame.time.Clock()
     run = True
@@ -13,7 +13,7 @@ async def level():
     dead = False
     counter = 0
     zero_pos = 0
-    h.load_layout('level3.json')
+    h.load_layout('level'+str(lvl)+'.json')
     
     skip = 0
     for sprite in constants.all:
@@ -29,6 +29,8 @@ async def level():
     while run:
         clock.tick(constants.FPS)
         counter += 1
+        # if counter % 2 == 0:
+        #     h.something()
 
         # Event handles
         for event in pygame.event.get():
@@ -62,17 +64,17 @@ async def level():
             # Check for web collision
             if fly.stuck:
                 save_display = True
-
         # Debug prints
         # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         # print(dead)
 
         # Auto Scroll
         scroll = h.auto_scroll(counter)
+        h.load_on_screen()
 
         zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
@@ -91,6 +93,7 @@ async def level():
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
         pygame.display.flip()
+        # print(len(constants.all))
 
         # asyncio
         await asyncio.sleep(0)

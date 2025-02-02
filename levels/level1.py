@@ -52,10 +52,11 @@ async def level():
 
         # Auto Scroll
         scroll = h.auto_scroll(counter)
+        h.load_on_screen()
 
         zero_pos += SPEED if scroll else 0
-        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
         SCREEN.fill((92, 64, 51))
 

@@ -2,7 +2,7 @@
 import json
 from constants import *
 import sprites.flies
-
+smth = 2
 # Move all players
 def move_players(key):
     for fly in players:
@@ -26,16 +26,18 @@ def move_players(key):
 def auto_scroll(counter):
     if counter % SPEEDFACTOR == 0:
 
-        for sprite in all:
+        for sprite in pygame.sprite.Group(all, preload):
             sprite.scroll()
         return True
     return False
+
 # Load the level layout from json file
 def load_layout(filename):
+    global smth
     # Open and load file
     file = open('levels/layouts/' + filename, 'r')
     data = json.load(file)
-    
+
     # Create each object in json file
     for obj,args in data.items():
         i = -1
@@ -57,20 +59,34 @@ def load_layout(filename):
         
         # Assign sprite to button
         if object == 'btn':
-            sprite = all.sprites()[-1]
+            sprite = preload.sprites()[-1]
             arguments.append(sprite)
         
         # Create object and add to groups
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
-        all.add(temp)
+        preload.add(temp)
 
+        
+def load_on_screen():
+    for obj in preload.sprites()[:]:
+        if obj.rect.bottom > 0:
+            all.add(obj)
+            preload.remove(obj)
+    
+    for obj in all.sprites()[:]:
+        if obj.rect.top > HEIGHT + 20:
+            obj.kill()
 
 def transition():
     global all
     for obj in all.sprites()[:]:
         if type(obj) != flies.Flies:
-            print(type(obj))
             all.remove(obj)
+            obj.kill()
+    
+    for obj in preload.sprites()[:]:
+        preload.remove(obj)
+        obj.kill()
 
 

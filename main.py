@@ -24,16 +24,16 @@ async def main():
     #     return
 
     # Run main menu
-    quit = await title.menu()
-    if quit:
-        return
+    # quit = await title.menu()
+    # if quit:
+    #     return
     
     # Run level1
-    quit = await level1.level()
+    quit = await level3.level(1)
     if quit:
         return
     helpers.transition()
-    quit = await level3.level()
+    quit = await level3.level(3)
     if quit:
         return
 
