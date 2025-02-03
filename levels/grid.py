@@ -40,7 +40,6 @@ async def screen():
                     run = False
 
         # Write coordinates
-        print(pygame.mouse.get_pos())
 
         # asyncio
         await asyncio.sleep(0)

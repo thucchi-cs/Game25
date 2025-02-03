@@ -13,6 +13,7 @@ import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
 
+# Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
 # Set up screen
 WIDTH = 500
@@ -27,7 +28,7 @@ FPS = 40
 
 # Autoscrolling speed
 SPEED = 1
-SPEEDFACTOR = 2
+SPEEDFACTOR = 1
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]

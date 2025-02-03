@@ -62,6 +62,7 @@ def load_layout(filename):
             sprite = preload.sprites()[-1]
             arguments.append(sprite)
         
+        
         # Create object and add to groups
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)

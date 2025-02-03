@@ -7,7 +7,6 @@ import levels.level3 as level3
 import levels.title as title
 import levels.grid as grid
 from constants import *
-import levels.helpers as helpers
 import levels.transition as transition
 
 # Music
@@ -40,6 +39,15 @@ async def main():
 
     # Run level one transition
     quit = await transition.transition(2)
+    if quit:
+        return
+    
+    # Run level3
+    quit = await level3.level(2)
+    if quit:
+        return
+    
+    quit = await transition.transition(3)
     if quit:
         return
     
