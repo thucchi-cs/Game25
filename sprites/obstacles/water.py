@@ -35,6 +35,7 @@ class Water(pygame.sprite.Sprite):
 
         else:
             # Water flowing animation
+            self.counter %= 10
             self.counter +=1
             if self.counter == 1 or self.counter == 2:
                 self.image = pygame.image.load("graphics/water-2.png")
@@ -46,8 +47,8 @@ class Water(pygame.sprite.Sprite):
                 self.image = pygame.image.load("graphics/water-5.png")
             elif self.counter == 9 or self.counter == 10:
                 self.image = pygame.image.load("graphics/water.png")
-            else:
-                self.counter = 0
+            # else:
+            #     self.counter = 0
             self.image = pygame.transform.scale(self.image,self.size)
             self.rect.x = self.realX if self.show else 9000
         

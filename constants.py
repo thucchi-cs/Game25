@@ -60,6 +60,7 @@ walls = pygame.sprite.Group()
 ends = pygame.sprite.Group()
 frogs = pygame.sprite.Group()
 all = pygame.sprite.Group(players)
+preload = pygame.sprite.Group()
 
 # Sprites and groups dicts for json planning
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 

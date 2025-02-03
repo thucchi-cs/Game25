@@ -3,12 +3,12 @@ import asyncio
 import pygame
 
 # Files imports
-import levels.level1 as level1
 import levels.level3 as level3
 import levels.title as title
 import levels.grid as grid
 from constants import *
 import levels.helpers as helpers
+import levels.transition as transition
 
 # Music
 pygame.mixer.init()
@@ -29,22 +29,22 @@ async def main():
         return
     
     # Run level one transition
-    quit = await helpers.transition(1)
+    quit = await transition.transition(1)
     if quit:
         return
     
     # Run level1
-    quit = await level1.level()
+    quit = await level3.level(1)
     if quit:
         return
 
     # Run level one transition
-    quit = await helpers.transition(2)
+    quit = await transition.transition(2)
     if quit:
         return
     
     # Run level3
-    quit = await level3.level()
+    quit = await level3.level(3)
     if quit:
         return
 

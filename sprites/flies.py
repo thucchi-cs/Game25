@@ -11,8 +11,9 @@ class Flies(pygame.sprite.Sprite):
         super().__init__()
         # Load image and position
         self.dead = 'graphics/flydead.png'
-        self.image_path = 'graphics/fly'+str(n)+'.png'
-        self.image = pygame.image.load(self.image_path)
+        self.image_paths = ['graphics/fly'+str(n)+'.1.png', 'graphics/fly'+str(n)+'.2.png']
+        self.current_image = self.image_paths[0]
+        self.image = pygame.image.load(self.current_image)
         self.size = (25, 35)
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
@@ -31,6 +32,7 @@ class Flies(pygame.sprite.Sprite):
         self.angle = 90
         self.rotation_spd = 10
         self.speed = 5
+        self.counter = 0
 
         # Stuck variable restricts movement when in web
         self.stuck = False
@@ -90,7 +92,7 @@ class Flies(pygame.sprite.Sprite):
                 self.angle += rotation
 
                 # Render image
-                self.render_image(self.image_path)
+                self.render_image(self.current_image)
 
                 # Prevent moving into walls
                 for object in obstacles:
@@ -104,7 +106,7 @@ class Flies(pygame.sprite.Sprite):
                             self.rect.y -= (self.rect.bottom - object.rect.y)
                         if 0 < object.rect.bottom - self.rect.y <= 7:
                             self.rect.y += (object.rect.bottom - self.rect.y)
-                        self.render_image(self.image_path)
+                        self.render_image(self.current_image)
 
     # Check if stuck in webs
     def check_web(self, webs):
@@ -113,7 +115,7 @@ class Flies(pygame.sprite.Sprite):
             self.stuck = True
             self.render_image(self.dead)
         else:
-            self.render_image(self.image_path)
+            self.render_image(self.current_image)
             
     def render_image(self, image):
         x, y = self.rect.centerx, self.rect.centery
@@ -181,5 +183,10 @@ class Flies(pygame.sprite.Sprite):
     def scroll(self):
         self.rect.y += constants.SPEED
     
-    # def update(self):
-    #     pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)
+    def update(self):
+        self.counter += 1
+        if self.counter % 5 == 0:
+            current = self.image_paths.index(self.current_image)
+            current = 1 - current
+            self.current_image = self.image_paths[current]
+        # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)

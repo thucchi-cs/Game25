@@ -1,8 +1,6 @@
 # import pygame
 import json
-import asyncio
 from constants import *
-import sprites.flies
 import sprites.text as text
 
 # Move all players
@@ -28,16 +26,18 @@ def move_players(key):
 def auto_scroll(counter):
     if counter % SPEEDFACTOR == 0:
 
-        for sprite in all:
+        for sprite in pygame.sprite.Group(all, preload):
             sprite.scroll()
         return True
     return False
+
 # Load the level layout from json file
 def load_layout(filename):
+    global smth
     # Open and load file
     file = open('levels/layouts/' + filename, 'r')
     data = json.load(file)
-    
+
     # Create each object in json file
     for obj,args in data.items():
         i = -1
@@ -59,51 +59,25 @@ def load_layout(filename):
         
         # Assign sprite to button
         if object == 'btn':
-            sprite = all.sprites()[-1]
+            sprite = preload.sprites()[-1]
             arguments.append(sprite)
         
         # Create object and add to groups
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
-        all.add(temp)
+        preload.add(temp)
 
-
-async def transition(level_num):
-    global all
+        
+def load_on_screen():
+    for obj in preload.sprites()[:]:
+        if obj.rect.bottom > 0:
+            all.add(obj)
+            preload.remove(obj)
+    
     for obj in all.sprites()[:]:
-        if type(obj) != flies.Flies:
-            print(type(obj))
-            all.remove(obj)
-    
-    quit = False
-    run = True
-    display_text = text.Text("freesansbold.ttf", 30, f"Level {level_num}", (83,83,140), 500, 200)
-    counter = 0
-    while run:
-        # Event handles
-        for event in pygame.event.get():
-            # Check to close game
-            if event.type == pygame.QUIT:
-                run = False
-                quit = True
-            if display_text.center_x < 10:
-                run = False
-        
-        
-        counter += 1
-        SCREEN.fill((0, 0, 0))
-        display_text.blit_text(SCREEN)
-        if counter % 5 == 0:
-            display_text.center_x -= 1
-        
-        
-        
-        
-        pygame.display.flip()
-        # asyncio
-        await asyncio.sleep(0)
-    
-    return quit
+        if obj.rect.top > HEIGHT + 20:
+            obj.kill()
+
 
         
         
