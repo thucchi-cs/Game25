@@ -14,10 +14,10 @@ async def menu():
     quit = False
 
     # Create buttons
-    start_btn = btn.menuBtn((279, 94), (WIDTH // 2, HEIGHT -75), 'start_button3.png')
-    p2_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 150), 'player_button2.png')
-    p3_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 150), '3-player-button.png')
-    p4_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 150), '4-player-button.png')
+    start_btn = btn.menuBtn((279, 94), (WIDTH // 2, HEIGHT -75), 'startbutton5.png')
+    p2_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 150), 'player2button.png')
+    p3_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 150), 'player3button.png')
+    p4_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 150), 'player4button.png')
 
     # Create Assets
     menu_text = img.imgDisplay((500,600),(0,0),'menu_assets/fly_out_text.png')
