@@ -7,7 +7,7 @@ import pygame
 # Move all players
 def move_players(key):
     for fly in players:
-        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, waters, elevators, buttons, lasers, frogs))
+        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, waters, elevators, buttons, frogs))
         fly.elevator_move(elevators)
         fly.check_web(webs)
         fly.check_btn(buttons)

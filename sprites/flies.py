@@ -28,12 +28,14 @@ class Flies(pygame.sprite.Sprite):
         self.rise = 0.00
         self.run = 0.00
         self.start_pos = (x,y)
+        self.deadx = -100
 
         # Movements variables
         self.angle = 90
         self.rotation_spd = 10
         self.speed = 5
         self.counter = 0
+        self.show = True
 
         # Stuck variable restricts movement when in web
         self.stuck = False
@@ -77,11 +79,13 @@ class Flies(pygame.sprite.Sprite):
                         self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
 
                 # Off Screen Movement 
-                if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
-                    if self.rect.y < 0:
-                        self.actualy += -int(self.rise)
-                    elif self.rect.y > (600-self.rect.height):
-                        self.actualy += -int(self.rise)
+                # if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
+                #     if self.rect.y < 0:
+                #         self.actualy += -int(self.rise)
+                #     elif self.rect.y > (600-self.rect.height):
+                #         self.actualy += -int(self.rise)
+                if self.rect.y < 0:
+                    self.actualy += -int(self.rise)
 
                     self.rect.y = (600-self.rect.height) if (self.rect.y > 500) else 0
 
@@ -119,6 +123,17 @@ class Flies(pygame.sprite.Sprite):
                             self.rect.y += (object.rect.bottom - self.rect.y)
                         self.render_image(self.current_image)
 
+    def check_offscreen(self):
+        if self.rect.y >= (constants.HEIGHT - self.rect.height // 2):
+            self.deadx = self.rect.x
+            return True
+        return False
+    
+    def flash(self):
+        self.show = not ((self.counter % 15 >= 0) and (self.counter % 15 <= 6))
+        print(self.show)
+        # self.counter += 1
+
     # Check if stuck in webs
     def check_web(self, webs):
         collided_web = pygame.sprite.spritecollideany(self, webs)
@@ -139,6 +154,7 @@ class Flies(pygame.sprite.Sprite):
     def collide_rock(self, rocks):
         for rock in rocks:
             if pygame.sprite.collide_mask(rock, self):
+                self.deadx = self.rect.x
                 return True
         return False
             
@@ -146,6 +162,7 @@ class Flies(pygame.sprite.Sprite):
     def check_lasers(self, lasers):
         for laser in lasers:
             if pygame.sprite.collide_mask(self, laser):
+                self.deadx = self.rect.x
                 return True
         return False
     # Check collision with the end 
@@ -196,7 +213,9 @@ class Flies(pygame.sprite.Sprite):
     
     def update(self):
         self.counter += 1
-        if self.counter % 5 == 0:
+        if self.deadx >= 0:
+            self.rect.x = self.deadx if self.show else (610 + self.rect.width)
+        elif self.counter % 5 == 0:
             current = self.image_paths.index(self.current_image)
             current = 1 - current
             self.current_image = self.image_paths[current]

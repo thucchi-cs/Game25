@@ -12,9 +12,11 @@ async def level(lvl):
     clock = pygame.time.Clock()
     run = True
     quit = False
-    dead = False
+    dead_flys = []
     counter = 0
     zero_pos = 0
+    start_dead = 0
+    restart = False
     fade = 255
     h.load_layout('level'+str(lvl)+'.json')
     
@@ -60,25 +62,36 @@ async def level(lvl):
             run = False
         
         # Move sprites and interact with other elements
-        key = pygame.key.get_pressed() 
-        h.move_players(key)
-        save_display = False
-        for fly in constants.players:
-            dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers)
-            # Check for web collision
-            if fly.stuck:
-                save_display = True
-        # Debug prints
-        # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
-        # print(dead)
+        if len(dead_flys) == 0:
+            save_display = False
+            for fly in constants.players:
+                dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers) or fly.check_offscreen()
+                if dead:
+                    dead_flys.append(fly)
+                    start_dead = counter
+                # Check for web collision
+                if fly.stuck:
+                    save_display = True
+            # Debug prints
+            # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
+            print("dead", dead)
 
-        # Auto Scroll
-        scroll = h.auto_scroll(counter)
-        h.load_on_screen()
+            key = pygame.key.get_pressed() 
+            h.move_players(key)
+            # Auto Scroll
+            scroll = h.auto_scroll(counter)
+            h.load_on_screen()
+        else:
+            if counter - start_dead < 40:
+                for fly in dead_flys:
+                    fly.flash()
+            else:
+                restart = True
+                run = False
 
         zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
@@ -106,4 +119,9 @@ async def level(lvl):
         await asyncio.sleep(0)
     
     h.fade_out_animation(clock)
-    return quit
+    if quit:
+        return "quit"
+    elif restart:
+        return "restart"
+    else:
+        return "win"
