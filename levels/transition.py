@@ -8,16 +8,21 @@ async def transition(level_num):
         if type(obj) != flies.Flies:
             all.remove(obj)
             obj.kill()
+        else:
+            obj.reset()
+            
     for obj in preload.sprites()[:]:
         preload.remove(obj)
         obj.kill()
     
+    clock = pygame.time.Clock()
     quit = False
     run = True
     display_text = text.Text("freesansbold.ttf", 30, f"Level {level_num}", (83,83,140), 500, 200)
     counter = 0
     while run:
         # Event handles
+        clock.tick(FPS)
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
