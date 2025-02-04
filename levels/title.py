@@ -121,7 +121,6 @@ async def menu():
         layer1.draw(SCREEN)
         btns.draw(SCREEN)
 
-        print(pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
         pygame.display.flip()
 
         # asyncio

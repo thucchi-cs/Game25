@@ -74,7 +74,6 @@ async def level(lvl):
 
         zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
