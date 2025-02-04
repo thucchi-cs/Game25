@@ -2,6 +2,7 @@
 import json
 from constants import *
 import sprites.text as text
+import pygame
 
 # Move all players
 def move_players(key):
@@ -80,6 +81,32 @@ def load_on_screen():
             obj.kill()
 
 
-        
-        
-        
+def fade_out(fade_level):
+    alpha = fade_level + FADE_FACTOR
+    if alpha > 100:
+        return 100
+    print(alpha)
+    FADE_SURFACE.fill((0,0,0, alpha))
+    SCREEN.blit(FADE_SURFACE, (0,0))
+    return alpha
+
+def fade_in(fade_level):
+    alpha = fade_level - FADE_FACTOR
+    print(fade_level)
+    if alpha < 0:
+        return 0
+    FADE_SURFACE.fill((0,0,0, alpha))
+    SCREEN.blit(FADE_SURFACE, (0,0))
+    return alpha
+
+def fade_out_animation(clock):
+    fade = 0
+    while fade < 100:
+        clock.tick(FPS)
+        fade = fade_out(fade)
+        pygame.display.flip()
+
+def fade_in_animation(fade):
+    if fade > 0:
+            fade = fade_in(fade)
+    return fade

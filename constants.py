@@ -19,6 +19,10 @@ import sprites.obstacles.end as end
 WIDTH = 500
 HEIGHT = 600
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+
+FADE_SURFACE = pygame.Surface((WIDTH,HEIGHT), pygame.SRCALPHA)
+FADE_FACTOR = 5
+
 pygame.display.set_caption("TSA Game 2025")
 
 pygame.font.init()

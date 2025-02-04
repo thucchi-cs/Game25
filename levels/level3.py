@@ -4,6 +4,8 @@ import pygame
 # from constants import *
 import constants
 import levels.helpers as h
+import threading
+
 # Level 3 loop
 async def level(lvl):
     # Time
@@ -13,6 +15,7 @@ async def level(lvl):
     dead = False
     counter = 0
     zero_pos = 0
+    fade = 255
     h.load_layout('level'+str(lvl)+'.json')
     
     skip = 0
@@ -24,7 +27,8 @@ async def level(lvl):
     for f in constants.frogs:
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
-
+    
+    
     # Level loop
     while run:
         clock.tick(constants.FPS)
@@ -92,10 +96,14 @@ async def level(lvl):
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
+        fade = h.fade_in_animation(fade)
+        
         pygame.display.flip()
+        # h.fade_animation(clock, h.fade_in, 255)
         # print(len(constants.all))
 
         # asyncio
         await asyncio.sleep(0)
     
+    h.fade_out_animation(clock)
     return quit
