@@ -14,7 +14,7 @@ async def level(lvl):
     counter = 0
     zero_pos = 0
     h.load_layout('level'+str(lvl)+'.json')
-    
+    # 159 390
     skip = 0
     for sprite in constants.all:
         sprite.rect.y += skip
@@ -50,6 +50,8 @@ async def level(lvl):
                 # Stop scroll cheat code
                 if event.key == pygame.K_BACKSPACE:
                     constants.SPEED = 0 if constants.SPEED else 1
+
+
               
         # Win level      
         if len(constants.players.sprites()) == 0:
@@ -67,13 +69,28 @@ async def level(lvl):
         # Debug prints
         # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         # print(dead)
-
+        
         # Auto Scroll
         scroll = h.auto_scroll(counter)
         h.load_on_screen()
-
+        last_sprite = constants.all.sprites()[-1]
         zero_pos += constants.SPEED if scroll else 0
+
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
+
+
+
+        # if str(last_sprite).startswith("<Buttons") or str(last_sprite).startswith("<Web"):
+        #     last_sprite.rect.centerx = pygame.mouse.get_pos()[0]
+        #     last_sprite.rect.centery = pygame.mouse.get_pos()[1]
+        # elif str(last_sprite).startswith("<Wall") or str(last_sprite).startswith("<Gate") or str(last_sprite).startswith("<Water") or str(last_sprite).startswith("<Rocks"):
+        #     last_sprite.rect.x = pygame.mouse.get_pos()[0]
+        #     last_sprite.rect.y = pygame.mouse.get_pos()[1]
+        # elif str(last_sprite).startswith("<Lasers") or str(last_sprite).startswith("<Elevators"):
+        #     last_sprite.rect.centerx = pygame.mouse.get_pos()[0]
+        #     last_sprite.rect.y = pygame.mouse.get_pos()[1]
+
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
