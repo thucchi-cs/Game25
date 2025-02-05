@@ -32,7 +32,7 @@ class Flies(pygame.sprite.Sprite):
 
         # Movements variables
         self.angle = 90
-        self.rotation_spd = 10
+        self.rotation_spd = 5
         self.speed = 5
         self.counter = 0
         self.show = True
@@ -219,4 +219,5 @@ class Flies(pygame.sprite.Sprite):
             current = self.image_paths.index(self.current_image)
             current = 1 - current
             self.current_image = self.image_paths[current]
+            self.render_image(self.current_image)
         # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)

@@ -30,7 +30,9 @@ async def level(lvl):
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
     
-    
+    # Add the players back into all
+    constants.all.add(constants.players)
+
     # Level loop
     while run:
         clock.tick(constants.FPS)
@@ -92,22 +94,8 @@ async def level(lvl):
                 run = False
         last_sprite = constants.all.sprites()[-1]
         zero_pos += constants.SPEED if scroll else 0
-
-        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
-
-
-
-        # if str(last_sprite).startswith("<Buttons") or str(last_sprite).startswith("<Web"):
-        #     last_sprite.rect.centerx = pygame.mouse.get_pos()[0]
-        #     last_sprite.rect.centery = pygame.mouse.get_pos()[1]
-        # elif str(last_sprite).startswith("<Wall") or str(last_sprite).startswith("<Gate") or str(last_sprite).startswith("<Water") or str(last_sprite).startswith("<Rocks"):
-        #     last_sprite.rect.x = pygame.mouse.get_pos()[0]
-        #     last_sprite.rect.y = pygame.mouse.get_pos()[1]
-        # elif str(last_sprite).startswith("<Lasers") or str(last_sprite).startswith("<Elevators"):
-        #     last_sprite.rect.centerx = pygame.mouse.get_pos()[0]
-        #     last_sprite.rect.y = pygame.mouse.get_pos()[1]
-
+        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        # print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
