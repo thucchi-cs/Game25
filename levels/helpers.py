@@ -71,6 +71,7 @@ def load_layout(filename):
 
         
 def load_on_screen():
+    pass
     for obj in preload.sprites()[:]:
         if obj.rect.bottom > 0:
             all.add(obj)
