@@ -32,7 +32,7 @@ FPS = 40
 
 # Autoscrolling speed
 SPEED = 1
-SPEEDFACTOR = 1
+SPEEDFACTOR = 2
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
@@ -50,7 +50,6 @@ fly4 = flies.Flies(325, 500, IJKL, 4)
 save_text = text.Text("freesansbold.ttf", 30, "Test", (83,83,140), 250, 50)
 
 # Sprite Groups
-playercount = 4
 players = pygame.sprite.Group()
 players.add(fly1, fly2,fly3,fly4)
 buttons = pygame.sprite.Group()

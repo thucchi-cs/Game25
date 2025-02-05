@@ -28,7 +28,9 @@ async def level(lvl):
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
     
-    
+    # Add the players back into all
+    constants.all.add(constants.players)
+
     # Level loop
     while run:
         clock.tick(constants.FPS)
@@ -77,8 +79,8 @@ async def level(lvl):
         h.load_on_screen()
 
         zero_pos += constants.SPEED if scroll else 0
-        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        # print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 

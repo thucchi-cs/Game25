@@ -27,18 +27,15 @@ async def main():
     if quit:
         return
     
-    # Run level one transition
-    quit = await transition.transition(1)
-    if quit:
-        return
-    
+    player_count = len(players)
+
     # Run level1
     quit = await level3.level(1)
     if quit:
         return
 
-    # Run level one transition
-    quit = await transition.transition(2)
+    # Run level one transitionw
+    quit = await transition.transition(2, player_count)
     if quit:
         return
     
@@ -47,7 +44,7 @@ async def main():
     if quit:
         return
     
-    quit = await transition.transition(3)
+    quit = await transition.transition(3, player_count)
     if quit:
         return
     
