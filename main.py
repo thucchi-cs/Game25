@@ -25,14 +25,14 @@ async def main():
     #     return
 
     # Run main menu
-    status = await title.menu()
-    if status == "quit":
-        return
+    # status = await title.menu()
+    # if status == "quit":
+    #     return
     
     player_count = len(players)
 
     # Run level1
-    for lvl in range(1, 4):
+    for lvl in range(3, 4):
         status = "restart"
         while status == "restart":
             status = await level.level(lvl)
@@ -41,11 +41,11 @@ async def main():
             h.reset_sprites()
             if status == "restart":
                 await restart.restart()
-
+        # print(status)
         # Run level one transitionw
-        status = await transition.transition(lvl+1, player_count)
-        if status == "quit":
-            return
+        # status = await transition.transition(lvl+1, player_count)
+        # if status == "quit":
+        #     return
 
 
 

@@ -67,26 +67,26 @@ def load_layout(filename):
         
         # Assign sprite to button
         if object == 'btn':
-            sprite = preload.sprites()[-1]
+            sprite = all.sprites()[-1]
             arguments.append(sprite)
         
         
         # Create object and add to groups
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
-        preload.add(temp)
+        all.add(temp)
 
         
 def load_on_screen():
     pass
-    for obj in preload.sprites()[:]:
-        if obj.rect.bottom > 0:
-            all.add(obj)
-            preload.remove(obj)
+    # for obj in preload.sprites()[:]:
+    #     if obj.rect.bottom > 0:
+    #         all.add(obj)
+    #         preload.remove(obj)
     
-    for obj in all.sprites()[:]:
-        if obj.rect.top > HEIGHT + 20:
-            obj.kill()
+    # for obj in all.sprites()[:]:
+    #     if obj.rect.top > HEIGHT + 20:
+    #         obj.kill()
 
 
 def fade_out(fade_level):

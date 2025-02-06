@@ -63,7 +63,8 @@ async def level(lvl):
               
         # Win level   
         if h.check_win():
-            run = False   
+            run = False 
+            print("yayy")  
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:
@@ -71,7 +72,7 @@ async def level(lvl):
             for fly in constants.players:
                 dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers) or fly.check_offscreen()
                 if dead:
-                    dead_flys.append(fly)
+                    # dead_flys.append(fly)
                     start_dead = counter
                 # Check for web collision
                 if fly.stuck:
@@ -93,8 +94,8 @@ async def level(lvl):
                 run = False
         last_sprite = constants.all.sprites()[-1]
         zero_pos += constants.SPEED if scroll else 0
-        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
         constants.SCREEN.fill((92, 64, 51))
 
