@@ -28,7 +28,7 @@ pygame.display.set_caption("TSA Game 2025")
 pygame.font.init()
 
 # Frames timing
-FPS = 30    
+FPS = 60    
 
 # Autoscrolling speed
 SPEED = 1

@@ -13,9 +13,10 @@ import levels.restart as restart
 
 # Music
 pygame.mixer.init()
-pygame.mixer.music.load('music/life.ogg')
-pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(0.2)
+background_music = pygame.mixer.Sound('music/life.ogg')
+background_music.play(-1)
+background_music.set_volume(0.2)
+
 # Game
 async def main():
 

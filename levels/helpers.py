@@ -4,6 +4,7 @@ from constants import *
 import sprites.text as text
 import pygame
 import sprites.window as window
+import aiofiles
 
 # Move all players
 def move_players(key):
@@ -40,11 +41,11 @@ def auto_scroll(counter):
     return False
 
 # Load the level layout from json file
-def load_layout(filename):
+async def load_layout(filename):
     global smth
     # Open and load file
-    file = open('levels/layouts/' + filename, 'r')
-    data = json.load(file)
+    async with aiofiles.open('levels/layouts/' + filename, 'r') as file:
+        data = json.loads(await file.read())
 
     # Create each object in json file
     for obj,args in data.items():

@@ -19,7 +19,7 @@ async def screen():
     pygame.draw.line(SCREEN, (0, 255, 0), (WIDTH // 2, 0), (WIDTH // 2, HEIGHT), width = 2)
     pygame.draw.line(SCREEN, (0, 255, 0), (0, HEIGHT // 2), (WIDTH, HEIGHT // 2), width = 2)
 
-    pygame.display.flip()
+    pygame.display.update()
 
     # Menu loop
     while run:
