@@ -34,7 +34,7 @@ async def main():
     for lvl in range(1, 4):
         status = "restart"
         while status == "restart":
-            status = await level.level(lvl)
+            status = await level.level(3)
             if status == "quit":
                 return
             h.reset_sprites()
