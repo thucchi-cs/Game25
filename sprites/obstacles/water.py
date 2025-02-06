@@ -7,7 +7,7 @@ class Water(pygame.sprite.Sprite):
         super().__init__()
         # Load image
         self.images = [pygame.transform.scale(pygame.image.load(f"graphics/water-{i}.png"), size) for i in range(1, 6)]
-        self.image = pygame.image.load(self.images[0])
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.size = size
         self.pos = pos
@@ -35,10 +35,11 @@ class Water(pygame.sprite.Sprite):
 
         else:
             # Water flowing animation
-            self.counter %= 10
             self.counter +=1
+
+            self.counter %= 10
             findex = self.counter //2 # This changes to a new image every 2 frames
-            self.image = self.images(findex)
+            self.image = self.images[findex]
             self.rect.x = self.realX if self.show else 9000
         
     # Scroll with screen

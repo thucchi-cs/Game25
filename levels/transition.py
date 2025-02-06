@@ -29,8 +29,8 @@ async def transition(level_num, player_count):
 
 
     # Text variables
-    nice_job_text = text.Text("fonts/COMIC.ttf", 30, f"Level {level_num-1} Complete!", (255,255,255), 250, 200)
-    continue_text = text.Text("fonts/COMIC.ttf", 20, f"Click Anywhere to Continue to Next Level", (255,255,255), 250, 300)
+    nice_job_text = text.Text("fonts/COMIC.TTF", 30, f"Level {level_num-1} Complete!", (255,255,255), 250, 200)
+    continue_text = text.Text("fonts/COMIC.TTF", 20, f"Click Anywhere to Continue to Next Level", (255,255,255), 250, 300)
     
     # Loop variables
     clock = pygame.time.Clock()
@@ -38,7 +38,7 @@ async def transition(level_num, player_count):
     run = True
     while run:
         # Event handles
-        # clock.tick(FPS)
+        clock.tick(FPS)
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
