@@ -9,6 +9,7 @@ import levels.grid as grid
 from constants import *
 import levels.transition as transition
 import levels.helpers as h
+import levels.restart as restart
 
 # Music
 pygame.mixer.init()
@@ -38,7 +39,8 @@ async def main():
             if status == "quit":
                 return
             h.reset_sprites()
-            # if status == 
+            if status == "restart":
+                await restart.restart()
 
         # Run level one transitionw
         status = await transition.transition(lvl+1, player_count)

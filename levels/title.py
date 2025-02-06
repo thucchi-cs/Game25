@@ -1,7 +1,6 @@
 # Libraries imports
 import asyncio
 import pygame
-import pygame.examples
 import sprites.menuButtons as btn
 import sprites.images as img
 from constants import *

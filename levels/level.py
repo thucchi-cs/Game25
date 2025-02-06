@@ -122,11 +122,11 @@ async def level(lvl):
         await asyncio.sleep(0)
         
     # restart message
-    if restart:
-        h.restart_transition(clock)
+    # if restart:
+    #     h.restart_transition(clock)
     
     # fade out
-    h.fade_out_animation(clock)
+    # h.fade_out_animation(clock)
     
     # end
     if quit:
