@@ -14,7 +14,6 @@ class Window(pygame.sprite.Sprite):
         self.h = 20
         
     def zoomIn(self):
-        print(self.rect.width)
         if self.rect.width < 400:
             self.image = pygame.image.load(self.image_path)
             self.w *= self.scaleFactor
