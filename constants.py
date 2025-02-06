@@ -31,7 +31,7 @@ pygame.font.init()
 FPS = 30    
 
 # Autoscrolling speed
-SPEED = 3
+SPEED = 1
 SPEEDFACTOR = 1
 
 # Control keys

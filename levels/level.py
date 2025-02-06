@@ -72,7 +72,7 @@ async def level(lvl):
             for fly in constants.players:
                 dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers) or fly.check_offscreen()
                 if dead:
-                    # dead_flys.append(fly)
+                    dead_flys.append(fly)
                     start_dead = counter
                 # Check for web collision
                 if fly.stuck:
