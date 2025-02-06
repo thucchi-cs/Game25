@@ -64,6 +64,7 @@ class Flies(pygame.sprite.Sprite):
     
     # Move sprite with arrow keys
     def move_arrows(self, key, obstacles):
+        obstacles = [obstacle for obstacle in obstacles if ((obstacle.rect.x - self.rect.x)**(2) + (obstacle.rect.y - self.rect.y)**(2))**(1/2) < 200]
         if not self.stuck:
             # Move Forward
             if (key[self.up_key] or key[self.down_key]):
@@ -112,7 +113,7 @@ class Flies(pygame.sprite.Sprite):
                 self.angle += rotation
 
                 # Render image
-                self.render_image(self.current_image)
+                # self.render_image(self.current_image)
 
                 # Prevent moving into walls
                 for object in obstacles:
@@ -126,7 +127,7 @@ class Flies(pygame.sprite.Sprite):
                             self.rect.y -= (self.rect.bottom - object.rect.y)
                         if 0 < object.rect.bottom - self.rect.y <= 7:
                             self.rect.y += (object.rect.bottom - self.rect.y)
-                        self.render_image(self.current_image)
+                        # self.render_image(self.current_image)
 
     def check_offscreen(self):
         if self.rect.y >= (constants.HEIGHT - self.rect.height // 2):

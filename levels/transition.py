@@ -7,8 +7,6 @@ import levels.helpers as h
 
 
 async def transition(level_num, player_count):
-    # Fly list used to reset player list 
-
     # Get rid of the previous level's obstacles
     h.reset_sprites()
 

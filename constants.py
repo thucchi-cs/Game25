@@ -28,7 +28,7 @@ pygame.display.set_caption("TSA Game 2025")
 pygame.font.init()
 
 # Frames timing
-FPS = 30    
+FPS = 24
 
 # Autoscrolling speed
 SPEED = 1
@@ -47,7 +47,7 @@ fly3 = flies.Flies(175, 500, TFGH, 3)
 fly4 = flies.Flies(325, 500, IJKL, 4)
 
 # Text for web
-save_text = text.Text("freesansbold.ttf", 30, "Test", (83,83,140), 250, 50)
+save_text = text.Text("fonts/COMIC.TTF", 50, "Test", (255,255,255), 250, 75)
 
 # Sprite Groups
 players = pygame.sprite.Group()

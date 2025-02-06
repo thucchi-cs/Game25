@@ -31,7 +31,7 @@ async def main():
     player_count = len(players)
 
     # Run level1
-    for lvl in range(1, 4):
+    for lvl in range(3, 4):
         status = "restart"
         while status == "restart":
             status = await level.level(lvl)
