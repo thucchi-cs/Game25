@@ -23,8 +23,8 @@ async def menu():
 
     dirt1y = 0
     dirt2y = 1200
-    flyxs = 75
-    flyys = 100
+    flyxs = 50
+    flyys = 75
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
 
