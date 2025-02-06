@@ -130,7 +130,7 @@ class Flies(pygame.sprite.Sprite):
                         # self.render_image(self.current_image)
 
     def check_offscreen(self):
-        if self.rect.y >= (constants.HEIGHT - self.rect.height // 2):
+        if self.rect.y >= (constants.HEIGHT - self.rect.height * 0.75):
             self.deadx = self.rect.x
             return True
         return False
