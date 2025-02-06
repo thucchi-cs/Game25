@@ -3,11 +3,12 @@ import asyncio
 import pygame
 
 # Files imports
-import levels.level3 as level3
+import levels.level as level
 import levels.title as title
 import levels.grid as grid
 from constants import *
 import levels.transition as transition
+import levels.helpers as h
 
 # Music
 pygame.mixer.init()
@@ -23,35 +24,26 @@ async def main():
     #     return
 
     # Run main menu
-    quit = await title.menu()
-    if quit:
+    status = await title.menu()
+    if status == "quit":
         return
     
     player_count = len(players)
 
     # Run level1
-    status = await level3.level(1)
-    if status == "q":
-        return
+    for lvl in range(1, 4):
+        status = "restart"
+        while status == "restart":
+            status = await level.level(lvl)
+            if status == "quit":
+                return
+            h.reset_sprites()
+            # if status == 
 
-    # Run level one transitionw
-    quit = await transition.transition(2, player_count)
-    if quit:
-        return
-    
-    # Run level3
-    status = await level3.level(2)
-    if status == "q":
-        return
-    
-    quit = await transition.transition(3, player_count)
-    if quit:
-        return
-    
-    # Run level3
-    status = await level3.level(3)
-    if status == "q":
-        return
+        # Run level one transitionw
+        status = await transition.transition(lvl+1, player_count)
+        if status == "quit":
+            return
 
 
 

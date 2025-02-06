@@ -29,6 +29,7 @@ class Flies(pygame.sprite.Sprite):
         self.run = 0.00
         self.start_pos = (x,y)
         self.deadx = -100
+        self.hide = False
 
         # Movements variables
         self.angle = 90
@@ -51,11 +52,15 @@ class Flies(pygame.sprite.Sprite):
         self.rect.x = self.start_pos[0]
         self.rect.y = self.start_pos[1]
         self.size = (25, 35)
+        self.deadx = -100
         self.rise = 0.00
         self.run = 0.00
         self.stuck = False
         self.current_image = (self.image_paths[0])
         self.render_image(self.current_image)
+    
+    def move_off_screen(self):
+        self.rect.x = 700
     
     # Move sprite with arrow keys
     def move_arrows(self, key, obstacles):
@@ -220,4 +225,6 @@ class Flies(pygame.sprite.Sprite):
             current = 1 - current
             self.current_image = self.image_paths[current]
             self.render_image(self.current_image)
+            
+        self.hide = self.rect.x == 700
         # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)

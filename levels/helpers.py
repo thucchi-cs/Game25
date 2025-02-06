@@ -3,6 +3,7 @@ import json
 from constants import *
 import sprites.text as text
 import pygame
+import sprites.window as window
 
 # Move all players
 def move_players(key):
@@ -19,9 +20,15 @@ def move_players(key):
 
         # Check if player reached the end
         if fly.check_end(ends):
-                players.remove(fly)
-                all.remove(fly)
+            fly.move_off_screen()
+                # players.remove(fly)
+                # all.remove(fly)
 
+def check_win():
+    for fly in players:
+        if not fly.hide:
+            return False
+    return True
 
 # Auto scroll
 def auto_scroll(counter):
@@ -109,3 +116,42 @@ def fade_in_animation(fade):
     if fade > 0:
             fade = fade_in(fade)
     return fade
+
+def reset_sprites():
+    flies_list = [fly1, fly2, fly3, fly4]
+    global all
+    for obj in all.sprites()[:]:
+        if type(obj) != flies.Flies:
+            all.remove(obj)
+            obj.kill()
+        else:
+            obj.reset()
+    for obj in preload.sprites()[:]:
+        preload.remove(obj)
+        obj.kill()
+    
+    # Reset the player list
+    for player in players:
+        player.reset()
+
+def restart_transition(clock):
+    restart_window = window.Window("graphics/restart.png")
+    clicked = False
+    zoomIn = True
+    while not clicked:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            # Check to close game
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN:
+                return
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                clicked = True
+        
+        if zoomIn:
+            zoomIn = restart_window.zoomIn()
+        
+        restart_window.draw()
+        pygame.display.flip()
+        

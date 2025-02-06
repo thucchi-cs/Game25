@@ -3,29 +3,14 @@ from constants import *
 import sprites.text as text
 import sprites.flies as flies
 import pygame
+import levels.helpers as h
 
 
 async def transition(level_num, player_count):
     # Fly list used to reset player list 
-    flies_list = [fly1, fly2, fly3, fly4]
 
     # Get rid of the previous level's obstacles
-    global all
-    for obj in all.sprites()[:]:
-        if type(obj) != flies.Flies:
-            all.remove(obj)
-            obj.kill()
-        else:
-            obj.reset()
-    for obj in preload.sprites()[:]:
-        preload.remove(obj)
-        obj.kill()
-    
-    # Reset the player list
-    player_list = [flies_list[i] for i in range(2)]
-    for player in player_list:
-        player.reset()
-    players.add(player_list)
+    h.reset_sprites()
 
     # Variables for fly display
     display_flies_list = [flies.Flies(225, 1025, ARROWS, 1), flies.Flies(275, 1050, WASD, 2), flies.Flies(175, 1000, TFGH, 3), flies.Flies(325, 1075, IJKL, 4)]
@@ -82,4 +67,4 @@ async def transition(level_num, player_count):
         # asyncio
         await asyncio.sleep(0)
     
-    return quit
+    return "quit" if quit else "continue"

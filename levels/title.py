@@ -126,4 +126,4 @@ async def menu():
         # asyncio
         await asyncio.sleep(0)
     
-    return quit
+    return "quit" if quit else "continue"
