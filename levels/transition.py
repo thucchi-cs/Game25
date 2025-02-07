@@ -36,7 +36,7 @@ async def transition(level_num, player_count):
     run = True
     while run:
         # Event handles
-        # clock.tick(FPS)
+        clock.tick(FPS)
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
