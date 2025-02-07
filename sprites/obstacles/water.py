@@ -6,7 +6,7 @@ class Water(pygame.sprite.Sprite):
     def __init__(self,pos,size):
         super().__init__()
         # Load image
-        self.images = [pygame.transform.scale(pygame.image.load(f"graphics/water-{i}.png"), size) for i in range(1, 6)]
+        self.images = [pygame.transform.scale(pygame.image.load(f"graphics/newGraphics/WaterRed-{i}.png"), size) for i in range(1, 6)]
         self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.size = size
@@ -53,7 +53,7 @@ class Water(pygame.sprite.Sprite):
             if self.counter2 %5 == 0:
                 self.counter3 += 1 if self.clearing else -1
             if self.counter2 % 5 >= 0 and self.counter2 % 5 <=2:
-                self.image = pygame.image.load("graphics/water-"+str(self.counter3)+"-open.png")
+                self.image = pygame.image.load("graphics/newGraphics/WaterRed-"+str(self.counter3)+"-open.png")
                 self.image = pygame.transform.scale(self.image,self.size)
             else:
                 self.rect.x = self.pos[0]

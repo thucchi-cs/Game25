@@ -6,7 +6,7 @@ class Lasers(pygame.sprite.Sprite):
     def __init__(self, pos, n, size, angle):
         super().__init__()
         # Load image
-        self.image_path = 'graphics/laser' + str(n) + '.png'
+        self.image_path = 'graphics/newGraphics/LaserRed' + str(n) + '.png'
         self.image = pygame.image.load(self.image_path)
         self.image = pygame.transform.scale(self.image, size)
         self.image = pygame.transform.rotate(self.image, angle)

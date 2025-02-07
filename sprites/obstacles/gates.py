@@ -9,9 +9,9 @@ class Gate(pygame.sprite.Sprite):
         self.size = size
         self.pos = pos
         # Image path variables
-        self.image_path = 'graphics/gates/gate1.png'
+        self.image_path = 'graphics/newGraphics/RailRed1.png'
         self.path_index = 0
-        self.image_paths = [f'graphics/gates/gate{i}.png' for i in range(1,19)]
+        self.image_paths = [f'graphics/newGraphics/RailRed{i}.png' for i in range(1,19)]
         # Image rendering
         self.image = pygame.image.load(self.image_path)
         original_width, original_height = self.image.get_size()

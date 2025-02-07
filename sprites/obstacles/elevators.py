@@ -3,9 +3,10 @@ import constants
 
 class Elevators(pygame.sprite.Sprite):
     # Constructor
-    def __init__(self, pos, size, flipped, y2):
+    def __init__(self, pos, size, flipped, y2,color):
         super().__init__()
         # Load image
+        self.image = pygame.image.load("graphics/newGraphics/Elevatorred.png")
         self.image = pygame.image.load("graphics/elevator.png")
         self.image = pygame.transform.scale(self.image, size)
         self.image = pygame.transform.flip(self.image, flip_x= flipped, flip_y= False)
