@@ -110,15 +110,14 @@ def fade_out_animation(clock):
     while fade < 100:
         clock.tick(FPS)
         fade = fade_out(fade)
-        pygame.display.flip()
 
 def fade_in_animation(fade):
     if fade > 0:
             fade = fade_in(fade)
+    pygame.display.flip()
     return fade
 
 def reset_sprites():
-    flies_list = [fly1, fly2, fly3, fly4]
     global all
     for obj in all.sprites()[:]:
         if type(obj) != flies.Flies:

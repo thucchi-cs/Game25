@@ -9,6 +9,7 @@ import levels.grid as grid
 from constants import *
 import levels.transition as transition
 import levels.helpers as h
+import levels.instructions as instructions
 
 # Music
 pygame.mixer.init()
@@ -26,9 +27,13 @@ async def main():
     # Run main menu
     status = await title.menu()
     if status == "quit":
-        return
-    
+        return 
     player_count = len(players)
+
+    # Run Instructions Screen
+    status = await instructions.showInstructions()
+    if status == "quit":
+        return 
 
     # Run level1
     for lvl in range(1, 4):
