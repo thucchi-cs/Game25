@@ -24,7 +24,7 @@ async def showInstructions():
         clock.tick(FPS)
         SCREEN.blit(movement_instructions, (0,0))
         fade = h.fade_in_animation(fade)
-        
+
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
@@ -32,20 +32,18 @@ async def showInstructions():
                 showing_movement_instructions = False
             # Close movement instructions
             if event.type == pygame.MOUSEBUTTONDOWN:
-                h.fade_out_animation(clock)
                 showing_movement_instructions = False
+        
         
         pygame.display.flip()
         # asyncio
         await asyncio.sleep(0)
     
-    fade = 255
     # Show how to play 1
     showing_how_to1 = True
     while showing_how_to1:
         clock.tick(FPS)
         SCREEN.blit(how_to_play1, (0,0))
-        fade = h.fade_in_animation(fade)
 
         for event in pygame.event.get():
             # Check to close game
@@ -54,21 +52,17 @@ async def showInstructions():
                 showing_how_to1 = False
             # Close how_to1 instructions
             if event.type == pygame.MOUSEBUTTONDOWN:
-                h.fade_out_animation(clock)
                 showing_how_to1 = False
-
         
         pygame.display.flip()
         # asyncio
         await asyncio.sleep(0)
     
-    fade = 255
     # Show how to play 2
     showing_how_to2 = True
     while showing_how_to2:
         clock.tick(FPS)
         SCREEN.blit(how_to_play2, (0,0))
-        fade = h.fade_in_animation(fade)
 
         for event in pygame.event.get():
             # Check to close game
@@ -84,7 +78,7 @@ async def showInstructions():
         await asyncio.sleep(0)
     
     h.fade_out_animation(clock)
-
+    
     return "quit" if quit else "continue"
         
         
