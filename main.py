@@ -23,7 +23,7 @@ async def main():
     # quit = await grid.screen()
     # if quit:
     #     return
-
+    
     # Run main menu
     status = await title.menu()
     if status == "quit":

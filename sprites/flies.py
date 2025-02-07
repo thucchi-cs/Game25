@@ -12,6 +12,7 @@ class Flies(pygame.sprite.Sprite):
         # Load image and position
         self.dead = 'graphics/flydead.png'
         self.image_paths = ['graphics/fly'+str(n)+'.1.png', 'graphics/fly'+str(n)+'.2.png']
+        self.story_paths = ["graphics/flystory"+str(n)+".1.png", "graphics/flystory"+str(n)+".2.png"]
         self.current_image = self.image_paths[0]
         self.image = pygame.image.load(self.current_image)
         self.size = (25, 35)
@@ -30,6 +31,7 @@ class Flies(pygame.sprite.Sprite):
         self.start_pos = (x,y)
         self.deadx = -100
         self.hide = False
+        self.end = False
 
         # Movements variables
         self.angle = 90
@@ -57,7 +59,7 @@ class Flies(pygame.sprite.Sprite):
         self.run = 0.00
         self.stuck = False
         self.current_image = (self.image_paths[0])
-        self.render_image(self.current_image)
+        self.render_image(self.current_image, False)
     
     def move_off_screen(self):
         self.rect.x = 700
@@ -145,15 +147,16 @@ class Flies(pygame.sprite.Sprite):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
-            self.render_image(self.dead)
+            self.render_image(self.dead, False)
         else:
-            self.render_image(self.current_image)
+            self.render_image(self.current_image, False)
             
-    def render_image(self, image):
+    def render_image(self, image, flipped):
         x, y = self.rect.centerx, self.rect.centery
         self.image = pygame.image.load(image).convert_alpha()
         self.image = pygame.transform.smoothscale(self.image, self.size)
         self.image = pygame.transform.rotate(self.image, self.angle-90)
+        self.image = pygame.transform.flip(self.image, flipped, False)
         self.rect = self.image.get_rect(center=(x, y))
 
     # Check for collision with rocks          
@@ -212,6 +215,15 @@ class Flies(pygame.sprite.Sprite):
     # Move to given coordinates, center is anchor
     def move_to(self, pos):
         self.rect.center = pos
+        
+    def glide_to(self, pos):
+        if (((self.rect.x - pos[0])**2) + ((self.rect.y - pos[1])**2))**0.5 > 10:
+            glide_y = pos[1] - self.rect.y
+            glide_x = pos[0] - self.rect.x
+            glide_angle = math.atan2(glide_y,glide_x)
+            self.angle = 90 + math.degrees(glide_angle)
+            self.rect.x += (math.cos(glide_angle) * self.speed)
+            self.rect.y += (math.sin(glide_angle) * self.speed)
    
     # Scroll with screen
     def scroll(self):
@@ -219,13 +231,20 @@ class Flies(pygame.sprite.Sprite):
     
     def update(self):
         self.counter += 1
-        if self.deadx >= 0:
-            self.rect.x = self.deadx if self.show else (610 + self.rect.width)
-        elif self.counter % 5 == 0:
-            current = self.image_paths.index(self.current_image)
-            current = 1 - current
-            self.current_image = self.image_paths[current]
-            self.render_image(self.current_image)
-            
-        self.hide = self.rect.x == 700
-        # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)
+        if not self.end:
+            if self.deadx >= 0:
+                self.rect.x = self.deadx if self.show else (610 + self.rect.width)
+            elif self.counter % 5 == 0:
+                current = self.image_paths.index(self.current_image)
+                current = 1 - current
+                self.current_image = self.image_paths[current]
+                self.render_image(self.current_image, False)
+                
+            self.hide = self.rect.x == 700
+            # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)
+        else:
+            if self.counter % 5 == 0:
+                current = self.story_paths.index(self.current_image)
+                current = 1 - current
+                self.current_image = self.story_paths[current]
+                self.render_image(self.current_image, True)

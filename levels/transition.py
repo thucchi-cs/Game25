@@ -4,9 +4,15 @@ import sprites.text as text
 import sprites.flies as flies
 import pygame
 import levels.helpers as h
+import levels.end as end
 
 
 async def transition(level_num, player_count):
+    
+    if level_num == 4:
+        await end.End()
+        return ""
+    
     # Get rid of the previous level's obstacles
     h.reset_sprites()
 

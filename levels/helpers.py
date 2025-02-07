@@ -24,6 +24,12 @@ def move_players(key):
                 # players.remove(fly)
                 # all.remove(fly)
 
+def set_up_end():
+    for fly in players:
+        fly.end = True
+        fly.current_image = fly.story_paths[0]
+        fly.size = (50, 70)
+
 def check_win():
     for fly in players:
         if not fly.hide:
