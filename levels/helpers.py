@@ -116,6 +116,7 @@ def fade_out_animation(clock):
     while fade < 100:
         clock.tick(FPS)
         fade = fade_out(fade)
+        pygame.display.flip()
 
 def fade_in_animation(fade):
     if fade > 0:

@@ -61,7 +61,7 @@
         "type": "wall"
     },
     "web3": {
-        "size": 90,
+        "size": 80,
         "pos": "(238, -153)",
         "rot": 270,
         "type": "wall"

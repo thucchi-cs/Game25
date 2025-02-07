@@ -15,6 +15,8 @@ async def End():
     clock = pygame.time.Clock()
     run = True
     quit = False
+    transition = True
+    counter = 0
     
     clouds = pygame.sprite.Group()
     clouds.add(cloud.Cloud((15, 64), 1), cloud.Cloud((302,91), 0.95))
@@ -32,6 +34,7 @@ async def End():
     while run:
         # Event handles
         clock.tick(FPS)
+        counter += 1
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
@@ -42,21 +45,22 @@ async def End():
                     run = False
                     quit = True
 
-        SCREEN.blit(background, (0,0))
-        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-        print(coor)
-        clouds.draw(SCREEN)
-        for c in clouds:
-            c.move()
-        fly1.glide_to((370,371))
-        fly2.glide_to((335,461))
-        fly3.glide_to((201, 280))
-        fly4.glide_to((252,382))
-        players.draw(SCREEN)
-        players.update()
-        fade = h.fade_in_animation(fade)
-        pygame.display.flip()
-        # asyncio
-        await asyncio.sleep(0)
+        if counter > FPS//4:
+            SCREEN.blit(background, (0,0))
+            coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
+            print(coor)
+            clouds.draw(SCREEN)
+            for c in clouds:
+                c.move()
+            fly1.glide_to((370,371))
+            fly2.glide_to((335,461))
+            fly3.glide_to((201, 280))
+            fly4.glide_to((252,382))
+            players.draw(SCREEN)
+            players.update()
+            fade = h.fade_in_animation(fade)
+            pygame.display.flip()
+            # asyncio
+            await asyncio.sleep(0)
     
     return "quit" if quit else "continue"
