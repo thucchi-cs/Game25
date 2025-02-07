@@ -45,7 +45,7 @@ async def main():
             h.reset_sprites()
             # if status == 
 
-        # Run level one transitionw
+        # Run level transition
         status = await transition.transition(lvl+1, player_count)
         if status == "quit":
             return
