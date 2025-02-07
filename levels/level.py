@@ -3,6 +3,7 @@ import asyncio
 import pygame
 # from constants import *
 import constants
+import sprites.images as img
 import levels.helpers as h
 import threading
 
@@ -29,6 +30,10 @@ async def level(lvl):
     for f in constants.frogs:
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
+    dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
+    dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
+    bg = pygame.sprite.Group()
+    bg.add(dirt,dirt2)
     
     # Add the players back into all
     constants.all.add(constants.players)
@@ -82,7 +87,7 @@ async def level(lvl):
             key = pygame.key.get_pressed() 
             h.move_players(key)
             # Auto Scroll
-            scroll = h.auto_scroll(counter)
+            scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
         else:
             if counter - start_dead < 40:
@@ -96,7 +101,7 @@ async def level(lvl):
         # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
         # print(coor)
         # Draw on screen
-        constants.SCREEN.fill((92, 64, 51))
+
 
 
 
@@ -107,7 +112,7 @@ async def level(lvl):
         #     pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
-        
+        bg.draw(constants.SCREEN)
         constants.all.draw(constants.SCREEN)
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
