@@ -31,11 +31,18 @@ def check_win():
     return True
 
 # Auto scroll
-def auto_scroll(counter):
+def auto_scroll(counter,d1,d2):
     if counter % SPEEDFACTOR == 0:
 
         for sprite in pygame.sprite.Group(all, preload):
             sprite.scroll()
+
+        d1.move_up()
+        d2.move_up()
+        if d1.rect.y>1200:
+            d1.rect.y=d2.rect.y - 1200
+        if d2.rect.y >1200:
+            d2.rect.y=d1.rect.y-1200
         return True
     return False
 

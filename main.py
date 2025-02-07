@@ -13,7 +13,7 @@ import levels.restart as restart
 
 # Music
 pygame.mixer.init()
-pygame.mixer.music.load('music/life.ogg')
+pygame.mixer.music.load('music/cave-9207.ogg')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.2)
 # Game

@@ -17,7 +17,7 @@ class imgDisplay(pygame.sprite.Sprite):
         self.current_image = self.image_paths[0]
         self.counter = 0
     def move_up(self):
-        self.rect.y += constants.SPEED
+        self.rect.y += constants.SPEED 
     def animate_fly(self):
         self.counter += 1
         if self.counter % 5 == 0:
