@@ -19,6 +19,7 @@ async def level(lvl):
     restart = False
     fade = 255
     h.load_layout('level'+str(lvl)+'.json')
+
     # 159 390
     skip = 0
     for sprite in constants.all:

@@ -144,7 +144,7 @@
     "btn5":{
         "pos":"(313,-174)",
         "rot": 270,
-        "temp": false
+        "temp": true
     },
     "wall25": {
         "size": "(125, 50)",
@@ -336,7 +336,7 @@
     "btn13":{
         "pos":"(38,-1113)",
         "rot": 180,
-        "temp": false
+        "temp": true
     },
     "wall52": {
         "size": "(1, 1)",
@@ -465,12 +465,6 @@
     "web17":{
         "size": 70,
         "pos":"(35, -517)",
-        "rot":0,
-        "type":"corner"
-    },
-    "web18":{
-        "size": 35,
-        "pos":"(253, -375)",
         "rot":0,
         "type":"corner"
     },

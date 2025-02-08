@@ -32,7 +32,7 @@ FPS = 30
 
 # Autoscrolling speed
 SPEED = 1
-SPEEDFACTOR = 3
+SPEEDFACTOR = 2
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
