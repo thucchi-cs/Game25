@@ -4,6 +4,7 @@ import pygame
 import sprites.menuButtons as btn
 import sprites.images as img
 from constants import *
+import levels.helpers as h
 
 # Level 1 loop
 async def menu():
@@ -124,5 +125,6 @@ async def menu():
 
         # asyncio
         await asyncio.sleep(0)
-    
+        
+    h.fade_out_animation(clock)
     return "quit" if quit else "continue"

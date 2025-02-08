@@ -72,7 +72,7 @@ async def level(lvl):
         if len(dead_flys) == 0:
             save_display = False
             for fly in constants.players:
-                dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers) or fly.check_offscreen()
+                dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
                 if dead:
                     dead_flys.append(fly)
                     start_dead = counter

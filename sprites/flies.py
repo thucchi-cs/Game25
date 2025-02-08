@@ -170,9 +170,9 @@ class Flies(pygame.sprite.Sprite):
         return False
             
     # Check collision with lasers
-    def check_lasers(self, lasers):
-        for laser in lasers:
-            if pygame.sprite.collide_mask(self, laser):
+    def check_dead_obstacles(self, obstacles):
+        for thing in obstacles:
+            if pygame.sprite.collide_mask(self, thing):
                 self.deadx = self.rect.x
                 return True
         return False
