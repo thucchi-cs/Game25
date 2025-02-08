@@ -4,43 +4,22 @@ Server: GitHub.com
 Content-Type: application/javascript; charset=utf-8
 permissions-policy: interest-cohort=()
 x-origin-cache: HIT
-<<<<<<< HEAD
-Last-Modified: Tue, 04 Feb 2025 09:36:54 GMT
-Access-Control-Allow-Origin: *
-Strict-Transport-Security: max-age=31556952
-ETag: "67a1dfb6-4530c"
-expires: Sat, 08 Feb 2025 06:45:05 GMT
-Cache-Control: max-age=600
-x-proxy-cache: MISS
-X-GitHub-Request-Id: 9DD0:3E1D1B:1FF194D:22D0682:67A6FB19
-Accept-Ranges: bytes
-Age: 0
-Date: Sat, 08 Feb 2025 06:35:06 GMT
-Via: 1.1 varnish
-X-Served-By: cache-stl760068-STL
-X-Cache: MISS
-X-Cache-Hits: 0
-X-Timer: S1738996506.855317,VS0,VE234
-Vary: Accept-Encoding
-X-Fastly-Request-ID: ef09e596a5e0912d79ced21ae379dad6dc1725e4
-=======
 Last-Modified: Tue, 04 Feb 2025 09:36:55 GMT
 Access-Control-Allow-Origin: *
 Strict-Transport-Security: max-age=31556952
 ETag: "67a1dfb7-4530c"
-expires: Sat, 08 Feb 2025 06:16:37 GMT
+expires: Sat, 08 Feb 2025 06:57:25 GMT
 Cache-Control: max-age=600
 x-proxy-cache: MISS
-X-GitHub-Request-Id: C57E:CA3B3:20C4E53:22C46A6:67A6F467
+X-GitHub-Request-Id: 21BE:340BA7:35B15A:3F14BC:67A6FDF8
 Accept-Ranges: bytes
 Age: 0
-Date: Sat, 08 Feb 2025 06:06:37 GMT
+Date: Sat, 08 Feb 2025 06:47:25 GMT
 Via: 1.1 varnish
-X-Served-By: cache-dfw-kdal2120142-DFW
+X-Served-By: cache-stl760065-STL
 X-Cache: MISS
 X-Cache-Hits: 0
-X-Timer: S1738994797.103363,VS0,VE40
+X-Timer: S1738997245.102532,VS0,VE116
 Vary: Accept-Encoding
-X-Fastly-Request-ID: ccb995c5f4d1e448337ea73db25aceb9ccc49532
->>>>>>> b97176fbe33e26bcba7c4ce4ae51fab9e45e9dd2
+X-Fastly-Request-ID: 014a200df3f542c32369336f5cdb25d8dda4764a
 
