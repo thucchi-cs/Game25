@@ -32,20 +32,24 @@ class Frog(pygame.sprite.Sprite):
         
     
     def animate(self):
-        self.counter += 1
-        if self.counter % 3 == 0:
+        pass
+        # self.counter += 1
+        # if self.counter % 3 == 0:
+            # print("ANIMATE")
             # print(self.index)
-            self.index += 1
-            if self.index == 7 or self.index == 6:
-                self.index = 8
-            self.index %= 11
-            self.image_path = 'graphics/frog'+str(self.index)+'.png'
-            self.image = pygame.image.load(self.image_path)
-            self.image = pygame.transform.scale(self.image, self.size)
-            self.image = pygame.transform.flip(self.image, self.flip, False)
-            self.rect = self.image.get_rect()
-            self.rect.x = self.pos[0]
-            self.rect.bottom = self.pos[1]
+            # self.index += 1
+            # if self.index == 7 or self.index == 6:
+            #     self.index = 8
+            # self.index %= 11
+            # self.image_path = 'graphics/frog'+str(self.index)+'.png'
+            # self.image = pygame.image.load(self.image_path)
+            # self.image = pygame.transform.scale(self.image, self.size)
+
+            # self.image = pygame.transform.flip(self.image, self.flip, False)
+            # self.rect = self.image.get_rect()
+            # print(self.rect)
+            # self.rect.x = self.pos[0]
+            # self.rect.bottom = self.pos[1]
     
     # Scroll with screen
     def scroll(self, addition):
