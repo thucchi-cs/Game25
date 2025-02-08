@@ -67,7 +67,6 @@ async def level(lvl):
         # Win level   
         if h.check_win():
             run = False 
-            print("yayy")  
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:

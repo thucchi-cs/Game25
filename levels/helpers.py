@@ -91,7 +91,7 @@ def load_layout(filename):
         
         
         # Create object and add to groups
-        print(obj)
+        # print(obj)
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
         preload.add(temp)
@@ -139,7 +139,6 @@ def fade_in_animation(fade):
     return fade
 
 def reset_sprites():
-    global all
     for obj in all.sprites()[:]:
         if type(obj) != flies.Flies:
             all.remove(obj)

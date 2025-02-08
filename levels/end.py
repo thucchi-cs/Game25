@@ -48,7 +48,7 @@ async def End():
         if counter > FPS//4:
             SCREEN.blit(background, (0,0))
             coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1])
-            print(coor)
+            # print(coor)
             clouds.draw(SCREEN)
             for c in clouds:
                 c.move()

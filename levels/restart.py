@@ -14,7 +14,7 @@ async def restart():
     clicked = False
     zoomIn = True
     while not clicked:
-        print("hi")
+        # print("hi")
         clock.tick(FPS)
         for event in pygame.event.get():
             # Check to close game

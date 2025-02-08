@@ -60,6 +60,7 @@ class Flies(pygame.sprite.Sprite):
         self.stuck = False
         self.current_image = (self.image_paths[0])
         self.render_image(self.current_image, False)
+        self.hide = False
     
     def move_off_screen(self):
         self.rect.x = 700
@@ -139,7 +140,7 @@ class Flies(pygame.sprite.Sprite):
     
     def flash(self):
         self.show = not ((self.counter % 15 >= 0) and (self.counter % 15 <= 6))
-        print(self.show)
+        # print(self.show)
         # self.counter += 1
 
     # Check if stuck in webs
@@ -229,7 +230,7 @@ class Flies(pygame.sprite.Sprite):
     # Scroll with screen
     def scroll(self, addition):
         self.rect.y += constants.SPEED + addition
-        print(self.rect.x, self.rect.y)
+        # print(self.rect.x, self.rect.y)
     
     def update(self):
         self.counter += 1

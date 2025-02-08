@@ -33,7 +33,7 @@ class Gate(pygame.sprite.Sprite):
         # Depending on if the gate is opening or closing
 
         self.path_index += 1 if self.clearing else -1
-        print(self.path_index)
+        # print(self.path_index)
         self.image_path = self.image_paths[self.path_index]
         # Render new image
         self.image = pygame.image.load(self.image_path)
