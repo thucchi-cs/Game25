@@ -144,6 +144,7 @@ class Flies(pygame.sprite.Sprite):
 
     # Check if stuck in webs
     def check_web(self, webs):
+        webs = [web for web in webs if web in constants.all]
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
@@ -226,8 +227,9 @@ class Flies(pygame.sprite.Sprite):
             self.rect.y += (math.sin(glide_angle) * self.speed)
    
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
+        print(self.rect.x, self.rect.y)
     
     def update(self):
         self.counter += 1

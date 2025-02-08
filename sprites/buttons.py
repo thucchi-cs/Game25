@@ -48,8 +48,8 @@ class Buttons(pygame.sprite.Sprite):
         return self.pressed
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
 
     def update(self):
         self.collide.update(self.rect)

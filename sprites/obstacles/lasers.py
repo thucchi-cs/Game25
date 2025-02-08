@@ -40,5 +40,5 @@ class Lasers(pygame.sprite.Sprite):
         self.rect.centerx = self.originalX if self.show else (601 + self.rect.width)
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition

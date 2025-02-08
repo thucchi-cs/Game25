@@ -13,7 +13,6 @@ def move_players(key):
         fly.check_web(webs)
         fly.check_btn(buttons)
 
-        fly.check_web(webs)
         if fly.stuck:
             other_flies = [i for i in players if i != fly]
             fly.save_friend(other_flies)
@@ -37,11 +36,25 @@ def check_win():
     return True
 
 # Auto scroll
-def auto_scroll(counter):
+def auto_scroll(counter,d1,d2):
     if counter % SPEEDFACTOR == 0:
+        addition = 0
+        fly_pos = 0
+        for fly in players:
+            if fly.rect.y > HEIGHT // 4:
+                break
+            fly_pos += fly.rect.y
+        else:
+            fly_pos /= len(players)
+            addition = int((HEIGHT - fly_pos) / HEIGHT * 3)
 
-        for sprite in pygame.sprite.Group(all, preload):
-            sprite.scroll()
+        for sprite in pygame.sprite.Group(all, preload, d1, d2):
+            sprite.scroll(addition)
+
+        if d1.rect.y>1200:
+            d1.rect.y=d2.rect.y - 1200
+        if d2.rect.y >1200:
+            d2.rect.y=d1.rect.y-1200
         return True
     return False
 
@@ -78,6 +91,7 @@ def load_layout(filename):
         
         
         # Create object and add to groups
+        print(obj)
         temp = OBJECTS[object](*arguments)
         GROUPS[object].add(temp)
         preload.add(temp)

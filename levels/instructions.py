@@ -30,6 +30,16 @@ async def showInstructions():
             if event.type == pygame.QUIT:
                 quit = True
                 showing_movement_instructions = False
+                
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    showing_movement_instructions = False
+                    quit = True
+                
+                # Check to skip level
+                if event.key == pygame.K_TAB:
+                    showing_movement_instructions = False
+                    
             # Close movement instructions
             if event.type == pygame.MOUSEBUTTONDOWN:
                 showing_movement_instructions = False
@@ -50,6 +60,15 @@ async def showInstructions():
             if event.type == pygame.QUIT:
                 quit = True
                 showing_how_to1 = False
+                
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    showing_how_to1 = False
+                    quit = True
+                
+                # Check to skip level
+                if event.key == pygame.K_TAB:
+                    showing_how_to1 = False
             # Close how_to1 instructions
             if event.type == pygame.MOUSEBUTTONDOWN:
                 showing_how_to1 = False
@@ -69,6 +88,15 @@ async def showInstructions():
             if event.type == pygame.QUIT:
                 quit = True
                 showing_how_to2 = False
+                
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    showing_how_to2 = False
+                    quit = True
+                
+                # Check to skip level
+                if event.key == pygame.K_TAB:
+                    showing_how_to2 = False
             # Close movement instructions
             if event.type == pygame.MOUSEBUTTONDOWN:
                 showing_how_to2 = False

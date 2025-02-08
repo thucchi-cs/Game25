@@ -16,6 +16,8 @@ class imgDisplay(pygame.sprite.Sprite):
         self.image_paths = [f'graphics/fly'+str(self.n)+'.1.png', f'graphics/fly'+str(self.n)+'.2.png']
         self.current_image = self.image_paths[0]
         self.counter = 0
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition 
     def move_up(self):
         self.rect.y += constants.SPEED
     def animate_fly(self):

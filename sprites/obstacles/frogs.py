@@ -48,6 +48,6 @@ class Frog(pygame.sprite.Sprite):
             self.rect.bottom = self.pos[1]
     
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
         self.pos = (self.pos[0], self.pos[1] + constants.SPEED)

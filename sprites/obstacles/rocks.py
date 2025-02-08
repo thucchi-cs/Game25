@@ -45,8 +45,8 @@ class Rocks(pygame.sprite.Sprite):
             self.rect.y = self.actualRY
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
 
     # Remove from sprite groups
     def remove(self):
