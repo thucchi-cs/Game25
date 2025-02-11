@@ -6,7 +6,8 @@ import constants
 import levels.helpers as h
 import threading
 
-# Level 3 loop
+
+# Level loop
 async def level(lvl):
     # Time
     clock = pygame.time.Clock()

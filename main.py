@@ -10,6 +10,7 @@ from constants import *
 import levels.transition as transition
 import levels.helpers as h
 import levels.instructions as instructions
+import levels.player_selection as player_selection
 
 # Music
 pygame.mixer.init()
@@ -20,9 +21,14 @@ pygame.mixer.music.set_volume(0.2)
 async def main():
 
     # show reference grid - comment / uncomment to show / hide reference grid 
-    # quit = await grid.screen()
+    # quit = await grid.screen()dnf
     # if quit:
     #     return
+    # Run player selection
+    status = await player_selection.select_player()
+    if status == "quit":
+        return 
+    player_count = len(players)
 
     # Run main menu
     status = await title.menu()

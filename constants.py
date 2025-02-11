@@ -12,6 +12,10 @@ import sprites.obstacles.frogs as frog
 import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
+from tinydb import TinyDB, Query
+
+player_database = TinyDB('player_data.json')
+Player = Query()
 
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
