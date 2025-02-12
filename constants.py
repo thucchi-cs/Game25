@@ -17,6 +17,11 @@ from tinydb import TinyDB, Query
 player_database = TinyDB('player_data.json')
 Player = Query()
 
+# Player username set to empty when player isn't signed in
+player_username = ""
+# player variable used when updating player data
+player = player_database.get(Player.username == "")
+
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
 # Set up screen
@@ -80,3 +85,11 @@ GROUPS = {'btn': buttons, 'wall': walls,
             'elevator': elevators, 'gate': gates,
             'laser': lasers, 'rock': rocks,
             'water': waters, 'frog': frogs, 'web': webs, 'end': ends}
+
+
+#      |   |
+#      |   |
+
+#   \         /
+#     \     /
+#       --- 

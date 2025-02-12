@@ -24,18 +24,13 @@ async def main():
     # quit = await grid.screen()dnf
     # if quit:
     #     return
-    # Run player selection
-    status = await player_selection.select_player()
-    if status == "quit":
-        return 
-    player_count = len(players)
 
     # Run main menu
     status = await title.menu()
     if status == "quit":
         return 
     player_count = len(players)
-
+    
     # Run Instructions Screen
     status = await instructions.showInstructions()
     if status == "quit":

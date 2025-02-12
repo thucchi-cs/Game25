@@ -5,6 +5,7 @@ import pygame.examples
 import sprites.menuButtons as btn
 import sprites.images as img
 from constants import *
+import levels.player_selection as player_selection
 
 # Level 1 loop
 async def menu():
@@ -18,6 +19,7 @@ async def menu():
     p2_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 150), 'player2button.png')
     p3_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 150), 'player3button.png')
     p4_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 150), 'player4button.png')
+    sign_in_btn = btn.menuBtn((50, 50), (75, 75), 'yes_button.png')
 
     # Create Assets
     menu_text = img.imgDisplay((500,600),(0,0),'menu_assets/fly_out_text.png')
@@ -41,7 +43,7 @@ async def menu():
     
     # Button sprite group
     btns = pygame.sprite.Group()
-    btns.add(start_btn)
+    btns.add(start_btn, sign_in_btn)
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
     layer1 = pygame.sprite.Group()
@@ -70,6 +72,10 @@ async def menu():
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # If click sign in
+                if sign_in_btn.is_clicked():
+                    await player_selection.select_player()
+
                 # If click start
                 if start_btn.is_clicked():
                     # Options to choose number of players

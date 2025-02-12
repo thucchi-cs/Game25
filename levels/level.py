@@ -60,11 +60,12 @@ async def level(lvl):
                 # Stop scroll cheat code
                 if event.key == pygame.K_BACKSPACE:
                     constants.SPEED = 0 if constants.SPEED else 1
-
-
               
         # Win level   
         if h.check_win():
+            constants.player[f"level{lvl}"]["completed"] = True
+            if lvl < 3:
+                constants.player[f"level{lvl+1}"]["unlocked"] = True
             run = False   
         
         # Move sprites and interact with other elements
