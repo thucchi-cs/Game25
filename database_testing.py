@@ -8,10 +8,10 @@ Player = Query()
 player_database.truncate()
 player_database.insert({'username':"", 'level1':{'unlocked':True, 'completed':False, 'star1':False, 'star2':False, 'star3':False}, 'level2':{'unlocked':False, 'completed':False, 'star1':False, 'star2':False, 'star3':False}, 'level3':{'unlocked':False, 'completed':False, 'star1':False, 'star2':False, 'star3':False}})
 
-# player = player_database.get(Player.id == "Tim")
-# player["level1"]["star1"] = True
+# player = player_database.get(Player.username == "")
+# player["level2"]["unlocked"] = True
 
-# player_database.update(player, Player.id == "Tim")
+# player_database.update(player, Player.username == "")
 run = True
 while run:
     control = input("Add, Print or Quit: ")

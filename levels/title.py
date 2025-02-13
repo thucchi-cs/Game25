@@ -15,11 +15,13 @@ async def menu():
     quit = False
 
     # Create buttons
-    start_btn = btn.menuBtn((279, 94), (WIDTH // 2, HEIGHT -75), 'startbutton5.png')
     p2_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 150), 'player2button.png')
     p3_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 150), 'player3button.png')
     p4_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 150), 'player4button.png')
-    sign_in_btn = btn.menuBtn((50, 50), (75, 75), 'yes_button.png')
+    load_game_btn = btn.menuBtn((50, 50), (250, 475), 'yes_button.png')
+    new_game_btn = btn.menuBtn((50, 50), (250, 525), 'no_button.png')
+    save_data_btn = btn.menuBtn((50, 50), (250, 250), 'yes_button.png')
+    guest_btn = btn.menuBtn((50, 50), (250, 350), 'no_button.png')
 
     # Create Assets
     menu_text = img.imgDisplay((500,600),(0,0),'menu_assets/fly_out_text.png')
@@ -35,15 +37,15 @@ async def menu():
 
     # Static Flies
 
-    fly1menu = img.imgDisplay((flyxs,flyys),(45,300),'fly1.1.png',1)
-    fly2menu = img.imgDisplay((flyxs,flyys),(159,315),'fly2.1.png',2)
-    fly3menu = img.imgDisplay((flyxs,flyys),(271,333),'fly3.1.png',3)
-    fly4menu = img.imgDisplay((flyxs,flyys),(382,353),'fly4.1.png',4)
+    fly1menu = img.imgDisplay((flyxs,flyys),(45,275),'fly1.1.png',1)
+    fly2menu = img.imgDisplay((flyxs,flyys),(159,290),'fly2.1.png',2)
+    fly3menu = img.imgDisplay((flyxs,flyys),(271,305),'fly3.1.png',3)
+    fly4menu = img.imgDisplay((flyxs,flyys),(382,320),'fly4.1.png',4)
 
     
     # Button sprite group
     btns = pygame.sprite.Group()
-    btns.add(start_btn, sign_in_btn)
+    btns.add(new_game_btn, load_game_btn)
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
     layer1 = pygame.sprite.Group()
@@ -72,15 +74,28 @@ async def menu():
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # If click sign in
-                if sign_in_btn.is_clicked():
-                    await player_selection.select_player()
-
-                # If click start
-                if start_btn.is_clicked():
-                    # Options to choose number of players
+                if load_game_btn.is_clicked():
+                    btns.remove(load_game_btn, new_game_btn)
+                    layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
+                    layer1.add(player_text)
                     btns.add(p2_option, p3_option, p4_option)
-                    btns.remove(start_btn)
+                    await player_selection.enter_player()
+    
+                elif new_game_btn.is_clicked():
+                    btns.remove(load_game_btn, new_game_btn)
+                    btns.add(guest_btn, save_data_btn)
+                    layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
+
+                elif save_data_btn.is_clicked():
+                    btns.add(p2_option, p3_option, p4_option)
+                    btns.remove(guest_btn, save_data_btn)
+                    layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
+                    layer1.add(player_text)
+                    await player_selection.create_player()
+
+                elif guest_btn.is_clicked():
+                    btns.add(p2_option, p3_option, p4_option)
+                    btns.remove(guest_btn, save_data_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
                 

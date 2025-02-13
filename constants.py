@@ -22,6 +22,7 @@ player_username = ""
 # player variable used when updating player data
 player = player_database.get(Player.username == "")
 
+num_of_levels = 3
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
 # Set up screen

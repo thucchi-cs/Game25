@@ -55,6 +55,10 @@ async def level(lvl):
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
+                    constants.player[f"level{lvl}"]["completed"] = True
+                    if lvl < constants.num_of_levels:
+                        constants.player[f"level{lvl+1}"]["unlocked"] = True
+                    constants.player_database.update(constants.player, constants.Player.username == constants.player_username)
                     run = False
                     
                 # Stop scroll cheat code
@@ -64,8 +68,9 @@ async def level(lvl):
         # Win level   
         if h.check_win():
             constants.player[f"level{lvl}"]["completed"] = True
-            if lvl < 3:
+            if lvl < constants.num_of_levels:
                 constants.player[f"level{lvl+1}"]["unlocked"] = True
+            constants.player_database.update(constants.player, constants.Player.username == constants.player_username)
             run = False   
         
         # Move sprites and interact with other elements
