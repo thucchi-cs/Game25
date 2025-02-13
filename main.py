@@ -32,9 +32,9 @@ async def main():
     player_count = len(players)
 
     # Run Instructions Screen
-    status = await instructions.showInstructions()
-    if status == "quit":
-        return 
+    # status = await instructions.showInstructions()
+    # if status == "quit":
+    #     return 
 
     # Run level1
     for lvl in range(1, 4):

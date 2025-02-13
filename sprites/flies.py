@@ -3,6 +3,7 @@ import pygame
 import math
 import constants
 import sprites.text as text
+import sprites.curve as curve
 
 # Person sprite
 class Flies(pygame.sprite.Sprite):
@@ -176,6 +177,7 @@ class Flies(pygame.sprite.Sprite):
                 self.deadx = self.rect.x
                 return True
         return False
+    
     # Check collision with the end 
     def check_end(self,ends):
         for end in ends:
@@ -201,6 +203,27 @@ class Flies(pygame.sprite.Sprite):
             if pygame.sprite.collide_rect(self, btn.collide):
                 if not btn.pressed:
                     btn.press()
+                    
+    def check_keys(self, keys):
+        pygame.sprite.collide_rect_ratio(0.5)
+        for key in keys:
+            if pygame.sprite.collide_mask(self, key):
+                return key
+        return False
+    
+    def check_gates(self, gates):
+        for gate in gates:
+            if pygame.sprite.collide_rect(self, gate.collide):
+                if constants.key_counter.counter > 0:
+                    constants.key_counter.counter -= 1
+                    key = constants.keys_collected.sprites()[0]
+                    key.set_gate(gate)
+                    path = curve.draw_Bezier([(key.rect.centerx, key.rect.centery), (gate.rect.centerx, gate.rect.centery)], 2)
+                    print(key.rect.centery, gate.rect.centery)
+                    key.set_path(path)
+                    key.following = True
+                    constants.all.add(key)
+                    return
 
     # Save friend method for when fly gets stuck
     def save_friend(self, flies):

@@ -4,6 +4,7 @@ from constants import *
 import sprites.text as text
 import pygame
 import sprites.window as window
+import sprites.curve as curve
 
 # Move all players
 def move_players(key):
@@ -12,6 +13,14 @@ def move_players(key):
         fly.elevator_move(elevators)
         fly.check_web(webs)
         fly.check_btn(buttons)
+        fly.check_gates(gates)
+        key_collect = fly.check_keys(keys)
+        if key_collect:
+            path = curve.draw_Bezier([(key_collect.rect.centerx, key_collect.rect.centery), (WIDTH//2, 0), (key_counter.rect.centerx, key_counter.rect.centery)])
+            key_collect.following = True
+            key_collect.set_path(path)
+            all.remove(key_collect)
+            all.add(key_collect)
 
         if fly.stuck:
             other_flies = [i for i in players if i != fly]
@@ -152,6 +161,7 @@ def reset_sprites():
     # Reset the player list
     for player in players:
         player.reset()
+    key_counter.counter = 0
 
 def restart_transition(clock):
     restart_window = window.Window("graphics/restart.png")
@@ -173,4 +183,3 @@ def restart_transition(clock):
         
         restart_window.draw()
         pygame.display.flip()
-        
