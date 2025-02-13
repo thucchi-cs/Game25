@@ -87,6 +87,8 @@ class Flies(pygame.sprite.Sprite):
                     if pygame.sprite.collide_mask(object, self):
                         self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
 
+                
+
                 # Off Screen Movement 
                 # if (self.rect.y < 0) or (self.rect.y > (600 - self.rect.height)):
                 #     if self.rect.y < 0:
@@ -251,3 +253,10 @@ class Flies(pygame.sprite.Sprite):
                 current = 1 - current
                 self.current_image = self.story_paths[current]
                 self.render_image(self.current_image, True)
+    def collideWater(self,waters):
+        for object in waters:
+            if pygame.sprite.collide_mask(object,self):
+                self.speed =2
+                return
+        else:
+            self.speed = 5

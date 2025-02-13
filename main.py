@@ -11,7 +11,9 @@ import levels.transition as transition
 import levels.helpers as h
 import levels.restart as restart
 import levels.instructions as instructions
-
+# He said stuff he was involved in
+# we need fundng!!!!!!!!
+# you sure he is not doing too much ?
 # Music
 pygame.mixer.init()
 pygame.mixer.music.load('music/cave-9207.ogg')

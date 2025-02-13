@@ -72,4 +72,6 @@ async def transition(level_num, player_count):
         # asyncio
         await asyncio.sleep(0)
     
+    h.fade_out_animation(clock)
+    
     return "quit" if quit else "continue"
