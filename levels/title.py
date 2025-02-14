@@ -73,49 +73,49 @@ async def menu():
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if load_game_btn.is_clicked():
+                if load_game_btn.is_clicked() and load_game_btn in btns:
                     btns.remove(load_game_btn, new_game_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
                     btns.add(p2_option, p3_option, p4_option)
                     await player_selection.enter_player(dirt, dirt2)
     
-                elif new_game_btn.is_clicked():
+                elif new_game_btn.is_clicked() and new_game_btn in btns:
                     btns.remove(load_game_btn, new_game_btn)
                     btns.add(guest_btn, save_data_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
 
-                elif save_data_btn.is_clicked():
+                elif save_data_btn.is_clicked() and save_data_btn in btns:
                     btns.add(p2_option, p3_option, p4_option)
                     btns.remove(guest_btn, save_data_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
                     await player_selection.create_player(dirt, dirt2)
 
-                elif guest_btn.is_clicked():
+                elif guest_btn.is_clicked() and guest_btn in btns:
                     btns.add(p2_option, p3_option, p4_option)
                     btns.remove(guest_btn, save_data_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
                 
                 # If choose 2 players
-                elif p2_option.is_clicked():
+                elif p2_option.is_clicked() and p2_option in btns:
                     players.remove(fly3,fly4)
                     all.remove(fly3,fly4)
                     run=False
                 # If choose 3 players
-                elif p3_option.is_clicked():
+                elif p3_option.is_clicked() and p3_option in btns:
                     players.remove(fly4)
                     all.remove(fly4)
                     run=False
                 # If choose 4 players
-                elif p4_option.is_clicked():
+                elif p4_option.is_clicked() and p4_option in btns:
                     run=False
 
         
         for fly in flies_display:
             fly.animate_fly()
-            
+
         # Infinite Background
 
         if dirt.rect.y <=1200:

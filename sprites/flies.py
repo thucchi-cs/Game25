@@ -137,7 +137,6 @@ class Flies(pygame.sprite.Sprite):
     
     def flash(self):
         self.show = not ((self.counter % 15 >= 0) and (self.counter % 15 <= 6))
-        print(self.show)
         # self.counter += 1
 
     # Check if stuck in webs

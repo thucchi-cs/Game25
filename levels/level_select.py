@@ -5,7 +5,6 @@ import constants
 from constants import *
 
 async def select_level():
-    print(constants.player_database.all())
     # Level selection buttons
     level1_btn = btn.menuBtn((50, 50), (250, 450), 'player2button.png')
     level2_btn = btn.menuBtn((50, 50), (250, 350), 'player3button.png')

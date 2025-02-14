@@ -13,6 +13,7 @@ import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
 from tinydb import TinyDB, Query
+import sprites.stars as star
 
 player_database = TinyDB('player_data.json')
 Player = Query()
@@ -73,6 +74,7 @@ elevators = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 ends = pygame.sprite.Group()
 frogs = pygame.sprite.Group()
+stars = pygame.sprite.Group()
 all = pygame.sprite.Group(players)
 preload = pygame.sprite.Group()
 
@@ -80,12 +82,14 @@ preload = pygame.sprite.Group()
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
             'elevator': elevator.Elevators, 'gate': gate.Gate,
             'laser': laser.Lasers, 'rock': rock.Rocks,
-            'water': water.Water, 'frog': frog.Frog, 'web': web.Web, 'end': end.End}
+            'water': water.Water, 'frog': frog.Frog, 'web': web.Web, 'end': end.End,
+            'star': star.Stars}
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates,
             'laser': lasers, 'rock': rocks,
-            'water': waters, 'frog': frogs, 'web': webs, 'end': ends}
+            'water': waters, 'frog': frogs, 'web': webs, 'end': ends,
+            'star':stars}
 
 
 #      |   |
