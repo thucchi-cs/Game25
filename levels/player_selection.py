@@ -3,6 +3,7 @@ import pygame
 from constants import *
 import constants
 from sprites.text import Text
+import sprites.images as img
 
 # Text variables
 create_id_text = Text("fonts/COMIC.ttf", 30, "Create a Player Name", (255,255,255), 250, 200)
@@ -14,12 +15,25 @@ does_not_exist_text = Text("fonts/COMIC.ttf", 30, "Player Does Not Exist", (255,
 input_box = pygame.Rect(70, 300, 360, 50)
 username =  Text("fonts/COMIC.ttf", 30, f"", (255,255,255), 250, 325)
 
-async def create_player():
+# Clock for fps
+clock = pygame.time.Clock()
+
+async def create_player(pDirt1, pDirt2):
     # Boolean variables determine what text to display
     unique_id_display = False
+
+    # Dirt background
+    dirt = pDirt1
+    dirt2 = pDirt2
+    background = pygame.sprite.Group()
+    background.add(dirt,dirt2)
+
     run = True
     quit = False
     while run:
+        # Timing
+        clock.tick(FPS)
+
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
@@ -45,6 +59,20 @@ async def create_player():
                     username.text += event.unicode
         SCREEN.fill((0,0,0))
 
+        # Infinite background
+        if dirt.rect.y <=1200:
+            dirt.move_up()
+            dirt2.move_up()
+        else:
+            dirt.rect.y = dirt2.rect.y - 1200
+
+        if dirt2.rect.y <=1200:
+            dirt.move_up()
+            dirt2.move_up()
+        else:
+            dirt2.rect.y = dirt.rect.y - 1200
+        background.draw(SCREEN)
+
         # Display creating username screen
         create_id_text.blit_text(SCREEN)
         pygame.draw.rect(SCREEN, (200, 200, 200), input_box, 2)
@@ -60,12 +88,22 @@ async def create_player():
     return "quit" if quit else "continue"
 
 
-async def enter_player():
+async def enter_player(pDirt1, pDirt2):
     # Boolean variables determine what text to display
     does_not_exist_display = False
+
+    # Dirt background
+    dirt = pDirt1
+    dirt2 = pDirt2
+    background = pygame.sprite.Group()
+    background.add(dirt,dirt2)
+
     run = True
     quit = False
     while run:
+        # Timing
+        clock.tick(FPS)
+        
         for event in pygame.event.get():
             # Check to close game
             if event.type == pygame.QUIT:
@@ -89,6 +127,20 @@ async def enter_player():
                 elif len(username.text) < 12:
                     username.text += event.unicode
         SCREEN.fill((0,0,0))
+
+        # Infinite background
+        if dirt.rect.y <=1200:
+            dirt.move_up()
+            dirt2.move_up()
+        else:
+            dirt.rect.y = dirt2.rect.y - 1200
+
+        if dirt2.rect.y <=1200:
+            dirt.move_up()
+            dirt2.move_up()
+        else:
+            dirt2.rect.y = dirt.rect.y - 1200
+        background.draw(SCREEN)
 
         # Display entering username screen
         enter_id_text.blit_text(SCREEN)

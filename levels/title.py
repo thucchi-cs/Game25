@@ -18,10 +18,10 @@ async def menu():
     p2_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 150), 'player2button.png')
     p3_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 150), 'player3button.png')
     p4_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 150), 'player4button.png')
-    load_game_btn = btn.menuBtn((50, 50), (250, 475), 'yes_button.png')
-    new_game_btn = btn.menuBtn((50, 50), (250, 525), 'no_button.png')
-    save_data_btn = btn.menuBtn((50, 50), (250, 250), 'yes_button.png')
-    guest_btn = btn.menuBtn((50, 50), (250, 350), 'no_button.png')
+    load_game_btn = btn.menuBtn((180, 60), (365, 500), 'load_game.png')
+    new_game_btn = btn.menuBtn((180, 60), (135, 500), 'new_game.png')
+    save_data_btn = btn.menuBtn((300, 100), (250, 200), 'save_data.png')
+    guest_btn = btn.menuBtn((300, 100), (250, 400), 'play_guest.png')
 
     # Create Assets
     menu_text = img.imgDisplay((500,600),(0,0),'menu_assets/fly_out_text.png')
@@ -36,12 +36,11 @@ async def menu():
     player_text = img.imgDisplay((500,600),(0,0),'menu_assets/player_name.png')
 
     # Static Flies
-
     fly1menu = img.imgDisplay((flyxs,flyys),(45,275),'fly1.1.png',1)
     fly2menu = img.imgDisplay((flyxs,flyys),(159,290),'fly2.1.png',2)
     fly3menu = img.imgDisplay((flyxs,flyys),(271,305),'fly3.1.png',3)
     fly4menu = img.imgDisplay((flyxs,flyys),(382,320),'fly4.1.png',4)
-
+    flies_display = [fly1menu, fly2menu, fly3menu, fly4menu]
     
     # Button sprite group
     btns = pygame.sprite.Group()
@@ -79,7 +78,7 @@ async def menu():
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
                     btns.add(p2_option, p3_option, p4_option)
-                    await player_selection.enter_player()
+                    await player_selection.enter_player(dirt, dirt2)
     
                 elif new_game_btn.is_clicked():
                     btns.remove(load_game_btn, new_game_btn)
@@ -91,7 +90,7 @@ async def menu():
                     btns.remove(guest_btn, save_data_btn)
                     layer1.remove(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
                     layer1.add(player_text)
-                    await player_selection.create_player()
+                    await player_selection.create_player(dirt, dirt2)
 
                 elif guest_btn.is_clicked():
                     btns.add(p2_option, p3_option, p4_option)
@@ -113,11 +112,10 @@ async def menu():
                 elif p4_option.is_clicked():
                     run=False
 
-
-        fly1menu.animate_fly()
-        fly2menu.animate_fly()
-        fly3menu.animate_fly()
-        fly4menu.animate_fly()
+        
+        for fly in flies_display:
+            fly.animate_fly()
+            
         # Infinite Background
 
         if dirt.rect.y <=1200:
@@ -139,8 +137,8 @@ async def menu():
 
         SCREEN.fill((255,255,255))
         bg.draw(SCREEN)
-        layer1.draw(SCREEN)
         btns.draw(SCREEN)
+        layer1.draw(SCREEN)
 
         pygame.display.flip()
 
