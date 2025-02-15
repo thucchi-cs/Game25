@@ -16,5 +16,5 @@ class Web(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition

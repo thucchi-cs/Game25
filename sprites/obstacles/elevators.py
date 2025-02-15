@@ -6,6 +6,7 @@ class Elevators(pygame.sprite.Sprite):
     def __init__(self, pos, size, flipped, y2):
         super().__init__()
         # Load image
+        self.image = pygame.image.load("graphics/newGraphics/Elevatorred.png")
         self.image = pygame.image.load("graphics/elevator.png")
         self.image = pygame.transform.scale(self.image, size)
         self.image = pygame.transform.flip(self.image, flip_x= flipped, flip_y= False)
@@ -42,7 +43,7 @@ class Elevators(pygame.sprite.Sprite):
             self.animation()
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
-        self.dest += constants.SPEED
-        self.start += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
+        self.dest += constants.SPEED + addition
+        self.start += constants.SPEED + addition

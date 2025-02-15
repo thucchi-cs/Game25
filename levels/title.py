@@ -1,11 +1,11 @@
 # Libraries imports
 import asyncio
 import pygame
-import pygame.examples
 import sprites.menuButtons as btn
 import sprites.images as img
 from constants import *
 import levels.player_selection as player_selection
+import levels.helpers as h
 
 # Level 1 loop
 async def menu():
@@ -28,8 +28,8 @@ async def menu():
 
     dirt1y = 0
     dirt2y = 1200
-    flyxs = 75
-    flyys = 100
+    flyxs = 50
+    flyys = 75
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
 
@@ -67,8 +67,8 @@ async def menu():
                     run = False
                     quit = True
                 if event.key == pygame.K_TAB:
-                    players.remove(fly3,fly4)
-                    all.remove(fly3,fly4)
+                    players.remove(fly3,fly4, fly2)
+                    all.remove(fly3,fly4, fly2)
                     run=False
             
             # Check if button is clicked
@@ -144,5 +144,6 @@ async def menu():
 
         # asyncio
         await asyncio.sleep(0)
-    
+        
+    h.fade_out_animation(clock)
     return "quit" if quit else "continue"

@@ -1,5 +1,6 @@
 import pygame
 import constants
+import sprites.shell as shell
 
 class Buttons(pygame.sprite.Sprite):
     # Constructor
@@ -22,7 +23,7 @@ class Buttons(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = pos[0]
         self.rect.centery = pos[1]
-        self.collide = self.Collide_Box(self.rect)
+        self.collide = shell.Collide_Box(self.rect, 3)
         self.pressed = False
         self.obstacle = obstacle  
         
@@ -48,8 +49,8 @@ class Buttons(pygame.sprite.Sprite):
         return self.pressed
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
 
     def update(self):
         self.collide.update(self.rect)
@@ -65,10 +66,3 @@ class Buttons(pygame.sprite.Sprite):
                 self.counter = 0
         # pygame.draw.rect(constants.SCREEN, (255,255,255),(self.collide.rect),1)
 
-    class Collide_Box(pygame.sprite.Sprite):
-        def __init__(self, rect):
-            super().__init__()
-            self.shell = 3
-            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)
-        def update(self, rect):
-            self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)

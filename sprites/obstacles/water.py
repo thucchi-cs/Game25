@@ -6,8 +6,8 @@ class Water(pygame.sprite.Sprite):
     def __init__(self,pos,size):
         super().__init__()
         # Load image
-        self.image = pygame.image.load("graphics/water.png")
-        self.image = pygame.transform.scale(self.image,size)
+        self.images = [pygame.transform.scale(pygame.image.load(f"graphics/newGraphics/WaterRed{i}.png"), size) for i in range(1, 4)]
+        self.image = self.images[0]
         self.rect = self.image.get_rect()
         self.size = size
         self.pos = pos
@@ -35,26 +35,17 @@ class Water(pygame.sprite.Sprite):
 
         else:
             # Water flowing animation
-            self.counter %= 10
             self.counter +=1
-            if self.counter == 1 or self.counter == 2:
-                self.image = pygame.image.load("graphics/water-2.png")
-            elif self.counter == 3 or self.counter == 4:
-                self.image = pygame.image.load("graphics/water-3.png")
-            elif self.counter == 5 or self.counter == 6:
-                self.image = pygame.image.load("graphics/water-4.png")
-            elif self.counter == 7 or self.counter == 8:
-                self.image = pygame.image.load("graphics/water-5.png")
-            elif self.counter == 9 or self.counter == 10:
-                self.image = pygame.image.load("graphics/water.png")
-            # else:
-            #     self.counter = 0
-            self.image = pygame.transform.scale(self.image,self.size)
+
+            self.counter %= 10
+            findex = self.counter //5 # This changes to a new image every 2 frames
+            # print(findex)
+            self.image = self.images[findex]
             self.rect.x = self.realX if self.show else 9000
         
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
         
     # Animate opening and closing
     def animation(self):
@@ -63,7 +54,7 @@ class Water(pygame.sprite.Sprite):
             if self.counter2 %5 == 0:
                 self.counter3 += 1 if self.clearing else -1
             if self.counter2 % 5 >= 0 and self.counter2 % 5 <=2:
-                self.image = pygame.image.load("graphics/water-"+str(self.counter3)+"-open.png")
+                self.image = pygame.image.load("graphics/newGraphics/WaterRedPath"+str(self.counter3)+".png")
                 self.image = pygame.transform.scale(self.image,self.size)
             else:
                 self.rect.x = self.pos[0]

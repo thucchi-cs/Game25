@@ -3,6 +3,7 @@ import asyncio
 import pygame
 # from constants import *
 import constants
+import sprites.images as img
 import levels.helpers as h
 import threading
 
@@ -29,10 +30,12 @@ async def level(lvl):
     for f in constants.frogs:
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
-    
-    # Add the players back into all
-    constants.all.add(constants.players)
-
+    dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
+    dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
+    bg = pygame.sprite.Group()
+    bg.add(dirt,dirt2)
+    # constants.all.add(bg)
+        
     # Level loop
     while run:
         clock.tick(constants.FPS)
@@ -69,13 +72,13 @@ async def level(lvl):
             if lvl < constants.num_of_levels:
                 constants.player[f"level{lvl+1}"]["unlocked"] = True
             constants.player_database.update(constants.player, constants.Player.username == constants.player_username)
-            run = False   
+            run = False 
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:
             save_display = False
             for fly in constants.players:
-                dead = fly.collide_rock(constants.rocks) or fly.check_lasers(constants.lasers) or fly.check_offscreen()
+                dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
                 if dead:
                     dead_flys.append(fly)
                     start_dead = counter
@@ -88,7 +91,8 @@ async def level(lvl):
             key = pygame.key.get_pressed() 
             h.move_players(key)
             # Auto Scroll
-            scroll = h.auto_scroll(counter)
+            if constants.ends.sprites()[0].rect.y < 0:
+                scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
         else:
             if counter - start_dead < 40:
@@ -98,11 +102,11 @@ async def level(lvl):
                 restart = True
                 run = False
         last_sprite = constants.all.sprites()[-1]
-        zero_pos += constants.SPEED if scroll else 0
-        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        # zero_pos += constants.SPEED + addition if scroll else 0
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
-        constants.SCREEN.fill((92, 64, 51))
+
 
 
 
@@ -113,11 +117,12 @@ async def level(lvl):
         #     pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
-        
+        bg.draw(constants.SCREEN)
         constants.all.draw(constants.SCREEN)
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
+        constants.key_counter.draw(constants.SCREEN)
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()
@@ -128,11 +133,13 @@ async def level(lvl):
         await asyncio.sleep(0)
         
     # restart message
-    if restart:
-        h.restart_transition(clock)
+    # if restart:
+    #     h.restart_transition(clock)
     
     # fade out
-    h.fade_out_animation(clock)
+    # h.fade_out_animation(clock)
+    
+    constants.all.remove(bg)
     
     # end
     if quit:

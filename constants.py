@@ -12,6 +12,7 @@ import sprites.obstacles.frogs as frog
 import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
+import sprites.obstacles.keys as key
 from tinydb import TinyDB, Query
 import sprites.stars as star
 
@@ -43,7 +44,7 @@ FPS = 30
 
 # Autoscrolling speed
 SPEED = 1
-SPEEDFACTOR = 2
+SPEEDFACTOR = 1
 
 # Control keys
 ARROWS = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
@@ -60,12 +61,16 @@ fly4 = flies.Flies(325, 500, IJKL, 4)
 # Text for web
 save_text = text.Text("fonts/COMIC.TTF", 30, "Test", (255,255,255), 250, 75)
 
+key_counter = key.KeyCounter()
+
 # Sprite Groups
 players = pygame.sprite.Group()
 players.add(fly1, fly2,fly3,fly4)
 buttons = pygame.sprite.Group()
 webs = pygame.sprite.Group()
 gates = pygame.sprite.Group()
+keys = pygame.sprite.Group()
+keys_collected = pygame.sprite.Group()
 rocks = pygame.sprite.Group()
 exclamations = pygame.sprite.Group()
 waters = pygame.sprite.Group()
@@ -80,13 +85,13 @@ preload = pygame.sprite.Group()
 
 # Sprites and groups dicts for json planning
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
-            'elevator': elevator.Elevators, 'gate': gate.Gate,
+            'elevator': elevator.Elevators, 'gate': gate.Gate, 'key': key.Key,
             'laser': laser.Lasers, 'rock': rock.Rocks,
             'water': water.Water, 'frog': frog.Frog, 'web': web.Web, 'end': end.End,
             'star': star.Stars}
 
 GROUPS = {'btn': buttons, 'wall': walls, 
-            'elevator': elevators, 'gate': gates,
+            'elevator': elevators, 'gate': gates, 'key': keys,
             'laser': lasers, 'rock': rocks,
             'water': waters, 'frog': frogs, 'web': webs, 'end': ends,
             'star':stars}

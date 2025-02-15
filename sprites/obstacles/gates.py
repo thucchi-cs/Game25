@@ -1,5 +1,6 @@
 import pygame
 import constants
+import sprites.shell as shell
 
 class Gate(pygame.sprite.Sprite):
     # Constructor
@@ -9,9 +10,9 @@ class Gate(pygame.sprite.Sprite):
         self.size = size
         self.pos = pos
         # Image path variables
-        self.image_path = 'graphics/gates/gate1.png'
+        self.image_path = 'graphics/newGraphics/RailRed6.png'
         self.path_index = 0
-        self.image_paths = [f'graphics/gates/gate{i}.png' for i in range(1,19)]
+        self.image_paths = [f'graphics/newGraphics/RailRed{i}.png' for i in range(6,0,-1)]
         # Image rendering
         self.image = pygame.image.load(self.image_path)
         original_width, original_height = self.image.get_size()
@@ -26,12 +27,15 @@ class Gate(pygame.sprite.Sprite):
         self.closed = True
         self.clearing = False
         self.appearing = False
-    
+        self.collide = shell.Collide_Box(self.rect, 3)
+
     # Animate opening and closing
     def animation(self):
         # Move forward or backwoards one in the list of image paths
         # Depending on if the gate is opening or closing
+
         self.path_index += 1 if self.clearing else -1
+        # print(self.path_index)
         self.image_path = self.image_paths[self.path_index]
         # Render new image
         self.image = pygame.image.load(self.image_path)
@@ -41,18 +45,19 @@ class Gate(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(self.image, (self.size,self.height))
         # Rotation based off direction
         self.image = pygame.transform.rotate(self.image, self.rotation)
-        if self.path_index == 17 or self.path_index == 0:
-            self.open = True if self.path_index == 17 else False
+        if self.path_index == 5 or self.path_index == 0:
+            self.open = True if self.path_index == 5 else False
             self.closed = True if self.path_index == 0 else False
             self.clearing = False
             self.appearing = False
     
     # Update - periodic
     def update(self):
+        self.collide.update(self.rect)
         # Animate if needed
         if self.clearing or self.appearing:
             self.animation()
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition

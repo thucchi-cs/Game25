@@ -9,13 +9,14 @@ import levels.grid as grid
 from constants import *
 import levels.transition as transition
 import levels.helpers as h
+import levels.restart as restart
 import levels.instructions as instructions
 import levels.player_selection as player_selection
 import levels.level_select as level_select
 
 # Music
 pygame.mixer.init()
-pygame.mixer.music.load('music/life.ogg')
+pygame.mixer.music.load('music/cave-9207.ogg')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.2)
 # Game
@@ -25,7 +26,7 @@ async def main():
     # quit = await grid.screen()dnf
     # if quit:
     #     return
-
+    
     # Run main menu
     status = await title.menu()
     if status == "quit":
@@ -33,9 +34,9 @@ async def main():
     player_count = len(players)
     
     # Run Instructions Screen
-    status = await instructions.showInstructions()
-    if status == "quit":
-        return 
+    # status = await instructions.showInstructions()
+    # if status == "quit":
+    #     return 
 
     while True:    
         lvl = await level_select.select_level()
@@ -48,9 +49,10 @@ async def main():
             if status == "quit":
                 return
             h.reset_sprites()
-            # if status == 
-
-        # Run level transition
+            if status == "restart":
+                await restart.restart()
+        # print(status)
+        # Run level one transitionw
         status = await transition.transition(lvl+1, player_count)
         if status == "quit":
             return

@@ -14,5 +14,5 @@ class Stars(pygame.sprite.Sprite):
     
 
     # Scroll with screen
-    def scroll(self):
-        self.rect.y += constants.SPEED
+    def scroll(self, addition):
+        self.rect.y += constants.SPEED + addition
