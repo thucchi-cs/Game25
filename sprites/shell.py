@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Collide_Box(pygame.sprite.Sprite):
         def __init__(self, rect, width):

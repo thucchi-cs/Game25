@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Frog(pygame.sprite.Sprite):
     # Constructor
@@ -53,5 +53,5 @@ class Frog(pygame.sprite.Sprite):
     
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
-        self.pos = (self.pos[0], self.pos[1] + constants.SPEED + addition)
+        self.rect.y += globals.SPEED + addition
+        self.pos = (self.pos[0], self.pos[1] + globals.SPEED + addition)

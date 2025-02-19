@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Wall(pygame.sprite.Sprite):
     # Constructor
@@ -15,4 +15,4 @@ class Wall(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition

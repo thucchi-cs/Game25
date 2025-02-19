@@ -3,7 +3,7 @@ import asyncio
 import pygame
 import sprites.menuButtons as btn
 import sprites.images as img
-from constants import *
+from globals import *
 import levels.player_selection as player_selection
 import levels.helpers as h
 

@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Elevators(pygame.sprite.Sprite):
     # Constructor
@@ -29,7 +29,7 @@ class Elevators(pygame.sprite.Sprite):
             self.rect.y += self.speed if self.clearing else -self.speed
             
             # Avoid crushing a fly
-            for fly in constants.players:
+            for fly in globals.players:
                 if pygame.sprite.collide_mask(self, fly) and not fly.elevator_collide(self):
                     self.rect.y -= self.speed if self.clearing else -self.speed
                     
@@ -44,6 +44,6 @@ class Elevators(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
-        self.dest += constants.SPEED + addition
-        self.start += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
+        self.dest += globals.SPEED + addition
+        self.start += globals.SPEED + addition

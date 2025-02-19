@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 # Button for menu
 class imgDisplay(pygame.sprite.Sprite):
     # Constructor
@@ -17,9 +17,9 @@ class imgDisplay(pygame.sprite.Sprite):
         self.current_image = self.image_paths[0]
         self.counter = 0
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition 
+        self.rect.y += globals.SPEED + addition 
     def move_up(self):
-        self.rect.y += constants.SPEED
+        self.rect.y += globals.SPEED
     def animate_fly(self):
         self.counter += 1
         if self.counter % 5 == 0:

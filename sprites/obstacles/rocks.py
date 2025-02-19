@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Rocks(pygame.sprite.Sprite):
     # Constructor
@@ -46,7 +46,7 @@ class Rocks(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
 
     # Remove from sprite groups
     def remove(self):

@@ -1,7 +1,7 @@
 # Libraries imports
 import asyncio
 import pygame
-from constants import *
+from globals import *
 
 # show grid loop
 async def screen():

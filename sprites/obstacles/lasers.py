@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Lasers(pygame.sprite.Sprite):
     # Constructor
@@ -41,4 +41,4 @@ class Lasers(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition

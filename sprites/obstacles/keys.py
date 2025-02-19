@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 import sprites.text as text
 import sprites.shell as shell
 
@@ -20,7 +20,7 @@ class Key(pygame.sprite.Sprite):
         self.gate = None
     
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
         # self.bounce()
     
     def bounce(self):
@@ -47,13 +47,13 @@ class Key(pygame.sprite.Sprite):
         else:
             self.following = False
             if not self.collected:
-                constants.key_counter.counter += 1
-                self.remove(constants.all)
-                self.add(constants.keys_collected)
+                globals.key_counter.counter += 1
+                self.remove(globals.all)
+                self.add(globals.keys_collected)
                 self.pos = 0
                 self.collected = True
             else:
-                self.remove(constants.all, constants.keys_collected)
+                self.remove(globals.all, globals.keys_collected)
                 self.gate.clearing = True
                 self.kill()
                 

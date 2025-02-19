@@ -1,5 +1,5 @@
 import asyncio
-from constants import *
+from globals import *
 import sprites.text as text
 import sprites.flies as flies
 import pygame

@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Stars(pygame.sprite.Sprite):
     def __init__(self, pos, id):
@@ -15,4 +15,4 @@ class Stars(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition

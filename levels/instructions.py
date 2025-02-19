@@ -1,6 +1,6 @@
 import pygame
 import levels.helpers as h
-from constants import *
+from globals import *
 import asyncio
 
 

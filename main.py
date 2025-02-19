@@ -6,7 +6,7 @@ import pygame
 import levels.level as level
 import levels.title as title
 import levels.grid as grid
-from constants import *
+from globals import *
 import levels.transition as transition
 import levels.helpers as h
 import levels.restart as restart

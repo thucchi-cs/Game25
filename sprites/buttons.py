@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 import sprites.shell as shell
 
 class Buttons(pygame.sprite.Sprite):
@@ -50,12 +50,12 @@ class Buttons(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
 
     def update(self):
         self.collide.update(self.rect)
         collide_fly = False
-        for fly in constants.players:
+        for fly in globals.players:
             if self.collide.rect.colliderect(fly):
                 collide_fly = True
                 break

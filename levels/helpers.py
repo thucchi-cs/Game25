@@ -1,6 +1,6 @@
 # import pygame
 import json
-from constants import *
+from globals import *
 import sprites.text as text
 import pygame
 import sprites.window as window

@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class End(pygame.sprite.Sprite):
     # Constructor
@@ -12,5 +12,5 @@ class End(pygame.sprite.Sprite):
         self.rect.x = pos[0]
         self.rect.y = pos[1]
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
     

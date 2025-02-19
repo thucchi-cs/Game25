@@ -1,7 +1,7 @@
 # Libraries imports
 import asyncio
 import pygame
-from constants import *
+from globals import *
 # import constants
 import levels.helpers as h
 import threading

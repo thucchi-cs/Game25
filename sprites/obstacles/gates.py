@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 import sprites.shell as shell
 
 class Gate(pygame.sprite.Sprite):
@@ -60,4 +60,4 @@ class Gate(pygame.sprite.Sprite):
 
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition

@@ -1,7 +1,7 @@
 # Libraries imports
 import pygame
 import math
-import constants
+import globals
 import sprites.text as text
 import sprites.curve as curve
 
@@ -68,7 +68,7 @@ class Flies(pygame.sprite.Sprite):
     
     # Move sprite with arrow keys
     def move_arrows(self, key, obstacles):
-        obstacles = [obstacle for obstacle in obstacles if obstacle in constants.all]
+        obstacles = [obstacle for obstacle in obstacles if obstacle in globals.all]
         if not self.stuck:
             # Move Forward
             if (key[self.up_key] or key[self.down_key]):
@@ -134,7 +134,7 @@ class Flies(pygame.sprite.Sprite):
                         # self.render_image(self.current_image)
 
     def check_offscreen(self):
-        if self.rect.y >= (constants.HEIGHT - self.rect.height * 0.75):
+        if self.rect.y >= (globals.HEIGHT - self.rect.height * 0.75):
             self.deadx = self.rect.x
             return True
         return False
@@ -146,7 +146,7 @@ class Flies(pygame.sprite.Sprite):
 
     # Check if stuck in webs
     def check_web(self, webs):
-        webs = [web for web in webs if web in constants.all]
+        webs = [web for web in webs if web in globals.all]
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
@@ -214,15 +214,15 @@ class Flies(pygame.sprite.Sprite):
     def check_gates(self, gates):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):
-                if constants.key_counter.counter > 0:
-                    constants.key_counter.counter -= 1
-                    key = constants.keys_collected.sprites()[0]
+                if globals.key_counter.counter > 0:
+                    globals.key_counter.counter -= 1
+                    key = globals.keys_collected.sprites()[0]
                     key.set_gate(gate)
                     path = curve.draw_Bezier([(key.rect.centerx, key.rect.centery), (gate.rect.centerx, gate.rect.centery)], 2)
                     print(key.rect.centery, gate.rect.centery)
                     key.set_path(path)
                     key.following = True
-                    constants.all.add(key)
+                    globals.all.add(key)
                     return
 
     # Save friend method for when fly gets stuck
@@ -233,7 +233,7 @@ class Flies(pygame.sprite.Sprite):
             if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 75:
                 close_friend = fly
         words = "Hold Space To Save Your Friend!" if close_friend else "Save Your Friend!"
-        constants.save_text.text = words
+        globals.save_text.text = words
         if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
             self.stuck = False
     
@@ -252,7 +252,7 @@ class Flies(pygame.sprite.Sprite):
    
     # Scroll with screen
     def scroll(self, addition):
-        self.rect.y += constants.SPEED + addition
+        self.rect.y += globals.SPEED + addition
         # print(self.rect.x, self.rect.y)
     
     def update(self):

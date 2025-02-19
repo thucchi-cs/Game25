@@ -1,7 +1,7 @@
 import asyncio
 import pygame
-from constants import *
-import constants
+from globals import *
+import globals
 from sprites.text import Text
 import sprites.images as img
 
@@ -15,6 +15,8 @@ does_not_exist_text = Text("fonts/COMIC.ttf", 30, "Player Does Not Exist", (255,
 input_box = pygame.Rect(70, 300, 360, 50)
 username =  Text("fonts/COMIC.ttf", 30, f"", (255,255,255), 250, 325)
 
+# Restricted text to prevent any injection risks
+restricted_text = "\\/*{[]}:;?%()+=|~`<>,\"\'"
 # Clock for fps
 clock = pygame.time.Clock()
 
@@ -47,15 +49,25 @@ async def create_player(pDirt1, pDirt2):
                 # Check if enter is clicked and creating username
                 elif event.key == pygame.K_RETURN and len(username.text) > 0:
                     # If the username entered already exists, display a wanring letting the user know
-                    if player_database.contains(Player.username == username.text):
+                    if username.text in globals.player_names:
                         unique_id_display = True
                     # If the username does not exist, add it to the player database and set it as the current player username
                     else:
-                        player_database.insert({'username':username.text, 'level1':{'unlocked':True, 'completed':False, 'star1':False, 'star2':False, 'star3':False}, 'level2':{'unlocked':False, 'completed':False, 'star1':False, 'star2':False, 'star3':False}, 'level3':{'unlocked':False, 'completed':False, 'star1':False, 'star2':False, 'star3':False}})
-                        constants.player_username = username.text
-                        constants.player = player_database.get(Player.username == constants.player_username)
+                        # Initial player data
+                        globals.player_data = {
+                            "player_name": username.text,
+                            "levels_unlocked": 1,
+                            "level1_stars":[0,0,0],
+                            "level2_stars":[0,0,0],
+                            "level3_stars":[0,0,0]
+                        }
+                        # Add the data to the database
+                        supabase.table("player_progress").insert(player_data).execute()
+                        # Set the player username to the seleceted name
+                        globals.player_username = username.text
                         run = False
-                elif len(username.text) < 12:
+                elif len(username.text) < 12 and event.unicode not in restricted_text:
+                    # Add the typed letter to username text
                     username.text += event.unicode
         SCREEN.fill((0,0,0))
 
@@ -117,14 +129,15 @@ async def enter_player(pDirt1, pDirt2):
                 # Check if enter is clicked and entering username
                 elif event.key == pygame.K_RETURN and len(username.text) > 0:
                     # If the username entered does not exist, display a wanrning letting the user know
-                    if not player_database.contains(Player.username == username.text):
+                    if username.text not in globals.player_names:
                         does_not_exist_display = True
                     # If the username does exist, set it as the current player username
                     else:
-                        constants.player_username = username.text
-                        constants.player = player_database.get(Player.username == constants.player_username)
+                        player_data_query = supabase.table("player_progress").select("*").eq("player_name", "Test2").execute()
+                        globals.player_data = player_data_query.data[0]
+                        globals.player_username = username.text
                         run = False
-                elif len(username.text) < 12:
+                elif len(username.text) < 12 and event.unicode not in restricted_text:
                     username.text += event.unicode
         SCREEN.fill((0,0,0))
 

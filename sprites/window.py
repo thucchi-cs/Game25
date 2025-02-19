@@ -1,5 +1,5 @@
 import pygame
-import constants
+import globals
 
 class Window(pygame.sprite.Sprite):
     def __init__(self, image):
@@ -28,4 +28,4 @@ class Window(pygame.sprite.Sprite):
         return False
     
     def draw(self):
-        constants.SCREEN.blit(self.image, (self.rect.x, self.rect.y))
+        globals.SCREEN.blit(self.image, (self.rect.x, self.rect.y))

@@ -2,7 +2,7 @@
 import asyncio
 import pygame
 # from constants import *
-import constants
+import globals
 import sprites.images as img
 import levels.helpers as h
 import threading
@@ -22,12 +22,12 @@ async def level(lvl):
     fade = 255
     h.load_layout('level'+str(lvl)+'.json')
     skip = 0
-    for sprite in constants.all:
+    for sprite in globals.all:
         sprite.rect.y += skip
-    for e in constants.elevators:
+    for e in globals.elevators:
         e.dest += skip
         e.start += skip
-    for f in constants.frogs:
+    for f in globals.frogs:
         f.pos = (f.pos[0], f.pos[1]+skip)
     zero_pos += skip
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
@@ -38,7 +38,7 @@ async def level(lvl):
         
     # Level loop
     while run:
-        clock.tick(constants.FPS)
+        clock.tick(globals.FPS)
         counter += 1
         # if counter % 2 == 0:
         #     h.something()
@@ -56,29 +56,31 @@ async def level(lvl):
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
-                    constants.player[f"level{lvl}"]["completed"] = True
-                    if lvl < constants.num_of_levels:
-                        constants.player[f"level{lvl+1}"]["unlocked"] = True
-                    constants.player_database.update(constants.player, constants.Player.username == constants.player_username)
+                    levels_unlocked = globals.player_data.get("levels_unlocked")
+                    if lvl <= levels_unlocked:
+                        globals.player_data.update({"levels_unlocked":levels_unlocked+1})
+                    # Update the database
+                    globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
                     run = False
                     
                 # Stop scroll cheat code
                 if event.key == pygame.K_BACKSPACE:
-                    constants.SPEED = 0 if constants.SPEED else 1
+                    globals.SPEED = 0 if globals.SPEED else 1
               
         # Win level   
         if h.check_win():
-            constants.player[f"level{lvl}"]["completed"] = True
-            if lvl < constants.num_of_levels:
-                constants.player[f"level{lvl+1}"]["unlocked"] = True
-            constants.player_database.update(constants.player, constants.Player.username == constants.player_username)
+            levels_unlocked = globals.player_data.get("levels_unlocked")
+            if lvl <= levels_unlocked:
+                globals.player_data.update({"levels_unlocked":levels_unlocked+1})
+            # Update the database
+            globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
             run = False 
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:
             save_display = False
-            for fly in constants.players:
-                dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
+            for fly in globals.players:
+                dead = fly.collide_rock(globals.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(globals.lasers, globals.frogs)) or fly.check_offscreen()
                 if dead:
                     dead_flys.append(fly)
                     start_dead = counter
@@ -91,7 +93,7 @@ async def level(lvl):
             key = pygame.key.get_pressed() 
             h.move_players(key)
             # Auto Scroll
-            if constants.ends.sprites()[0].rect.y < 0:
+            if globals.ends.sprites()[0].rect.y < 0:
                 scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
         else:
@@ -101,7 +103,7 @@ async def level(lvl):
             else:
                 restart = True
                 run = False
-        last_sprite = constants.all.sprites()[-1]
+        last_sprite = globals.all.sprites()[-1]
         # zero_pos += constants.SPEED + addition if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
         print(coor)
@@ -117,12 +119,12 @@ async def level(lvl):
         #     pygame.draw.line(constants.SCREEN, (0, 0, 255), (0, i), (constants.WIDTH, i))
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
-        bg.draw(constants.SCREEN)
-        constants.all.draw(constants.SCREEN)
+        bg.draw(globals.SCREEN)
+        globals.all.draw(globals.SCREEN)
         if save_display:
-            constants.save_text.blit_text(constants.SCREEN)
-        constants.all.update()
-        constants.key_counter.draw(constants.SCREEN)
+            globals.save_text.blit_text(globals.SCREEN)
+        globals.all.update()
+        globals.key_counter.draw(globals.SCREEN)
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()
@@ -139,7 +141,7 @@ async def level(lvl):
     # fade out
     # h.fade_out_animation(clock)
     
-    constants.all.remove(bg)
+    globals.all.remove(bg)
     
     # end
     if quit:

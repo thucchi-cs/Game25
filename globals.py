@@ -15,6 +15,28 @@ import sprites.obstacles.end as end
 import sprites.obstacles.keys as key
 from tinydb import TinyDB, Query
 import sprites.stars as star
+from supabase import create_client, Client
+
+# Database connection information
+SUPABASE_URL = "https://mdkntldyibqyhdxddupt.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ka250bGR5aWJxeWhkeGRkdXB0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk5MTI2ODksImV4cCI6MjA1NTQ4ODY4OX0.-NDON99SnurriDTnjGRimxgOnhDXYRKE2spKknTsfxM"
+
+# Database
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# Keeps track of player progress thrpughout the game
+# Is used to store data locally instead of constantly updating the database
+player_data = {
+    "levels_unlocked": 1,
+    "level1_stars":[0,0,0],
+    "level2_stars":[0,0,0],
+    "level3_stars":[0,0,0]
+}
+
+# All the player name in the database, used when logging in
+player_names_tale = supabase.table("player_progress").select("player_name").execute()
+# Player name list of disctionaries converted to a list of names
+player_names = [row["player_name"] for row in player_names_tale.data]
 
 player_database = TinyDB('player_data.json')
 Player = Query()
