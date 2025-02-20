@@ -224,6 +224,11 @@ class Flies(pygame.sprite.Sprite):
                     key.following = True
                     globals.all.add(key)
                     return
+    
+    def check_stars(self, stars):
+        collided_star = pygame.sprite.spritecollide(self, stars, False, pygame.sprite.collide_mask)
+        if collided_star:
+            collided_star[0].following = True
 
     # Save friend method for when fly gets stuck
     def save_friend(self, flies):

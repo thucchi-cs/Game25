@@ -13,7 +13,6 @@ import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
 import sprites.obstacles.keys as key
-from tinydb import TinyDB, Query
 import sprites.stars as star
 from supabase import create_client, Client
 
@@ -33,18 +32,16 @@ player_data = {
     "level3_stars":[0,0,0]
 }
 
+# Used so the player database is ony updated when the player is logged in
+player_signed_in = False
+
 # All the player name in the database, used when logging in
 player_names_tale = supabase.table("player_progress").select("player_name").execute()
 # Player name list of disctionaries converted to a list of names
 player_names = [row["player_name"] for row in player_names_tale.data]
 
-player_database = TinyDB('player_data.json')
-Player = Query()
-
 # Player username set to empty when player isn't signed in
 player_username = ""
-# player variable used when updating player data
-player = player_database.get(Player.username == "")
 
 num_of_levels = 3
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
@@ -102,6 +99,7 @@ walls = pygame.sprite.Group()
 ends = pygame.sprite.Group()
 frogs = pygame.sprite.Group()
 stars = pygame.sprite.Group()
+stars_collected = pygame.sprite.Group()
 all = pygame.sprite.Group(players)
 preload = pygame.sprite.Group()
 

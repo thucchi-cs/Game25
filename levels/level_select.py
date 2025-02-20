@@ -5,10 +5,6 @@ import globals
 from globals import *
 
 async def select_level():
-    # Query the database for the number of levels unlocked
-    # response = supabase.table("player_progress").select("levels_unlocked").eq("player_name", "Test2").execute()
-    # Total number of levels unlocked converted to a single integer
-    # levels_unlocked = response.data[0]["levels_unlocked"]
     # Level selection buttons
     level1_btn = btn.menuBtn((50, 50), (250, 450), 'player2button.png')
     level2_btn = btn.menuBtn((50, 50), (250, 350), 'player3button.png')

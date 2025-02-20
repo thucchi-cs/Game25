@@ -56,11 +56,18 @@ async def level(lvl):
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
+                    # Unlock next level if currently playing on the newest level and final level hasn't been unlocked
                     levels_unlocked = globals.player_data.get("levels_unlocked")
-                    if lvl <= levels_unlocked:
+                    if levels_unlocked < globals.num_of_levels and lvl == levels_unlocked:
                         globals.player_data.update({"levels_unlocked":levels_unlocked+1})
-                    # Update the database
-                    globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
+                    # Update the stars collected
+                    stars_update = globals.player_data.get(f"level{lvl}_stars")
+                    for star in globals.stars_collected.sprites():
+                        stars_update[star.id-1] = 1
+                    globals.player_data.update({f"level{lvl}_stars":stars_update})
+                    # Update the database if the player is signed in
+                    if globals.player_signed_in:
+                        globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
                     run = False
                     
                 # Stop scroll cheat code
@@ -69,12 +76,19 @@ async def level(lvl):
               
         # Win level   
         if h.check_win():
+            # Unlock next level if currently playing on the newest level and final level hasn't been unlocked
             levels_unlocked = globals.player_data.get("levels_unlocked")
-            if lvl <= levels_unlocked:
+            if levels_unlocked < globals.num_of_levels and lvl == levels_unlocked:
                 globals.player_data.update({"levels_unlocked":levels_unlocked+1})
-            # Update the database
-            globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
-            run = False 
+            # Update the stars collected
+            stars_update = globals.player_data.get(f"level{lvl}_stars")
+            for star in globals.stars_collected.sprites():
+                stars_update[star.id-1] = 1
+            globals.player_data.update({f"level{lvl}_stars":stars_update})
+            # Update the database if the player is signed in
+            if globals.player_signed_in:
+                globals.supabase.table("player_progress").update(globals.player_data).eq("player_name", globals.player_username).execute()
+            run = False
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:
@@ -125,6 +139,9 @@ async def level(lvl):
             globals.save_text.blit_text(globals.SCREEN)
         globals.all.update()
         globals.key_counter.draw(globals.SCREEN)
+        if len(globals.stars_collected) > 0:
+            globals.stars_collected.draw(globals.SCREEN)
+        
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()

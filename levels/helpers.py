@@ -14,6 +14,7 @@ def move_players(key):
         fly.check_web(webs)
         fly.check_btn(buttons)
         fly.check_gates(gates)
+        fly.check_stars(stars)
         key_collect = fly.check_keys(keys)
         if key_collect:
             path = curve.draw_Bezier([(key_collect.rect.centerx, key_collect.rect.centery), (WIDTH//2, 0), (key_counter.rect.centerx, key_counter.rect.centery)])
@@ -158,6 +159,9 @@ def reset_sprites():
         preload.remove(obj)
         obj.kill()
     
+    if len(stars_collected) > 0:
+        for star in stars_collected:
+            star.kill()
     # Reset the player list
     for player in players:
         player.reset()

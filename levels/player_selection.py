@@ -16,7 +16,7 @@ input_box = pygame.Rect(70, 300, 360, 50)
 username =  Text("fonts/COMIC.ttf", 30, f"", (255,255,255), 250, 325)
 
 # Restricted text to prevent any injection risks
-restricted_text = "\\/*{[]}:;?%()+=|~`<>,\"\'"
+restricted_text = "\\/*{[]}:;?%()+=|~`<>,\"\'."
 # Clock for fps
 clock = pygame.time.Clock()
 
@@ -53,6 +53,7 @@ async def create_player(pDirt1, pDirt2):
                         unique_id_display = True
                     # If the username does not exist, add it to the player database and set it as the current player username
                     else:
+                        globals.player_signed_in = True
                         # Initial player data
                         globals.player_data = {
                             "player_name": username.text,
@@ -131,8 +132,10 @@ async def enter_player(pDirt1, pDirt2):
                     # If the username entered does not exist, display a wanrning letting the user know
                     if username.text not in globals.player_names:
                         does_not_exist_display = True
-                    # If the username does exist, set it as the current player username
+                    # If the username does exist, set it as the current player
                     else:
+                        globals.player_signed_in = True
+                        # Set player_data dictionary to player data from database
                         player_data_query = supabase.table("player_progress").select("*").eq("player_name", "Test2").execute()
                         globals.player_data = player_data_query.data[0]
                         globals.player_username = username.text
