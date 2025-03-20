@@ -1,5 +1,6 @@
 import pygame
 import constants
+import sprites.shell as shell
 
 class Gate(pygame.sprite.Sprite):
     # Constructor
@@ -26,7 +27,8 @@ class Gate(pygame.sprite.Sprite):
         self.closed = True
         self.clearing = False
         self.appearing = False
-    
+        self.collide = shell.Collide_Box(self.rect, 3)
+
     # Animate opening and closing
     def animation(self):
         # Move forward or backwoards one in the list of image paths
@@ -51,6 +53,7 @@ class Gate(pygame.sprite.Sprite):
     
     # Update - periodic
     def update(self):
+        self.collide.update(self.rect)
         # Animate if needed
         if self.clearing or self.appearing:
             self.animation()

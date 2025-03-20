@@ -5,7 +5,6 @@ import pygame
 import constants
 import sprites.images as img
 import levels.helpers as h
-import threading
 
 # Level 3 loop
 async def level(lvl):
@@ -36,7 +35,7 @@ async def level(lvl):
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
     # constants.all.add(bg)
-    
+        
     # Level loop
     while run:
         clock.tick(constants.FPS)
@@ -98,8 +97,8 @@ async def level(lvl):
                 run = False
         last_sprite = constants.all.sprites()[-1]
         # zero_pos += constants.SPEED + addition if scroll else 0
-        # coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
+        print(coor)
         # Draw on screen
 
 
@@ -117,6 +116,7 @@ async def level(lvl):
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
+        constants.key_counter.draw(constants.SCREEN)
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()
