@@ -32,9 +32,9 @@ async def showInstructions():
                 showing_movement_instructions = False
                 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    showing_movement_instructions = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     showing_movement_instructions = False
+                #     quit = True
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
@@ -62,9 +62,9 @@ async def showInstructions():
                 showing_how_to1 = False
                 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    showing_how_to1 = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     showing_how_to1 = False
+                #     quit = True
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
@@ -90,9 +90,10 @@ async def showInstructions():
                 showing_how_to2 = False
                 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    showing_how_to2 = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     showing_how_to2 = False
+                #     quit = True
+                
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:

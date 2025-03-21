@@ -5,6 +5,7 @@ import pygame
 import constants
 import sprites.images as img
 import levels.helpers as h
+import sprites.pause as p
 
 # Level 3 loop
 async def level(lvl):
@@ -17,6 +18,8 @@ async def level(lvl):
     zero_pos = 0
     start_dead = 0
     restart = False
+    paused = False
+    psc = False
     fade = 255
     h.load_layout('level'+str(lvl)+'.json')
 
@@ -32,8 +35,14 @@ async def level(lvl):
     zero_pos += skip
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
+    pause1 = img.imgDisplay((500,600),(0,0),'pause_test_1.png')
+    pause = p.Pause()
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
+    fg = pygame.sprite.Group()
+    fg.add(pause)
+    ps = pygame.sprite.Group()
+    ps.add(pause1)
     # constants.all.add(bg)
         
     # Level loop
@@ -50,17 +59,38 @@ async def level(lvl):
                 run = False
                 quit = True
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
+                pass
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
-                    run = False
+                    if paused == False:
+                        paused = True
+                    else:
+                        paused = False
                     
                 # Stop scroll cheat code
                 if event.key == pygame.K_BACKSPACE:
+                    
+
                     constants.SPEED = 0 if constants.SPEED else 1
+                if event.key == pygame.K_AMPERSAND:
+                    run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if h.onButton("pause") and paused == False:
+                    paused = True
+
+                if paused == True and h.onButton("continue"):
+                    paused = False
+                if paused == True and h.onButton("restart"):
+                    run = False
+                    restart = True
+                if paused == True and h.onButton("main"):
+                    pass
+
+
 
 
               
@@ -69,7 +99,7 @@ async def level(lvl):
             run = False 
         
         # Move sprites and interact with other elements
-        if len(dead_flys) == 0:
+        if len(dead_flys) == 0 and paused == False:
             save_display = False
             for fly in constants.players:
                 dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
@@ -88,13 +118,21 @@ async def level(lvl):
             if constants.ends.sprites()[0].rect.y < 0:
                 scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
-        else:
+            psc = False
+        elif len(dead_flys) > 0:
+            psc = False
             if counter - start_dead < 40:
                 for fly in dead_flys:
                     fly.flash()
             else:
                 restart = True
                 run = False
+            
+        elif paused == True:
+            psc = True
+            
+
+
         last_sprite = constants.all.sprites()[-1]
         # zero_pos += constants.SPEED + addition if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
@@ -112,7 +150,12 @@ async def level(lvl):
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (constants.WIDTH // 2, 0), (constants.WIDTH // 2, constants.HEIGHT), width = 2)
         # pygame.draw.line(constants.SCREEN, (0, 255, 0), (0, constants.HEIGHT // 2), (constants.WIDTH, constants.HEIGHT // 2), width = 2)
         bg.draw(constants.SCREEN)
+
         constants.all.draw(constants.SCREEN)
+        fg.draw(constants.SCREEN)
+        if psc == True:
+            ps.draw(constants.SCREEN)
+
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()

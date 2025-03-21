@@ -41,9 +41,11 @@ async def End():
                 run = False
                 quit = True
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
+                
+                pass
 
         if counter > FPS//4:
             SCREEN.blit(background, (0,0))
