@@ -5,10 +5,13 @@ import pygame
 import constants
 import sprites.images as img
 import levels.helpers as h
+import time
+import math
 
-# Level 3 loop
+# Level loop
 async def level(lvl):
     # Time
+    start_time = time.time()
     clock = pygame.time.Clock()
     run = True
     quit = False
@@ -68,6 +71,7 @@ async def level(lvl):
         if h.check_win():
             run = False 
         
+        all_stuck = True
         # Move sprites and interact with other elements
         if len(dead_flys) == 0:
             save_display = False
@@ -79,13 +83,15 @@ async def level(lvl):
                 # Check for web collision
                 if fly.stuck:
                     save_display = True
+                else:
+                    all_stuck = False
             # Debug prints
             # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         
             key = pygame.key.get_pressed() 
             h.move_players(key)
             # Auto Scroll
-            if constants.ends.sprites()[0].rect.y < 0:
+            if constants.ends.sprites()[0].rect.y < 0 and counter > 50:
                 scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
         else:
@@ -95,10 +101,13 @@ async def level(lvl):
             else:
                 restart = True
                 run = False
+        if all_stuck:
+            restart = True
+            run = False
         last_sprite = constants.all.sprites()[-1]
         # zero_pos += constants.SPEED + addition if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
 
 
@@ -136,9 +145,11 @@ async def level(lvl):
     constants.all.remove(bg)
     
     # end
+    end_time = time.time()
+    level_time = end_time - start_time
     if quit:
-        return "quit"
+        return "quit", math.floor(level_time)
     elif restart:
-        return "restart"
+        return "restart", math.floor(level_time)
     else:
-        return "win"
+        return "win", math.floor(level_time)

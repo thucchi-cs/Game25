@@ -71,7 +71,7 @@ async def menu():
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # If click start
-                if start_btn.is_clicked():
+                if start_btn.is_clicked() and start_btn in btns:
                     # Options to choose number of players
                     btns.add(p2_option, p3_option, p4_option)
                     btns.remove(start_btn)
@@ -79,17 +79,17 @@ async def menu():
                     layer1.add(player_text)
                 
                 # If choose 2 players
-                elif p2_option.is_clicked():
+                elif p2_option.is_clicked() and p2_option in btns:
                     players.remove(fly3,fly4)
                     all.remove(fly3,fly4)
                     run=False
                 # If choose 3 players
-                elif p3_option.is_clicked():
+                elif p3_option.is_clicked() and p3_option in btns:
                     players.remove(fly4)
                     all.remove(fly4)
                     run=False
                 # If choose 4 players
-                elif p4_option.is_clicked():
+                elif p4_option.is_clicked() and p4_option in btns:
                     run=False
 
 

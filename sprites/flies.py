@@ -202,6 +202,12 @@ class Flies(pygame.sprite.Sprite):
     def check_btn(self, btns):
         pygame.sprite.collide_rect_ratio(0.5)
         for btn in btns:
+            if pygame.sprite.collide_mask(self, btn):
+                movement_angle = btn.rot + 90
+                x_speed = math.cos(math.radians(movement_angle))
+                y_speed = math.sin(math.radians(movement_angle))
+                self.rect.centerx += x_speed
+                self.rect.centery -= y_speed
             if pygame.sprite.collide_rect(self, btn.collide):
                 if not btn.pressed:
                     btn.press()

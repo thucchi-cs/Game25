@@ -11,6 +11,7 @@ import levels.transition as transition
 import levels.helpers as h
 import levels.restart as restart
 import levels.instructions as instructions
+import math
 
 # Music
 pygame.mixer.init()
@@ -38,17 +39,19 @@ async def main():
 
     # Run level1
     for lvl in range(1, 4):
+        level_time = 0
         status = "restart"
+        tries = 1
         while status == "restart":
-            status = await level.level(lvl)
+            status, level_time = await level.level(lvl)
             if status == "quit":
                 return
             h.reset_sprites()
             if status == "restart":
+                tries += 1
                 await restart.restart()
-        # print(status)
-        # Run level one transitionw
-        status = await transition.transition(lvl+1, player_count)
+        # Run level one transition
+        status = await transition.transition(lvl+1, player_count, tries, level_time)
         if status == "quit":
             return
 
