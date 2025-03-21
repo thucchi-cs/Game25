@@ -11,6 +11,8 @@ import levels.transition as transition
 import levels.helpers as h
 import levels.restart as restart
 import levels.instructions as instructions
+import levels.story as story
+import levels.player_selection as play_select
 
 # Music
 pygame.mixer.init()
@@ -24,9 +26,18 @@ async def main():
     # quit = await grid.screen()
     # if quit:
     #     return
+        
     
     # Run main menu
     status = await title.menu()
+    if status == "quit":
+        return     
+    
+    status = await story.storyboard()
+    if status == "quit":
+        return
+    
+    status = await play_select.menu()
     if status == "quit":
         return 
     player_count = len(players)
