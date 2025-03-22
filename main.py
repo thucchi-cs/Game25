@@ -38,7 +38,7 @@ async def main():
         return 
 
     # Run level1
-    for lvl in range(1, 4):
+    for lvl in range(3, 4):
         level_time = 0
         status = "restart"
         tries = 1

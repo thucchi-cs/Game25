@@ -21,6 +21,7 @@ async def level(lvl):
     start_dead = 0
     restart = False
     fade = 255
+    scroll = False
     h.load_layout('level'+str(lvl)+'.json')
 
     # 159 390
@@ -105,9 +106,9 @@ async def level(lvl):
             restart = True
             run = False
         last_sprite = constants.all.sprites()[-1]
-        # zero_pos += constants.SPEED + addition if scroll else 0
+        zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        # print(coor)
+        print(coor)
         # Draw on screen
 
 
