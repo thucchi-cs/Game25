@@ -173,7 +173,7 @@ async def level(lvl):
     #     h.restart_transition(clock)
     
     # fade out
-    # h.fade_out_animation(clock)
+    # await h.fade_out_animation(clock)
     
     constants.all.remove(bg)
     
@@ -183,10 +183,10 @@ async def level(lvl):
     elif dead:
         return "dead"
     elif restart:
-        h.fade_out_animation(clock)
+        await h.fade_out_animation(clock)
         return "restart"
     elif main_menu:
-        h.fade_out_animation(clock)
+        await h.fade_out_animation(clock)
         return "menu"
     else:
         return "win"

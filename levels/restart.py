@@ -33,7 +33,7 @@ async def restart():
          
         await asyncio.sleep(0)
     
-    h.fade_out_animation(clock)
+    await h.fade_out_animation(clock)
     
     return "restart"
         
