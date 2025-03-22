@@ -17,10 +17,12 @@ async def level(lvl):
     counter = 0
     zero_pos = 0
     start_dead = 0
+    dead = False
     restart = False
     paused = False
     psc = False
     fade = 255
+    main_menu = False
     h.load_layout('level'+str(lvl)+'.json')
 
     # 159 390
@@ -62,7 +64,7 @@ async def level(lvl):
                 # if event.key == pygame.K_q:
                 #     run = False
                 #     quit = True
-                pass
+                # pass
                 
                 # Check to skip level
                 if event.key == pygame.K_TAB:
@@ -76,7 +78,7 @@ async def level(lvl):
                     
 
                     constants.SPEED = 0 if constants.SPEED else 1
-                if event.key == pygame.K_AMPERSAND:
+                if event.key == pygame.K_END:
                     run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if h.onButton("pause") and paused == False:
@@ -88,11 +90,8 @@ async def level(lvl):
                     run = False
                     restart = True
                 if paused == True and h.onButton("main"):
-                    pass
-
-
-
-
+                    run = False
+                    main_menu = True
               
         # Win level   
         if h.check_win():
@@ -125,7 +124,7 @@ async def level(lvl):
                 for fly in dead_flys:
                     fly.flash()
             else:
-                restart = True
+                dead = True
                 run = False
             
         elif paused == True:
@@ -181,7 +180,13 @@ async def level(lvl):
     # end
     if quit:
         return "quit"
+    elif dead:
+        return "dead"
     elif restart:
+        h.fade_out_animation(clock)
         return "restart"
+    elif main_menu:
+        h.fade_out_animation(clock)
+        return "menu"
     else:
         return "win"

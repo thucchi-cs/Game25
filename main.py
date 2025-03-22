@@ -57,13 +57,21 @@ async def main():
                 if status == "quit":
                     return
                 h.reset_sprites()
-                if status == "restart":
+                if status == "menu":
+                    break
+                if status == "dead":
                     await restart.restart()
+                    status = "restart"
             print(status)
+            if status == "menu":
+                break
             # Run level one transitionw
             status = await transition.transition(lvl+1, player_count)
             if status == "quit":
                 return
+            
+        if status == "menu":
+            continue
         
         status = await end.End()
         if status == "quit":

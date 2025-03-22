@@ -195,5 +195,9 @@ def onButton(type):
     if type == "restart":
         if pygame.mouse.get_pos()[0] >= 47 and pygame.mouse.get_pos()[0] <= 242 and pygame.mouse.get_pos()[1] >= 373 and pygame.mouse.get_pos()[1] <=478:
             return True
+    
+    if type == "main":
+        if pygame.mouse.get_pos()[0] >= 248 and pygame.mouse.get_pos()[0] <= 445 and pygame.mouse.get_pos()[1] >= 373 and pygame.mouse.get_pos()[1] <=478:
+            return True
 
     return False
