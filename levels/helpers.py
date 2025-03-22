@@ -184,3 +184,16 @@ def restart_transition(clock):
         
         restart_window.draw()
         pygame.display.flip()
+
+def onButton(type):
+    if type == "pause":
+        if pygame.mouse.get_pos()[0] >= 15 and pygame.mouse.get_pos()[0] <= 60 and pygame.mouse.get_pos()[1] >= 15 and pygame.mouse.get_pos()[1] <=60:
+            return True
+    if type == "continue":
+        if pygame.mouse.get_pos()[0] >= 49 and pygame.mouse.get_pos()[0] <= 445 and pygame.mouse.get_pos()[1] >= 258 and pygame.mouse.get_pos()[1] <=359:
+            return True
+    if type == "restart":
+        if pygame.mouse.get_pos()[0] >= 47 and pygame.mouse.get_pos()[0] <= 242 and pygame.mouse.get_pos()[1] >= 373 and pygame.mouse.get_pos()[1] <=478:
+            return True
+
+    return False

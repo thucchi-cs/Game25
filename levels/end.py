@@ -49,9 +49,11 @@ async def End():
                 run = False
                 quit = True
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
+                
+                pass
             
         
         if pygame.mouse.get_pressed()[0] and button.is_clicked():
