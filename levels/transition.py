@@ -10,10 +10,10 @@ import levels.end as end
 async def transition(level_num, player_count):
     
     clock = pygame.time.Clock()
-    if level_num == 4:
-        h.fade_out_animation(clock)
-        await end.End()
-        return ""
+    # if level_num == 4:
+    #     h.fade_out_animation(clock)
+    #     status = await end.End()
+    #     return status
     
     # Get rid of the previous level's obstacles
     h.reset_sprites()
@@ -36,7 +36,8 @@ async def transition(level_num, player_count):
 
     # Text variables
     nice_job_text = text.Text("fonts/COMIC.TTF", 30, f"Level {level_num-1} Complete!", (255,255,255), 250, 200)
-    continue_text = text.Text("fonts/COMIC.TTF", 20, f"Click Anywhere to Continue to Next Level", (255,255,255), 250, 300)
+    continue_txt = "Click Anywhere to Continue to Next Level" if level_num < 4 else "Click Anywhere to Continue"
+    continue_text = text.Text("fonts/COMIC.TTF", 20, continue_txt, (255,255,255), 250, 300)
     
     # Loop variables
     quit = False

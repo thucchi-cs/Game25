@@ -251,6 +251,8 @@ class Flies(pygame.sprite.Sprite):
             self.angle = 90 + math.degrees(glide_angle)
             self.rect.x += (math.cos(glide_angle) * self.speed)
             self.rect.y += (math.sin(glide_angle) * self.speed)
+            return False
+        return True
    
     # Scroll with screen
     def scroll(self, addition):

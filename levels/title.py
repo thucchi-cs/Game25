@@ -58,8 +58,6 @@ async def menu():
                     run = False
                     quit = True
                 if event.key == pygame.K_TAB:
-                    players.remove(fly3,fly4, fly2)
-                    all.remove(fly3,fly4, fly2)
                     run=False
             
             # Check if button is clicked

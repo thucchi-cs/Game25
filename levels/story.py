@@ -5,6 +5,7 @@ import pygame
 import constants
 import sprites.storyboard as storyboard_sprite
 import levels.helpers as h
+import sprites.text as txt
 
 # Level 3 loop
 async def storyboard():
@@ -16,6 +17,10 @@ async def storyboard():
     board = storyboard_sprite.StoryBoard()
     gliding = True
     fade = 255
+    
+    text = txt.Text("fonts/COMICBD.TTF", 30, "PRESS SPACE TO SKIP", (200,200,200), 250, 30)
+    text_on = False
+    text_count = 0
         
     # Level loop
     while run:
@@ -36,18 +41,30 @@ async def storyboard():
                 # Check to skip level
                 if event.key == pygame.K_TAB:
                     run = False
+                    
+                if event.key == pygame.K_SPACE and text_on:
+                    run = False
                 
-                # if event.key == pygame.K_SPACE:
-                    # gliding = board.glide(1)
-        
+                text_on = True
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                text_on = True
+                        
         if counter % 100 == 0:
             gliding = False
             if board.curr_pt == len(board.stop_points) -1:
                 run = False
         elif not gliding:
             gliding = board.glide((board.curr_pt+1) % len(board.stop_points))
-        
+            
+                
         board.draw()
+        if text_on:
+            text_count += 1
+            text.blit_text(constants.SCREEN)
+            if text_count % 80 == 0:
+                text_count = 0
+                text_on = False
         fade = h.fade_in_animation(fade)
         pygame.display.flip()
 

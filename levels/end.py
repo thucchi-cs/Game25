@@ -5,6 +5,8 @@ import sprites.flies as flies
 import pygame
 import levels.helpers as h
 import sprites.clouds as cloud
+import sprites.images as imgs
+import sprites.menuButtons as btns
 
 async def End():
     # Get rid of the previous level's obstacles
@@ -17,9 +19,15 @@ async def End():
     quit = False
     transition = True
     counter = 0
+    animating_flies = True
     
     clouds = pygame.sprite.Group()
     clouds.add(cloud.Cloud((15, 64), 1), cloud.Cloud((302,91), 0.95))
+    
+    texts = pygame.sprite.Group()
+    text = imgs.imgDisplay((400, 200), (50, -240), "winningText.png")
+    button = btns.menuBtn((120, 30), (250, -50), "mainMenuBtn.png")
+    texts.add(text, button)
     
     fly1.rect.x = 185
     fly1.rect.y = 470
@@ -44,6 +52,10 @@ async def End():
                 if event.key == pygame.K_q:
                     run = False
                     quit = True
+            
+        
+        if pygame.mouse.get_pressed()[0] and button.is_clicked():
+            run = False
 
         if counter > FPS//4:
             SCREEN.blit(background, (0,0))
@@ -52,12 +64,17 @@ async def End():
             clouds.draw(SCREEN)
             for c in clouds:
                 c.move()
-            fly1.glide_to((370,371))
-            fly2.glide_to((335,461))
-            fly3.glide_to((201, 280))
-            fly4.glide_to((252,382))
+            if animating_flies:
+                animating_flies = not fly1.glide_to((370,371))
+                fly2.glide_to((335,461))
+                fly3.glide_to((201, 280))
+                fly4.glide_to((252,382))
             players.draw(SCREEN)
             players.update()
+            if not animating_flies:
+                text.glide_to((50, 20))
+                button.glide_to((250,215))
+                texts.draw(SCREEN)
             fade = h.fade_in_animation(fade)
             pygame.display.flip()
             # asyncio
