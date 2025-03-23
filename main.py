@@ -37,7 +37,7 @@ async def main():
     if status == "quit":
         return 
 
-    # Run level1
+    # Run levels
     for lvl in range(3, 4):
         level_time = 0
         status = "restart"
