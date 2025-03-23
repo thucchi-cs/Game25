@@ -233,10 +233,9 @@ class Flies(pygame.sprite.Sprite):
         pygame.sprite.collide_rect_ratio(0.5)
         for key in keys:
             if pygame.sprite.collide_mask(self, key):
-                if self.keyPlayed == False:
+                if pygame.mixer.Sound.get_num_channels(self.keySound) == 0:
                     pygame.mixer.Sound.set_volume(self.keySound,0.2)
                     pygame.mixer.Sound.play(self.keySound)
-                    self.keyPlayed = True
                 return key
         return False
     
@@ -245,11 +244,10 @@ class Flies(pygame.sprite.Sprite):
             if pygame.sprite.collide_rect(self, gate.collide):
                 if (constants.key_counter.counter > 0) and (not gate.keyed):
                     print("hello")
-                    if self.gatePlayed == False:
+                    if pygame.mixer.Sound.get_num_channels(self.gateSound) == 0:
                         pygame.mixer.Sound.set_volume(self.gateSound,0.2)
                         pygame.mixer.Sound.play(self.gateSound)
                         print("Played")
-                        self.gatePlayed = True
                     constants.key_counter.counter -= 1
                     key = constants.keys_collected.sprites()[0]
                     key.set_gate(gate)
