@@ -184,13 +184,14 @@ async def level(lvl):
         constants.all.draw(constants.SCREEN)
         constants.key_counter.draw(constants.SCREEN)
 
+        if save_display:
+            constants.save_text.blit_text(constants.SCREEN)
+            
         fg.draw(constants.SCREEN)
         if psc == True:
             print(dead)
             ps.draw(constants.SCREEN)
 
-        if save_display:
-            constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
         fade = h.fade_in_animation(fade)
         
