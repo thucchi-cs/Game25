@@ -10,7 +10,6 @@ from constants import *
 import levels.transition as transition
 import levels.helpers as h
 import levels.restart as restart
-import levels.instructions as instructions
 import levels.story as story
 import levels.player_selection as play_select
 import levels.end as end
@@ -36,38 +35,35 @@ async def main():
         # if quit:
         #     return
             
-        
-        # Run main menu
+        # Main menu music
         menu_music.load()
         for i in range(100):
             menu_music.fade_in()
-
+            
+        # Run main menu
         status = await title.menu()
         if status == "quit":
             return
         for i in range(100):     
             menu_music.fade_out()
 
+        # storyboard music
         cutscene_music.load()
         for i in range(100):
             cutscene_music.fade_in()
 
+        # Run cutscene
         status = await story.storyboard()
-
         if status == "quit":
             return
         
-        
+        # Player selection
         status = await play_select.menu()
         if status == "quit":
             return 
         player_count = len(players)
-
-        # Run Instructions Screen
-        # status = await instructions.showInstructions()
-        # if status == "quit":
-        #     return 
         
+        # Tutorial level
         status = "restart"
         while status == "restart":
             status = await tutorial.level()
@@ -82,11 +78,12 @@ async def main():
         if status == "menu":
             continue
         
-        # Run level1
-
+        # Load music
         game_music.load()
         for i in range(100):
             game_music.fade_in()
+        
+        # Run levels 1-3
         for lvl in range(1, 4):
             level_time = 0
             status = "restart"
@@ -103,10 +100,9 @@ async def main():
                     status = "restart"
                 if status == "restart":
                     tries += 1
-            # print(status)
             if status == "menu":
                 break
-            # Run level one transitionw
+            # Run level transitionw
             pygame.mixer.Sound.set_volume(winSound,0.3)
             pygame.mixer.Sound.play(winSound)
             status = await transition.transition(lvl+1, player_count, tries, level_time)
@@ -115,9 +111,13 @@ async def main():
             
         if status == "menu":
             continue
+        
+        # Load music
         pygame.mixer.music.fadeout(1)
         pygame.mixer.Sound.set_volume(win_music,0.1)
         pygame.mixer.Sound.play(win_music)
+        
+        # Ending screen
         status = await end.End()
         if status == "quit":
             return

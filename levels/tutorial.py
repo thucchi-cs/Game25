@@ -170,13 +170,14 @@ async def level():
         constants.all.draw(constants.SCREEN)
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
+        
+        constants.key_counter.draw(constants.SCREEN)
             
         fg.draw(constants.SCREEN)
         if psc == True:
             ps.draw(constants.SCREEN)
 
         constants.all.update()
-        constants.key_counter.draw(constants.SCREEN)
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()
