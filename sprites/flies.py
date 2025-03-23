@@ -64,6 +64,7 @@ class Flies(pygame.sprite.Sprite):
         self.hide = False
     
     def move_off_screen(self):
+        self.hide = True
         self.rect.x = 700
     
     # Move sprite with arrow keys
@@ -204,6 +205,12 @@ class Flies(pygame.sprite.Sprite):
     def check_btn(self, btns):
         pygame.sprite.collide_rect_ratio(0.5)
         for btn in btns:
+            if pygame.sprite.collide_mask(self, btn):
+                movement_angle = btn.rot + 90
+                x_speed = math.cos(math.radians(movement_angle))
+                y_speed = math.sin(math.radians(movement_angle))
+                self.rect.centerx += x_speed
+                self.rect.centery -= y_speed
             if pygame.sprite.collide_rect(self, btn.collide):
                 if not btn.pressed:
                     btn.press()
@@ -218,12 +225,11 @@ class Flies(pygame.sprite.Sprite):
     def check_gates(self, gates):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):
-                if constants.key_counter.counter > 0:
+                if constants.key_counter.counter > 0 and not gate.open:
                     constants.key_counter.counter -= 1
                     key = constants.keys_collected.sprites()[0]
                     key.set_gate(gate)
                     path = curve.draw_Bezier([(key.rect.centerx, key.rect.centery), (gate.rect.centerx, gate.rect.centery)], 2)
-                    print(key.rect.centery, gate.rect.centery)
                     key.set_path(path)
                     key.following = True
                     constants.all.add(key)
@@ -272,7 +278,6 @@ class Flies(pygame.sprite.Sprite):
                 self.current_image = self.image_paths[current]
                 self.render_image(self.current_image, False)
                 
-            self.hide = self.rect.x == 700
             # pygame.draw.rect(constants.SCREEN, (225,225,225), (self.rect.x, self.rect.y, self.rect.width, self.rect.height), 2)
         else:
             if self.counter % 5 == 0:

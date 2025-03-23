@@ -61,7 +61,7 @@ class Buttons(pygame.sprite.Sprite):
                 break
         if self.temp and self.pressed and not collide_fly:
             self.counter += 1
-            if self.counter >= 100:
+            if self.counter >= 1:
                 self.press()
                 self.counter = 0
         # pygame.draw.rect(constants.SCREEN, (255,255,255),(self.collide.rect),1)

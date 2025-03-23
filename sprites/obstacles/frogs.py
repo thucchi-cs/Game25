@@ -35,8 +35,6 @@ class Frog(pygame.sprite.Sprite):
         # pass
         self.counter += 1
         if self.counter % 3 == 0:
-            print("ANIMATE")
-            print(self.index)
             self.index += 1
             if self.index == 7 or self.index == 6:
                 self.index = 8
@@ -47,7 +45,6 @@ class Frog(pygame.sprite.Sprite):
 
             self.image = pygame.transform.flip(self.image, self.flip, False)
             self.rect = self.image.get_rect()
-            print(self.rect)
             self.rect.x = self.pos[0]
             self.rect.bottom = self.pos[1]
     

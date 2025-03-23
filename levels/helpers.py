@@ -52,7 +52,7 @@ def auto_scroll(counter,d1,d2):
         addition = 0
         fly_pos = 0
         for fly in players:
-            if fly.rect.y > HEIGHT // 3:
+            if fly.rect.y > HEIGHT // 8:
                 break
             fly_pos += fly.rect.y
         else:

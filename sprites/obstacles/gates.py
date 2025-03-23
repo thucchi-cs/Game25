@@ -27,7 +27,7 @@ class Gate(pygame.sprite.Sprite):
         self.closed = True
         self.clearing = False
         self.appearing = False
-        self.collide = shell.Collide_Box(self.rect, 3)
+        self.collide = shell.Collide_Box(self.rect, 2)
 
     # Animate opening and closing
     def animation(self):

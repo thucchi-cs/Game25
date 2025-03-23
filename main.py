@@ -15,6 +15,7 @@ import levels.story as story
 import levels.player_selection as play_select
 import levels.end as end
 import levels.tutorial as tutorial
+import math
 
 # Music
 pygame.mixer.init()
@@ -66,17 +67,21 @@ async def main():
         
         # Run level1
         for lvl in range(1, 4):
+            level_time = 0
             status = "restart"
+            tries = 1
             while status == "restart":
-                status = await level.level(lvl)
+                status, level_time = await level.level(lvl)
                 if status == "quit":
                     return
                 h.reset_sprites()
                 if status == "menu":
                     break
-                if status == "dead":
+                elif status == "dead":
                     await restart.restart()
                     status = "restart"
+                if status == "restart":
+                    tries += 1
             print(status)
             if status == "menu":
                 break

@@ -6,10 +6,13 @@ import constants
 import sprites.images as img
 import levels.helpers as h
 import sprites.pause as p
+import time
+import math
 
-# Level 3 loop
+# Level loop
 async def level(lvl):
     # Time
+    start_time = time.time()
     clock = pygame.time.Clock()
     run = True
     quit = False
@@ -23,6 +26,7 @@ async def level(lvl):
     psc = False
     fade = 255
     main_menu = False
+    scroll = False
     h.load_layout('level'+str(lvl)+'.json')
 
     # 159 390
@@ -101,6 +105,7 @@ async def level(lvl):
         if h.check_win():
             run = False 
         
+        all_stuck = True
         # Move sprites and interact with other elements
         if len(dead_flys) == 0 and paused == False:
             save_display = False
@@ -112,13 +117,15 @@ async def level(lvl):
                 # Check for web collision
                 if fly.stuck:
                     save_display = True
+                else:
+                    all_stuck = False
             # Debug prints
             # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         
             key = pygame.key.get_pressed() 
             h.move_players(key)
             # Auto Scroll
-            if constants.ends.sprites()[0].rect.y < 0:
+            if constants.ends.sprites()[0].rect.y < 0 and counter > 50:
                 scroll = h.auto_scroll(counter,dirt,dirt2)
             h.load_on_screen()
             psc = False
@@ -130,6 +137,9 @@ async def level(lvl):
             else:
                 dead = True
                 run = False
+        if all_stuck:
+            dead = True
+            run = False
             
         elif paused == True:
             psc = True
@@ -137,7 +147,7 @@ async def level(lvl):
 
 
         last_sprite = constants.all.sprites()[-1]
-        # zero_pos += constants.SPEED + addition if scroll else 0
+        zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
         print(coor)
         # Draw on screen
@@ -182,15 +192,17 @@ async def level(lvl):
     constants.all.remove(bg)
     
     # end
+    end_time = time.time()
+    level_time = end_time - start_time
     if quit:
-        return "quit"
+        return "quit", math.floor(level_time)
     elif dead:
         return "dead"
     elif restart:
         await h.fade_out_animation(clock)
-        return "restart"
+        return "restart", math.floor(level_time)
     elif main_menu:
         await h.fade_out_animation(clock)
         return "menu"
     else:
-        return "win"
+        return "win", math.floor(level_time)
