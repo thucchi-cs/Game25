@@ -105,9 +105,9 @@ async def level(lvl):
         if h.check_win():
             run = False 
         
-        all_stuck = True
         # Move sprites and interact with other elements
         if len(dead_flys) == 0 and paused == False:
+            all_stuck = True
             save_display = False
             for fly in constants.players:
                 dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
@@ -137,12 +137,14 @@ async def level(lvl):
             else:
                 dead = True
                 run = False
+        elif paused == True:
+            psc = True
+
         if all_stuck:
+            print('last')
             dead = True
             run = False
             
-        elif paused == True:
-            psc = True
             
 
 
@@ -167,6 +169,7 @@ async def level(lvl):
         constants.all.draw(constants.SCREEN)
         fg.draw(constants.SCREEN)
         if psc == True:
+            print(dead)
             ps.draw(constants.SCREEN)
 
         if save_display:
@@ -197,12 +200,12 @@ async def level(lvl):
     if quit:
         return "quit", math.floor(level_time)
     elif dead:
-        return "dead"
+        return "dead", math.floor(level_time)
     elif restart:
         await h.fade_out_animation(clock)
         return "restart", math.floor(level_time)
     elif main_menu:
         await h.fade_out_animation(clock)
-        return "menu"
+        return "menu", math.floor(level_time)
     else:
         return "win", math.floor(level_time)

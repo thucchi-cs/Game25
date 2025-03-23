@@ -225,7 +225,8 @@ class Flies(pygame.sprite.Sprite):
     def check_gates(self, gates):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):
-                if constants.key_counter.counter > 0 and not gate.open:
+                if (constants.key_counter.counter > 0) and (not gate.keyed):
+                    print("hello")
                     constants.key_counter.counter -= 1
                     key = constants.keys_collected.sprites()[0]
                     key.set_gate(gate)

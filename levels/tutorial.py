@@ -116,6 +116,7 @@ async def level():
         
         # Move sprites and interact with other elements
         if len(dead_flys) == 0 and paused == False:
+            all_stuck = True
             save_display = False
             for fly in constants.players:
                 dead = fly.collide_rock(constants.rocks) or fly.check_dead_obstacles(pygame.sprite.Group(constants.lasers, constants.frogs)) or fly.check_offscreen()
@@ -125,10 +126,16 @@ async def level():
                 # Check for web collision
                 if fly.stuck:
                     save_display = True
+                else:
+                    all_stuck = False
+            # Debug prints
+            # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         
             key = pygame.key.get_pressed() 
             h.move_players(key)
-            
+            # Auto Scroll
+            if constants.ends.sprites()[0].rect.y < 0 and counter > 50:
+                scroll = h.auto_scroll(counter,dirt)
             h.load_on_screen()
             psc = False
         elif len(dead_flys) > 0:
@@ -139,9 +146,13 @@ async def level():
             else:
                 dead = True
                 run = False
-            
         elif paused == True:
             psc = True
+
+        if all_stuck:
+            print('last')
+            dead = True
+            run = False
 
 
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)

@@ -86,7 +86,7 @@ async def main():
             if status == "menu":
                 break
             # Run level one transitionw
-            status = await transition.transition(lvl+1, player_count)
+            status = await transition.transition(lvl+1, player_count, tries, level_time)
             if status == "quit":
                 return
             

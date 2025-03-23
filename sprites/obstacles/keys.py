@@ -38,6 +38,7 @@ class Key(pygame.sprite.Sprite):
         
     def set_gate(self, gate):
         self.gate = gate
+        gate.keyed = True
         
     def animate(self):
         if self.pos < len(self.path):

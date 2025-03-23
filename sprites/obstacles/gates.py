@@ -23,6 +23,7 @@ class Gate(pygame.sprite.Sprite):
         self.image = pygame.transform.rotate(self.image, rotation)
         self.rect = self.image.get_rect(topleft=pos)
         # Open and closed variables
+        self.keyed = False
         self.open = False
         self.closed = True
         self.clearing = False
