@@ -1,11 +1,13 @@
 import pygame
 import constants
+import random
 
 class Frog(pygame.sprite.Sprite):
     # Constructor
     def __init__(self, pos, flip, wait_time):
         super().__init__()
         # Load image and position
+        pygame.mixer.init()
         self.size = (220,50)
         self.flip = flip
         self.pos = pos
@@ -20,6 +22,10 @@ class Frog(pygame.sprite.Sprite):
         self.counter = 0
         self.wait = 0
         self.wait_time = wait_time * 40
+        
+        self.sound = pygame.mixer.Sound("music/ribbit.ogg")
+        pygame.mixer.Sound.set_volume(self.sound,0.2)
+        self.ran = 0
 
     def update(self):
         if self.wait == 0:
@@ -35,6 +41,15 @@ class Frog(pygame.sprite.Sprite):
         # pass
         self.counter += 1
         if self.counter % 3 == 0:
+            print("ANIMATE")
+            self.ran = random.randint(0,30)
+            print(self.ran)
+            if self.ran == 7:
+                print("Correct. you Win!")
+                pygame.mixer.Sound.play(self.sound)
+            
+
+            # print(self.index)
             self.index += 1
             if self.index == 7 or self.index == 6:
                 self.index = 8
@@ -45,6 +60,7 @@ class Frog(pygame.sprite.Sprite):
 
             self.image = pygame.transform.flip(self.image, self.flip, False)
             self.rect = self.image.get_rect()
+            # print(self.rect)
             self.rect.x = self.pos[0]
             self.rect.bottom = self.pos[1]
     

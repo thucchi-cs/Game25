@@ -16,6 +16,8 @@ import sprites.obstacles.keys as key
 
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
+pygame.mixer.init()
+
 # Set up screen
 WIDTH = 500
 HEIGHT = 600
@@ -52,6 +54,9 @@ save_text = text.Text("fonts/COMIC.TTF", 30, "Test", (255,255,255), 250, 75)
 
 key_counter = key.KeyCounter()
 
+# Sounds
+waterSound = pygame.mixer.Sound("music/waterfall.ogg")
+frogSound = pygame.mixer.Sound("music/ribbit.ogg")
 # Sprite Groups
 players = pygame.sprite.Group()
 players.add(fly1, fly2,fly3,fly4)
