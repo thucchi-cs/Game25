@@ -4,6 +4,7 @@ import math
 import constants
 import sprites.text as text
 import sprites.curve as curve
+pygame.mixer.init()
 
 # Person sprite
 class Flies(pygame.sprite.Sprite):
@@ -11,6 +12,7 @@ class Flies(pygame.sprite.Sprite):
     def __init__(self, x, y, keys, n):
         super().__init__()
         # Load image and position
+
         self.dead = 'graphics/flydead.png'
         self.image_paths = ['graphics/fly'+str(n)+'.1.png', 'graphics/fly'+str(n)+'.2.png']
         self.story_paths = ["graphics/flystory"+str(n)+".1.png", "graphics/flystory"+str(n)+".2.png"]
@@ -19,6 +21,18 @@ class Flies(pygame.sprite.Sprite):
         self.size = (25, 35)
         self.image = pygame.transform.scale(self.image, self.size)
         self.rect = self.image.get_rect()
+
+
+        # Sound
+        self.keySound = pygame.mixer.Sound("music/key_pick_up.ogg")
+        self.gateSound = pygame.mixer.Sound("music/unlock_gate.ogg")
+        self.waterSound = pygame.mixer.Sound("music/swimming.ogg")
+        self.winSound = pygame.mixer.Sound("music/level_win.ogg")
+        self.keyPlayed = False
+        self.gatePlayed = False
+        self.waterPlaying = False
+
+
 
         # Positioning
         self.rect.centerx = x
@@ -210,6 +224,10 @@ class Flies(pygame.sprite.Sprite):
         pygame.sprite.collide_rect_ratio(0.5)
         for key in keys:
             if pygame.sprite.collide_mask(self, key):
+                if self.keyPlayed == False:
+                    pygame.mixer.Sound.set_volume(self.keySound,0.2)
+                    pygame.mixer.Sound.play(self.keySound)
+                    self.keyPlayed = True
                 return key
         return False
     
@@ -217,11 +235,16 @@ class Flies(pygame.sprite.Sprite):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):
                 if constants.key_counter.counter > 0:
+                    if self.gatePlayed == False:
+                        pygame.mixer.Sound.set_volume(self.gateSound,0.2)
+                        pygame.mixer.Sound.play(self.gateSound)
+                        print("Played")
+                        self.gatePlayed = True
                     constants.key_counter.counter -= 1
                     key = constants.keys_collected.sprites()[0]
                     key.set_gate(gate)
                     path = curve.draw_Bezier([(key.rect.centerx, key.rect.centery), (gate.rect.centerx, gate.rect.centery)], 2)
-                    print(key.rect.centery, gate.rect.centery)
+                    # print(key.rect.centery, gate.rect.centery)
                     key.set_path(path)
                     key.following = True
                     constants.all.add(key)
@@ -281,7 +304,12 @@ class Flies(pygame.sprite.Sprite):
     def collideWater(self,waters):
         for object in waters:
             if pygame.sprite.collide_mask(object,self):
+                if self.waterPlaying == False:
+                    pygame.mixer.Sound.set_volume(self.waterSound,0.5)
+                    pygame.mixer.Sound.play(self.waterSound)
+                    self.waterPlaying = True
                 self.speed =2
                 return
         else:
+            pygame.mixer.Sound.stop(self.waterSound)
             self.speed = 5

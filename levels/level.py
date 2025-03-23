@@ -11,6 +11,7 @@ import sprites.pause as p
 async def level(lvl):
     # Time
     clock = pygame.time.Clock()
+    pygame.mixer.init()
     run = True
     quit = False
     dead_flys = []
@@ -23,6 +24,9 @@ async def level(lvl):
     psc = False
     fade = 255
     main_menu = False
+
+    deadSound = pygame.mixer.Sound("music/death.ogg")
+    deadPlayed = False
     h.load_layout('level'+str(lvl)+'.json')
 
     # 159 390
@@ -37,7 +41,7 @@ async def level(lvl):
     zero_pos += skip
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
-    pause1 = img.imgDisplay((500,600),(0,0),'pause_test_1.png')
+    pause1 = img.imgDisplay((500,600),(0,0),'dummy_do_is_a_dummy.png')
     pause = p.Pause()
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
@@ -96,7 +100,8 @@ async def level(lvl):
         # Win level   
         if h.check_win():
             run = False 
-        
+        h.isWater()     
+        # h.isFrog()   
         # Move sprites and interact with other elements
         if len(dead_flys) == 0 and paused == False:
             save_display = False
@@ -119,6 +124,10 @@ async def level(lvl):
             h.load_on_screen()
             psc = False
         elif len(dead_flys) > 0:
+            if deadPlayed == False:
+                pygame.mixer.Sound.set_volume(deadSound,0.4)
+                pygame.mixer.Sound.play(deadSound)
+                deadPlayed = True
             psc = False
             if counter - start_dead < 40:
                 for fly in dead_flys:
@@ -133,9 +142,14 @@ async def level(lvl):
 
 
         last_sprite = constants.all.sprites()[-1]
+        
+
+
+
+
         # zero_pos += constants.SPEED + addition if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
 
 
@@ -151,6 +165,8 @@ async def level(lvl):
         bg.draw(constants.SCREEN)
 
         constants.all.draw(constants.SCREEN)
+        constants.key_counter.draw(constants.SCREEN)
+
         fg.draw(constants.SCREEN)
         if psc == True:
             ps.draw(constants.SCREEN)
@@ -158,7 +174,6 @@ async def level(lvl):
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
         constants.all.update()
-        constants.key_counter.draw(constants.SCREEN)
         fade = h.fade_in_animation(fade)
         
         pygame.display.flip()

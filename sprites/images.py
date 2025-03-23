@@ -24,8 +24,8 @@ class imgDisplay(pygame.sprite.Sprite):
         self.w = size[0]
         self.h = size[1]
         self.pos = (pos[0] + self.w // 2, pos[1] + self.h//2)
-        print(pos)
-        print(self.pos)
+        # print(pos)
+        # print(self.pos)
         
     def scroll(self, addition):
         self.rect.y += constants.SPEED + addition 

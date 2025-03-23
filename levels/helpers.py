@@ -5,8 +5,9 @@ import sprites.text as text
 import pygame
 import sprites.window as window
 import sprites.curve as curve
-
+import random
 # Move all players
+pygame.mixer.init()
 def move_players(key):
     for fly in players:
         fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, elevators, buttons, frogs))
@@ -29,6 +30,7 @@ def move_players(key):
 
         # Check if player reached the end
         if fly.check_end(ends):
+
             fly.move_off_screen()
                 # players.remove(fly)
                 # all.remove(fly)
@@ -201,3 +203,48 @@ def onButton(type):
             return True
 
     return False
+
+
+def isWater():
+
+    # screenWater = False
+
+    # if object in all: screen water = true
+    # if true and not playing, play
+    # if false, stop
+    screenWater = False
+    for object in waters:
+        
+        if object in all and object.show == True:
+            screenWater = True
+
+
+    if screenWater == True:
+        if pygame.mixer.Sound.get_num_channels(waterSound) == 0:
+            pygame.mixer.Sound.set_volume(waterSound,0.2)
+            pygame.mixer.Sound.play(waterSound,-1)
+            print("I am playing my wonderful water sound LOL")
+    else:
+        if pygame.mixer.Sound.get_num_channels(waterSound) > 0:
+            pygame.mixer.Sound.stop(waterSound)
+            print("I am stopping my wonderful water sound LOL")
+
+# def isFrog():
+#     print("I AM TRYING TO SEE IF THERE ARE ANY FROGS")
+#     shouldCroak = random.randint(1,90)
+    
+#     screenFrog = False
+#     for object in frogs:
+#         if frogs in all:
+#             screenFrog = True
+#     if screenFrog == True:
+#         print("I SEE A FROG RIBBIT RIBBIT ")
+#         if shouldCroak == 30:
+#             if pygame.mixer.Sound.get_num_channels(frogSound) == 0:
+#                 pygame.mixer.Sound.set_volume(frogSound,0.5)
+#                 pygame.mixer.Sound.play(frogSound)
+#                 print("I am playing my wonderful frog sound LOL")
+#     else:
+#         pygame.mixer.Sound.stop(frogSound)
+
+            

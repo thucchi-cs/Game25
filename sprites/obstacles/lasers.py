@@ -19,9 +19,19 @@ class Lasers(pygame.sprite.Sprite):
         self.clearing = False
         self.appearing = False
         self.show = True
+
+        # Sound Variables
+        self.played = False
+        self.sound = pygame.mixer.Sound("music/laser_off.ogg")
         
     # Blink animation
     def animation(self):
+        if self.played == False:
+            self.played = True
+            pygame.mixer.Sound.set_volume(self.sound,1)
+            pygame.mixer.Sound.play(self.sound)
+
+
         self.show = not ((self.counter % 8 >= 0) and (self.counter % 8 <= 2))
         self.counter += 1
         if self.counter > 25:
