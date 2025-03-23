@@ -89,8 +89,8 @@ async def level():
                     
 
                     constants.SPEED = 0 if constants.SPEED else 1
-                if event.key == pygame.K_END:
-                    run = False
+                # if event.key == pygame.K_END:
+                #     run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 
                 if showing_instructions:
