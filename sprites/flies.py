@@ -27,7 +27,7 @@ class Flies(pygame.sprite.Sprite):
         self.keySound = pygame.mixer.Sound("music/key_pick_up.ogg")
         self.gateSound = pygame.mixer.Sound("music/unlock_gate.ogg")
         self.waterSound = pygame.mixer.Sound("music/swimming.ogg")
-        self.winSound = pygame.mixer.Sound("music/level_win.ogg")
+        self.winSound = pygame.mixer.Sound("music/success.ogg")
         self.keyPlayed = False
         self.gatePlayed = False
         self.waterPlaying = False
@@ -201,6 +201,8 @@ class Flies(pygame.sprite.Sprite):
     def check_end(self,ends):
         for end in ends:
             if pygame.sprite.collide_mask(self,end):
+                pygame.mixer.Sound.set_volume(self.winSound,0.2)
+                pygame.mixer.Sound.play(self.winSound)
                 return True
         return False
 

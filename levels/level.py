@@ -54,7 +54,7 @@ async def level(lvl):
     ps = pygame.sprite.Group()
     ps.add(pause1)
     
-    lvltxt = img.imgDisplay((500, 40), (0, 550), f"lvl{lvl}txt.png")
+    lvltxt = img.imgDisplay((250, 40), (125, 550), f"nnnlvl{lvl}txt.png")
     constants.all.add(lvltxt)
     
     # constants.all.add(bg)

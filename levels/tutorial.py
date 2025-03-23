@@ -53,7 +53,7 @@ async def level():
         fly.rect.y = 512
     constants.fly2.rect.topleft = (176, 424)
     
-    lvltxt = img.imgDisplay((500, 40), (0, 550), "tutorialtxt.png")
+    lvltxt = img.imgDisplay((250, 40), (125, 550), "tutorialtxt3.png")
     constants.all.add(lvltxt)
             
     # Level loop
