@@ -38,7 +38,7 @@ class Water(pygame.sprite.Sprite):
             self.counter +=1
 
             self.counter %= 10
-            findex = self.counter //5 # This changes to a new image every 2 frames
+            findex = self.counter //4 # This changes to a new image every 2 frames
             # print(findex)
             self.image = self.images[findex]
             self.rect.x = self.realX if self.show else 9000

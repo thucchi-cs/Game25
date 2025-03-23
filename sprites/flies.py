@@ -152,7 +152,9 @@ class Flies(pygame.sprite.Sprite):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
-            self.render_image(self.dead, False)
+            key = pygame.key.get_pressed()
+            if not key[pygame.K_SPACE]:
+                self.render_image(self.dead, False)
         else:
             self.render_image(self.current_image, False)
             

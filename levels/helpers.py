@@ -138,18 +138,15 @@ def fade_in(fade_level):
 
 async def fade_out_animation(clock):
     fade = 0
-    print("fade out begin")
     while fade < 100:
         clock.tick(FPS)
-        print("fading out")
         fade = fade_out(fade)
         pygame.display.flip()
         await asyncio.sleep(0)
-    print("fade out done")
 
 def fade_in_animation(fade):
     if fade > 0:
-            fade = fade_in(fade)
+        fade = fade_in(fade)
     pygame.display.flip()
     return fade
 
