@@ -20,9 +20,9 @@ async def restart():
             # Check to close game
             if event.type == pygame.QUIT:
                 return "quit"
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and not zoomIn:
                 clicked = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN and not zoomIn:
                 clicked = True
         
         if zoomIn:

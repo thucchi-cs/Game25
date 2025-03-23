@@ -46,14 +46,14 @@ async def menu():
             if event.type == pygame.QUIT:
                 run = False
                 quit = True
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
-                if event.key == pygame.K_TAB:
-                    players.remove(fly3,fly4, fly2)
-                    all.remove(fly3,fly4, fly2)
-                    run=False
+            # if event.type == pygame.KEYDOWN:
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
+                # if event.key == pygame.K_TAB:
+                #     players.remove(fly3,fly4, fly2)
+                #     all.remove(fly3,fly4, fly2)
+                #     run=False
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:

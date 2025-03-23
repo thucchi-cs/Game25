@@ -84,7 +84,7 @@ class Flies(pygame.sprite.Sprite):
     # Move sprite with arrow keys
     def move_arrows(self, key, obstacles):
         obstacles = [obstacle for obstacle in obstacles if obstacle in constants.all]
-        if not self.stuck:
+        if not self.stuck and self.rect.y > 2:
             # Move Forward
             if (key[self.up_key] or key[self.down_key]):
                 # Move
@@ -121,7 +121,7 @@ class Flies(pygame.sprite.Sprite):
                 self.realY = self.rect.centery + self.actualy
 
                 # Stay in screen
-                if (self.rect.x < 0) or (self.rect.x > (500 - self.rect.width)):
+                if (self.rect.x < 2) or (self.rect.x > (505 - self.rect.width)):
                     self.rect.centerx -= int(self.run) if key[self.up_key] else -int(self.run)
                     self.rect.centery += int(self.rise) if key[self.up_key] else -int(self.rise)
                     

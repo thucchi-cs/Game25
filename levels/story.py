@@ -34,13 +34,13 @@ async def storyboard():
                 run = False
                 quit = True
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
                 
-                # Check to skip level
-                if event.key == pygame.K_TAB:
-                    run = False
+                # # Check to skip level
+                # if event.key == pygame.K_TAB:
+                #     run = False
                     
                 if event.key == pygame.K_SPACE and text_on:
                     run = False

@@ -86,12 +86,12 @@ async def level(lvl):
                         paused = False
                     
                 # Stop scroll cheat code
-                if event.key == pygame.K_BACKSPACE:
+                # if event.key == pygame.K_BACKSPACE:
                     
 
-                    constants.SPEED = 0 if constants.SPEED else 1
-                if event.key == pygame.K_END:
-                    run = False
+                #     constants.SPEED = 0 if constants.SPEED else 1
+                # if event.key == pygame.K_END:
+                #     run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if h.onButton("pause") and paused == False:
                     paused = True
@@ -150,6 +150,10 @@ async def level(lvl):
             psc = True
 
         if all_stuck:
+            if deadPlayed == False:
+                pygame.mixer.Sound.set_volume(deadSound,0.4)
+                pygame.mixer.Sound.play(deadSound)
+                deadPlayed = True
             print('last')
             dead = True
             run = False

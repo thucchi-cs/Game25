@@ -53,12 +53,12 @@ async def menu():
             if event.type == pygame.QUIT:
                 run = False
                 quit = True
-            if event.type == pygame.KEYDOWN:
+            # if event.type == pygame.KEYDOWN:
                 # if event.key == pygame.K_q:
                 #     run = False
                 #     quit = True
-                if event.key == pygame.K_TAB:
-                    run=False
+                # if event.key == pygame.K_TAB:
+                #     run=False
             
             # Check if button is clicked
             if event.type == pygame.MOUSEBUTTONDOWN:

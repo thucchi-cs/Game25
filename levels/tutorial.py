@@ -31,9 +31,11 @@ async def level():
     gate_directions = img.imgDisplay((300, 30), (0, 165), "gateDir.png")
     water_directions = img.imgDisplay((150, 40), (240, 10), "waterDir.png")
 
+    deadSound = pygame.mixer.Sound("music/death.ogg")
+    deadPlayed = False
     
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
-    pause1 = img.imgDisplay((500,600),(0,0),'pause_test_1.png')
+    pause1 = img.imgDisplay((500,600),(0,0),'dummy_do_is_a_dummy.png')
     pause = p.Pause()
     skipBtn = btns.menuBtn((60, 30), (460, 575), "skipBtn.png")
     bg = pygame.sprite.Group()
@@ -70,9 +72,9 @@ async def level():
                     showing_instructions = False
                     fg.remove(instructions)
                 
-                if event.key == pygame.K_q:
-                    run = False
-                    quit = True
+                # if event.key == pygame.K_q:
+                #     run = False
+                #     quit = True
                 # pass
                 
                 # Check to skip level
@@ -150,6 +152,10 @@ async def level():
             psc = True
 
         if all_stuck:
+            if deadPlayed == False:
+                pygame.mixer.Sound.set_volume(deadSound,0.4)
+                pygame.mixer.Sound.play(deadSound)
+                deadPlayed = True
             print('last')
             dead = True
             run = False
