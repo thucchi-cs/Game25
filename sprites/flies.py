@@ -75,7 +75,15 @@ class Flies(pygame.sprite.Sprite):
         self.stuck = False
         self.current_image = (self.image_paths[0])
         self.render_image(self.current_image, False)
+        self.show = True
+        self.end = False
         self.hide = False
+        
+    def remove_all(self):
+        self.remove()
+        
+    def add_player(self):
+        self.add(constants.players)
     
     def move_off_screen(self):
         self.hide = True
