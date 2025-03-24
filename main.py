@@ -37,6 +37,10 @@ async def main():
         # quit = await grid.screen()
         # if quit:
         #     return
+        
+        players.empty()
+        players.add(fly1,fly2,fly3,fly4)
+        all.add(fly1,fly2,fly3,fly4)
             
         # Main menu music
         menu_music.load()
@@ -67,6 +71,7 @@ async def main():
             return 
         player_count = len(players)
         
+        h.reset_sprites()
         # Tutorial level
         status = "restart"
         while status == "restart":
