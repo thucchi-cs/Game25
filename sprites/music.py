@@ -8,10 +8,18 @@ class Music(pygame.sprite.Sprite):
         # Load image and rect
         self.music = music
         self.volume = 0
-    def load(self):
+    def load(self,looping=-1):
         pygame.mixer.init()
         pygame.mixer.music.load("music/" + self.music + ".ogg")
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.play(looping)
+    def unload(self):
+        pygame.mixer.init()
+        pygame.mixer.music.stop()
+    def queue(self):
+        pygame.mixer.init()
+        pygame.mixer.music.queue("music/" + self.music + ".ogg")
+
+    
         
 
     def fade_in(self):

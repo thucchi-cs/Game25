@@ -23,6 +23,9 @@ menu_music = m.Music("title_screen")
 cutscene_music = m.Music("cutscene")
 game_music = m.Music("game_audio")
 
+level_win = m.Music("level_win")
+game_win = m.Music("final_win")
+
 win_music = pygame.mixer.Sound("music/final_win.ogg")
 winSound = pygame.mixer.Sound("music/level_win.ogg")
 
@@ -37,20 +40,21 @@ async def main():
             
         # Main menu music
         menu_music.load()
-        for i in range(100):
-            menu_music.fade_in()
+        # for i in range(100):
+        #     menu_music.fade_in()
             
         # Run main menu
         status = await title.menu()
         if status == "quit":
             return
-        for i in range(100):     
-            menu_music.fade_out()
+        # for i in range(100):     
+        #     menu_music.fade_out()
+        menu_music.unload()
 
         # storyboard music
         cutscene_music.load()
-        for i in range(100):
-            cutscene_music.fade_in()
+        # for i in range(100):
+        #     cutscene_music.fade_in()
 
         # Run cutscene
         status = await story.storyboard()
@@ -79,12 +83,14 @@ async def main():
             continue
         
         # Load music
-        game_music.load()
-        for i in range(100):
-            game_music.fade_in()
+        cutscene_music.unload()
+
+        # for i in range(100):
+        #     game_music.fade_in()
         
         # Run levels 1-3
         for lvl in range(1, 4):
+            game_music.load()
             level_time = 0
             status = "restart"
             tries = 1
@@ -103,8 +109,9 @@ async def main():
             if status == "menu":
                 break
             # Run level transitionw
-            pygame.mixer.Sound.set_volume(winSound,0.3)
-            pygame.mixer.Sound.play(winSound)
+            game_music.unload()
+            level_win.load(0)
+
             status = await transition.transition(lvl+1, player_count, tries, level_time)
             if status == "quit":
                 return
@@ -113,7 +120,7 @@ async def main():
             continue
         
         # Load music
-        pygame.mixer.music.fadeout(1)
+        game_music.unload()
         pygame.mixer.Sound.set_volume(win_music,0.1)
         pygame.mixer.Sound.play(win_music)
         
