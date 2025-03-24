@@ -55,7 +55,8 @@ class Key(pygame.sprite.Sprite):
                 self.collected = True
             else:
                 self.remove(constants.all, constants.keys_collected)
-                self.gate.clearing = True
+                if self.gate != None:
+                    self.gate.clearing = True
                 self.kill()
                 
 class KeyCounter(pygame.sprite.Sprite):

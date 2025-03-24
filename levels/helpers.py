@@ -53,13 +53,15 @@ def auto_scroll(counter,d1,d2):
     if counter % SPEEDFACTOR == 0:
         addition = 0
         fly_pos = 0
+        addition = 0
         for fly in players:
-            if fly.rect.y > HEIGHT // 8:
+            if fly.rect.y < HEIGHT // 6:
+                addition = int((HEIGHT - fly_pos) / HEIGHT * 3)
+                fly_pos /= len(players)
                 break
             fly_pos += fly.rect.y
-        else:
-            fly_pos /= len(players)
-            addition = int((HEIGHT - fly_pos) / HEIGHT * 3)
+        # else:
+        #     fly_pos /= len(players)
 
         for sprite in pygame.sprite.Group(all, preload, d1, d2):
             sprite.scroll(addition)
