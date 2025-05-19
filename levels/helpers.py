@@ -151,7 +151,7 @@ async def fade_out_animation(clock):
 def fade_in_animation(fade):
     if fade > 0:
         fade = fade_in(fade)
-    pygame.display.flip()
+    # pygame.display.flip()
     return fade
 
 def reset_sprites():

@@ -39,8 +39,9 @@ async def menu():
     bg = pygame.sprite.Group()
     bg.add(dirt,dirt2)
     layer1 = pygame.sprite.Group()
-    layer1.add(menu_text,fly1menu,fly2menu,fly3menu,fly4menu)
+    layer1.add(fly1menu,fly2menu,fly3menu,fly4menu)
 
+    fade = 255
 
     # Menu loop
     while run:
@@ -95,7 +96,11 @@ async def menu():
         layer1.draw(SCREEN)
         btns.draw(SCREEN)
 
+        fade = h.fade_in_animation(fade)
+        menu_text.draw(SCREEN)
+
         pygame.display.flip()
+
 
         # asyncio
         await asyncio.sleep(0)

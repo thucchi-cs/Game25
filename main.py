@@ -5,6 +5,7 @@ import pygame
 # Files imports
 import levels.level as level
 import levels.title as title
+import levels.animation as animation
 import levels.grid as grid
 from constants import *
 import levels.transition as transition
@@ -46,7 +47,12 @@ async def main():
         menu_music.load()
         # for i in range(100):
         #     menu_music.fade_in()
-            
+
+        # Run starting animation
+        status = await animation.animation()
+        if status == "quit":
+            return
+
         # Run main menu
         status = await title.menu()
         if status == "quit":

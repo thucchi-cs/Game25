@@ -24,6 +24,8 @@ class imgDisplay(pygame.sprite.Sprite):
         self.w = size[0]
         self.h = size[1]
         self.pos = (pos[0] + self.w // 2, pos[1] + self.h//2)
+        self.curve_pos = 0
+        self.heading = 0
         # print(pos)
         # print(self.pos)
         
@@ -37,8 +39,7 @@ class imgDisplay(pygame.sprite.Sprite):
             current = self.image_paths.index(self.current_image)
             current = 1 - current
             self.current_image = self.image_paths[current]
-        self.image = pygame.image.load(self.current_image)
-        self.image = pygame.transform.scale(self.image, self.size)
+        self.render_image(self.current_image)
 
     def glide_to(self, pos):
         if (((self.rect.x - pos[0])**2) + ((self.rect.y - pos[1])**2))**0.5 > 10:
@@ -68,5 +69,35 @@ class imgDisplay(pygame.sprite.Sprite):
         self.rect.center = self.pos
         return False
 
+    def draw(self, surface:pygame.Surface):
+        surface.blit(self.image, (self.rect.x, self.rect.y))
 
+    
+    def set_path(self, path, points):
+        self.path = path
+        self.curve_pos = 0 
+        self.points = points
+        self.curr_points = 0
+        print(path[:5])
+        
+    def follow_bezier(self):
+        if self.curve_pos < len(self.path):
+            print(self.points[self.curr_points], self.path[self.curve_pos])
+            if self.points[self.curr_points][1] > self.path[self.curve_pos][1]:
+                self.curr_points += 1
+                y_change = self.points[self.curr_points][1] - self.path[self.curve_pos][1]
+                x_change = self.points[self.curr_points][0] - self.path[self.curve_pos][0]
+                self.heading = 270 - math.degrees(math.atan2(y_change, x_change))
 
+            self.rect.centerx = self.path[self.curve_pos][0]
+            self.rect.centery = self.path[self.curve_pos][1]
+            self.curve_pos += 1
+            self.render_image(self.current_image)
+            print(self.heading)
+
+    def render_image(self, image):
+        x, y = self.rect.centerx, self.rect.centery
+        self.image = pygame.image.load(image).convert_alpha()
+        self.image = pygame.transform.smoothscale(self.image, self.size)
+        self.image = pygame.transform.rotate(self.image, self.heading)
+        self.rect = self.image.get_rect(center=(x, y))
