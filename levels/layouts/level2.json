@@ -335,7 +335,7 @@
     "btn10": {
         "pos": "(470, -1753)",
         "rot": 0,
-        "temp": false
+        "temp": true
     },
     "wall37": {
         "size": "(129, 32)",

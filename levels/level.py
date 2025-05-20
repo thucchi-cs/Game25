@@ -111,6 +111,10 @@ async def level(lvl):
         h.isWater()     
         # h.isFrog()   
         # Move sprites and interact with other elements
+        print(len(dead_flys))
+        key = pygame.key.get_pressed() 
+        if key[pygame.K_LSHIFT] and key[pygame.K_END]:
+            run = False
         if len(dead_flys) == 0 and paused == False:
             all_stuck = True
             save_display = False
@@ -124,13 +128,10 @@ async def level(lvl):
                     save_display = True
                 else:
                     all_stuck = False
+                h.move_players(fly, key)
             # Debug prints
             # print((fly.realX,fly.realY),int(fly.rise), (rock1.actualLY,rock1.actualRY),rock1.counter,(rock1.actualRY,rock1.rect.y),'Dead' if fly.collide_rock(rocks) else 'Alive', water1.counter,water1.counter2, water1.rect.x )
         
-            key = pygame.key.get_pressed() 
-            if key[pygame.K_LSHIFT] and key[pygame.K_END]:
-                run = False
-            h.move_players(key)
             # Auto Scroll
             if constants.ends.sprites()[0].rect.y < 0 and counter > 50:
                 scroll = h.auto_scroll(counter,dirt,dirt2)

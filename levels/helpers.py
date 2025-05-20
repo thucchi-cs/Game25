@@ -9,32 +9,31 @@ import sprites.curve as curve
 import random
 # Move all players
 pygame.mixer.init()
-def move_players(key):
-    for fly in players:
-        fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, elevators, buttons, frogs))
-        fly.elevator_move(elevators)
-        fly.check_web(webs)
-        fly.check_btn(buttons)
-        fly.collideWater(waters)
-        fly.check_gates(gates)
-        key_collect = fly.check_keys(keys)
-        if key_collect:
-            path = curve.draw_Bezier([(key_collect.rect.centerx, key_collect.rect.centery), (WIDTH//2, 0), (key_counter.rect.centerx, key_counter.rect.centery)])
-            key_collect.following = True
-            key_collect.set_path(path)
-            all.remove(key_collect)
-            all.add(key_collect)
+def move_players(fly, key):
+    fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, elevators, buttons, frogs))
+    fly.elevator_move(elevators)
+    fly.check_web(webs)
+    fly.check_btn(buttons)
+    fly.collideWater(waters)
+    fly.check_gates(gates)
+    key_collect = fly.check_keys(keys)
+    if key_collect:
+        path = curve.draw_Bezier([(key_collect.rect.centerx, key_collect.rect.centery), (WIDTH//2, 0), (key_counter.rect.centerx, key_counter.rect.centery)])
+        key_collect.following = True
+        key_collect.set_path(path)
+        all.remove(key_collect)
+        all.add(key_collect)
 
-        if fly.stuck:
-            other_flies = [i for i in players if i != fly]
-            fly.save_friend(other_flies)
+    if fly.stuck:
+        other_flies = [i for i in players if i != fly]
+        fly.save_friend(other_flies)
 
-        # Check if player reached the end
-        if fly.check_end(ends):
+    # Check if player reached the end
+    if fly.check_end(ends):
 
-            fly.move_off_screen()
-                # players.remove(fly)
-                # all.remove(fly)
+        fly.move_off_screen()
+            # players.remove(fly)
+            # all.remove(fly)
 
 def set_up_end():
     for fly in players:

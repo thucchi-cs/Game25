@@ -311,17 +311,17 @@
     "frog1": {
         "pos": "(80, -387)",
         "flip": false,
-        "wait_time": 0.1
+        "wait_time": 0.35
     },
     "frog2": {
         "pos": "(295, -502)",
         "flip": true,
-        "wait_time": 0.1
+        "wait_time": 0.3
     },
     "frog3": {
         "pos": "(208, -603)",
         "flip": false,
-        "wait_time": 0.1
+        "wait_time": 0.2
     },
     "frog4": {
         "pos": "(-20, -603)",
