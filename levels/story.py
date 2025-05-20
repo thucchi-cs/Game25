@@ -17,15 +17,18 @@ async def storyboard():
     board = storyboard_sprite.StoryBoard()
     gliding = True
     fade = 255
+    pygame.mixer.init()
     
     text = txt.Text("fonts/COMICBD.TTF", 30, "PRESS SPACE TO SKIP", (200,200,200), 250, 30)
     text_on = False
     text_count = 0
+
+    frame_times = [75, 105, 75, 55, 75, 85, 45, 75, 90]
         
     # Level loop
     while run:
         clock.tick(constants.FPS)
-        counter += 1
+        counter += 1 if gliding else 0
 
         # Event handles
         for event in pygame.event.get():
@@ -50,10 +53,14 @@ async def storyboard():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 text_on = True
                         
-        if counter % 100 == 0:
+        if counter % sum(frame_times[:board.curr_pt+1]) == 0:
             gliding = False
+            counter += 1
             if board.curr_pt == len(board.stop_points) -1:
+                pygame.mixer.Sound.stop(board.soundlist[8])
                 run = False
+
+
         elif not gliding:
             gliding = board.glide((board.curr_pt+1) % len(board.stop_points))
             

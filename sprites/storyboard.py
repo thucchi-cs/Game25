@@ -1,5 +1,6 @@
 import pygame
 import constants
+import sprites.music as m
 
 class StoryBoard(pygame.sprite.Sprite):
     # Constructor
@@ -8,6 +9,7 @@ class StoryBoard(pygame.sprite.Sprite):
         # Load image and rect
         self.image = pygame.image.load("graphics/storyboard.png")
         self.rect = self.image.get_rect()
+        pygame.mixer.init()
         self.stop_points = [
             (-90, -40),
             (-637, -40),
@@ -19,10 +21,22 @@ class StoryBoard(pygame.sprite.Sprite):
             (-637, -1155),
             (-1187, -1155) 
         ]
+        self.counter = 0
         self.curr_pt = 0
         self.rect.topleft = self.stop_points[self.curr_pt]
-        self.speed = 50
-        
+        self.speed = 30
+
+        self.soundlist = [pygame.mixer.Sound("music/frame1.ogg"),
+                          pygame.mixer.Sound("music/frame2.ogg"),
+                          pygame.mixer.Sound("music/frame3.ogg"),
+                          pygame.mixer.Sound("music/frame4.ogg"),
+                          pygame.mixer.Sound("music/frame5.ogg"),
+                          pygame.mixer.Sound("music/frame6.ogg"),
+                          pygame.mixer.Sound("music/frame7.ogg"),
+                          pygame.mixer.Sound("music/frame8.ogg"),
+                          pygame.mixer.Sound("music/frame9.ogg"),
+                          ]
+        pygame.mixer.Sound.play(self.soundlist[0])
     def draw(self):
         constants.SCREEN.blit(self.image, (self.rect.x, self.rect.y))
     
@@ -30,7 +44,7 @@ class StoryBoard(pygame.sprite.Sprite):
         self.curr_pt += 1
         self.curr_pt %= len(self.stop_points)
         self.rect.topleft = self.stop_points[self.curr_pt]
-        
+         
     def glide(self, next_point):                
         last_pt = self.stop_points[next_point - 1]
         next_pt = self.stop_points[next_point]
@@ -61,5 +75,11 @@ class StoryBoard(pygame.sprite.Sprite):
         if (min(rangeX) <= self.rect.x <= max(rangeX)) and (min(rangeY) <= self.rect.y <= max(rangeY)):
             self.rect.topleft = next_pt
             self.curr_pt += 1
+            pygame.mixer.Sound.stop(self.soundlist[self.counter])
+            self.counter +=1
+            pygame.mixer.Sound.play(self.soundlist[self.counter])
+
+
             return True
+        
         return False

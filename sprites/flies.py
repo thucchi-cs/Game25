@@ -279,7 +279,7 @@ class Flies(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         close_friend = False
         for fly in flies:
-            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 75:
+            if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 75 and not fly.stuck:
                 close_friend = fly
         words = "Hold Space To Save Your Friend!" if close_friend else "Save Your Friend!"
         constants.save_text.text = words

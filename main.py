@@ -64,6 +64,7 @@ async def main():
 
         # storyboard music
         cutscene_music.load()
+        pygame.mixer.music.set_volume(0.1)
 
         # Run cutscene
         status = await story.storyboard()
@@ -99,6 +100,8 @@ async def main():
         
         # Load music
         cutscene_music.unload()
+        pygame.mixer.music.set_volume(0.2)
+
         
         # Run levels 1-3
         for lvl in range(1, 4):
