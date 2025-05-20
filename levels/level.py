@@ -207,7 +207,7 @@ async def level(lvl):
     #     h.restart_transition(clock)
     
     # fade out
-    await h.fade_out_animation(clock)
+    # await h.fade_out_animation(clock)
     
     constants.all.remove(bg)
     

@@ -175,9 +175,7 @@ class Flies(pygame.sprite.Sprite):
         collided_web = pygame.sprite.spritecollideany(self, webs)
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
-            key = pygame.key.get_pressed()
-            if not key[pygame.K_SPACE]:
-                self.render_image(self.dead, False)
+            self.render_image(self.dead, False)
         else:
             self.render_image(self.current_image, False)
             
@@ -279,6 +277,8 @@ class Flies(pygame.sprite.Sprite):
         constants.save_text.text = words
         if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
             self.stuck = False
+            self.render_image(self.current_image, False)
+
     
     # Move to given coordinates, center is anchor
     def move_to(self, pos):
