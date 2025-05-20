@@ -34,10 +34,10 @@ winSound = pygame.mixer.Sound("music/level_win.ogg")
 async def main():
 
     # Intro animation
-    menu_music.load()
-    status = await animation.animation()
-    if status == "quit":
-        return
+    # menu_music.load()
+    # status = await animation.animation()
+    # if status == "quit":
+    #     return
 
     while True:
 
@@ -51,24 +51,24 @@ async def main():
         all.add(fly1,fly2,fly3,fly4)
             
         # Main menu music
-        if not menu_music.playing:
-            menu_music.load()
+        # if not menu_music.playing:
+        #     menu_music.load()
 
-        # Run main menu
-        status = await title.menu()
-        if status == "quit":
-            return
-        # for i in range(100):     
-        #     menu_music.fade_out()
-        menu_music.unload()
+        # # Run main menu
+        # status = await title.menu()
+        # if status == "quit":
+        #     return
+        # # for i in range(100):     
+        # #     menu_music.fade_out()
+        # menu_music.unload()
 
-        # storyboard music
-        cutscene_music.load()
+        # # storyboard music
+        # cutscene_music.load()
 
-        # Run cutscene
-        status = await story.storyboard()
-        if status == "quit":
-            return
+        # # Run cutscene
+        # status = await story.storyboard()
+        # if status == "quit":
+        #     return
         
         # Player selection
         status = await play_select.menu()
@@ -78,30 +78,30 @@ async def main():
         
         h.reset_sprites()
         # Tutorial level
-        status = "restart"
-        # Play tutorial until win or skip
-        while status == "restart":
-            status = await tutorial.level()
-            # End game
-            if status == "quit":
-                return
-            h.reset_sprites()
-            # Back out to main menu
-            if status == "menu":
-                break
-            # Die and restart
-            if status == "dead":
-                await restart.restart()
-                status = "restart"
-        # Menu restart
-        if status == "menu":
-            continue
+        # status = "restart"
+        # # Play tutorial until win or skip
+        # while status == "restart":
+        #     status = await tutorial.level()
+        #     # End game
+        #     if status == "quit":
+        #         return
+        #     h.reset_sprites()
+        #     # Back out to main menu
+        #     if status == "menu":
+        #         break
+        #     # Die and restart
+        #     if status == "dead":
+        #         await restart.restart()
+        #         status = "restart"
+        # # Menu restart
+        # if status == "menu":
+        #     continue
         
-        # Load music
-        cutscene_music.unload()
+        # # Load music
+        # cutscene_music.unload()
         
         # Run levels 1-3
-        for lvl in range(1, 4):
+        for lvl in range(2, 4):
             game_music.load()
             level_time = 0
             status = "restart"

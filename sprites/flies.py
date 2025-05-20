@@ -220,8 +220,16 @@ class Flies(pygame.sprite.Sprite):
 
     # Check if currently inside and touching a wall of elevator
     def elevator_collide(self, elevator):
-        part = self.rect.width / 2
-        return (self.rect.x > (elevator.rect.x - part)) and (self.rect.right < (elevator.rect.right + part)) and (self.rect.y > (elevator.rect.y + 1)) and (self.rect.bottom < (elevator.rect.bottom - 1))
+        # part = self.rect.width / 2
+        # return (self.rect.x > (elevator.rect.x - part)) and (self.rect.right < (elevator.rect.right + part)) and (self.rect.y > (elevator.rect.y + 1)) and (self.rect.bottom < (elevator.rect.bottom - 1))
+        in_elevator = (self.rect.x >= elevator.inner.rect.x) and (self.rect.right <= elevator.inner.rect.right) and (self.rect.y > elevator.rect.y) and (self.rect.bottom < elevator.rect.bottom)
+        if in_elevator:
+            if self.rect.y < elevator.inner.rect.y:
+                self.rect.y = elevator.inner.rect.y + 3        
+            elif self.rect.bottom > elevator.inner.rect.bottom:
+                self.rect.bottom = elevator.inner.rect.bottom - 3   
+            return True
+        return False
 
     # Check if press button
     def check_btn(self, btns):
@@ -279,7 +287,7 @@ class Flies(pygame.sprite.Sprite):
             self.stuck = False
             self.render_image(self.current_image, False)
 
-    
+
     # Move to given coordinates, center is anchor
     def move_to(self, pos):
         self.rect.center = pos

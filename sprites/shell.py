@@ -9,3 +9,7 @@ class Collide_Box(pygame.sprite.Sprite):
         def update(self, rect):
             self.rect = pygame.Rect(rect.x - self.shell, rect.y - self.shell, rect.width + 2*self.shell, rect.height + 2*self.shell)
             # pygame.draw.rect(constants.SCREEN, (255,255,255), self.rect, 1)
+
+        def new_box(self, x, y, w, h):
+            self.rect = pygame.Rect(x, y, w, h)
+            # pygame.draw.rect(constants.SCREEN, (255,255,255), self.rect, 1)

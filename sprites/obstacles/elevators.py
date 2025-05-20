@@ -1,5 +1,6 @@
 import pygame
 import constants
+import sprites.shell as shell
 
 class Elevators(pygame.sprite.Sprite):
     # Constructor
@@ -10,6 +11,7 @@ class Elevators(pygame.sprite.Sprite):
         self.image = pygame.image.load("graphics/elevator.png")
         self.image = pygame.transform.scale(self.image, size)
         self.image = pygame.transform.flip(self.image, flip_x= flipped, flip_y= False)
+        self.flipped = flipped
         self.rect = self.image.get_rect()
         self.rect.centerx, self.rect.y = pos[0], pos[1]
         
@@ -21,6 +23,9 @@ class Elevators(pygame.sprite.Sprite):
         self.speed *= 1 if self.dest > self.rect.y else -1
         self.clearing = False
         self.appearing = False
+
+        self.inner = shell.Collide_Box(self.rect, 2)
+        self.update_inner_box()
 
     # Move to destination
     def animation(self):
@@ -42,8 +47,19 @@ class Elevators(pygame.sprite.Sprite):
         if self.clearing or self.appearing:
             self.animation()
 
+        self.update_inner_box()
+
     # Scroll with screen
     def scroll(self, addition):
         self.rect.y += constants.SPEED + addition
         self.dest += constants.SPEED + addition
         self.start += constants.SPEED + addition
+
+    def update_inner_box(self):
+        back_w = (10/86) * self.rect.width
+        top_w = (13/109) * self.rect.height
+        h = ((109-12-13)/109) * self.rect.height
+        x = self.rect.x if not self.flipped else self.rect.x + back_w
+        y = self.rect.y + top_w
+        w = self.rect.width - back_w
+        self.inner.new_box(x,y,w,h)

@@ -86,10 +86,10 @@ async def level(lvl):
                         paused = False
                     
                 # Stop scroll cheat code
-                # if event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_BACKSPACE:
                     
 
-                #     constants.SPEED = 0 if constants.SPEED else 1
+                    constants.SPEED = 0 if constants.SPEED else 1
                 # if event.key == pygame.K_END:
                 #     run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
