@@ -23,7 +23,7 @@ async def storyboard():
     text_on = False
     text_count = 0
 
-    frame_times = [75, 105, 75, 55, 75, 85, 45, 75, 90]
+    frame_times = [75, 105, 75, 55, 75, 85, 45, 75, 100]
         
     # Level loop
     while run:
@@ -32,7 +32,7 @@ async def storyboard():
 
         # Event handles
         for event in pygame.event.get():
-            # Check to close game
+            # Check to close game 
             if event.type == pygame.QUIT:
                 run = False
                 quit = True

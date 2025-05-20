@@ -20,6 +20,9 @@ async def animation():
     fly2 = img.imgDisplay(fly_size,(64,1500),'fly2.1.png',2)
     fly3 = img.imgDisplay(fly_size,(230,1500),'fly3.1.png',3)
     fly4 = img.imgDisplay(fly_size,(396,1500),'fly4.1.png',4)
+    pygame.mixer.init()
+    bzzSound = pygame.mixer.Sound("music/flybzz.ogg")
+    bzzSound.play(-1)
 
     flies = pygame.sprite.Group(fly1, fly2, fly3, fly4)
     for fly in flies.sprites():
@@ -37,10 +40,22 @@ async def animation():
                 run = False
                 quit = True
 
+
         fly1.glide_to((230, -200))
         fly2.glide_to((64, -200))
         fly3.glide_to((230, -200))
         fly4.glide_to((396, -200))
+
+
+        if fly1.rect.y > 0:
+            pygame.mixer.Sound.set_volume(bzzSound,((abs(abs(fly1.rect.y - 300)- 300)) / 1000) * 5)
+            # ((abs(fly1 y - 300) - 300) / 1000) * 3
+        elif fly2.rect.y <= 600 and fly2.rect.y > 0:
+            pygame.mixer.Sound.set_volume(bzzSound,((abs(abs(fly2.rect.y - 300)- 300)) / 1000) * 5)
+        else:
+            pygame.mixer.Sound.set_volume(bzzSound,0.0)
+
+
 
         for fly in flies.sprites():
             fly.animate_fly()
@@ -61,6 +76,7 @@ async def animation():
             if fly.rect.bottom > -100:
                 break
         else:
+            bzzSound.stop()
             run = False
 
         # asyncio
