@@ -40,7 +40,6 @@ async def main():
         return
 
     while True:
-
         # show reference grid - comment / uncomment to show / hide reference grid 
         # quit = await grid.screen()
         # if quit:
