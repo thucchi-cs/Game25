@@ -24,9 +24,9 @@ def move_players(fly, key, tutorial=False):
         all.remove(key_collect)
         all.add(key_collect)
 
-        if fly.stuck:
-            other_flies = [i for i in players if i != fly]
-            fly.save_friend(other_flies,webs,tutorial)
+    if fly.stuck:
+        other_flies = [i for i in players if i != fly]
+        fly.save_friend(other_flies,webs,tutorial)
 
     # Check if player reached the end
     if fly.check_end(ends):
