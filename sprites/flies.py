@@ -265,11 +265,11 @@ class Flies(pygame.sprite.Sprite):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):
                 if (constants.key_counter.counter > 0) and (not gate.keyed):
-                    print("hello")
+                    # print("hello")
                     if pygame.mixer.Sound.get_num_channels(self.gateSound) == 0:
                         pygame.mixer.Sound.set_volume(self.gateSound,0.2)
                         pygame.mixer.Sound.play(self.gateSound)
-                        print("Played")
+                        # print("Played")
                     constants.key_counter.counter -= 1
                     key = constants.keys_collected.sprites()[0]
                     key.set_gate(gate)
@@ -292,10 +292,10 @@ class Flies(pygame.sprite.Sprite):
 
         if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck and not self.saving:
             self.saving = True
-            print("Saving")
+            # print("Saving")
         if not keys[pygame.K_SPACE]:
             self.saving = False 
-            print("Not Savin - No Space")
+            # print("Not Savin - No Space")
 
         if self.saving:
             self.stuck = False

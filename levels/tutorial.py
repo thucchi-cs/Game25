@@ -116,7 +116,7 @@ async def level():
         if h.check_win():
             run = False 
         
-        print(len(dead_flys))
+        # print(len(dead_flys))
         key = pygame.key.get_pressed() 
         if key[pygame.K_LSHIFT] and key[pygame.K_END]:
             run = False
@@ -157,7 +157,7 @@ async def level():
                 pygame.mixer.Sound.set_volume(deadSound,0.4)
                 pygame.mixer.Sound.play(deadSound)
                 deadPlayed = True
-            print('last')
+            # print('last')
             dead = True
             run = False
 

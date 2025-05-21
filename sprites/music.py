@@ -27,7 +27,7 @@ class Music(pygame.sprite.Sprite):
         
 
     def fade_in(self):
-        print("yay", self.volume)
+        # print("yay", self.volume)
         if self.volume >= 0.2:
             pygame.mixer.music.set_volume(self.volume)
             return
@@ -39,5 +39,5 @@ class Music(pygame.sprite.Sprite):
         if self.volume <= 0:
             return
         self.volume -= 0.01
-        print("aw", self.volume)
+        # print("aw", self.volume)
         pygame.mixer.music.set_volume(self.volume)

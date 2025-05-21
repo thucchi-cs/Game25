@@ -41,11 +41,11 @@ class Frog(pygame.sprite.Sprite):
         # pass
         self.counter += 1
         if self.counter % 3 == 0:
-            print("ANIMATE")
+            # print("ANIMATE")
             self.ran = random.randint(0,30)
-            print(self.ran)
+            # print(self.ran)
             if self.ran == 7:
-                print("Correct. you Win!")
+                # print("Correct. you Win!")
                 pygame.mixer.Sound.play(self.sound)
             
 

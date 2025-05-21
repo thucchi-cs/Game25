@@ -111,7 +111,7 @@ async def level(lvl):
         h.isWater()     
         # h.isFrog()   
         # Move sprites and interact with other elements
-        print(len(dead_flys))
+        # print(len(dead_flys))
         key = pygame.key.get_pressed() 
         if key[pygame.K_LSHIFT] and key[pygame.K_END]:
             run = False
@@ -157,7 +157,7 @@ async def level(lvl):
                 pygame.mixer.Sound.set_volume(deadSound,0.4)
                 pygame.mixer.Sound.play(deadSound)
                 deadPlayed = True
-            print('last')
+            # print('last')
             dead = True
             run = False
             
@@ -190,7 +190,7 @@ async def level(lvl):
             
         fg.draw(constants.SCREEN)
         if psc == True:
-            print(dead)
+            # print(dead)
             ps.draw(constants.SCREEN)
 
         constants.all.update()

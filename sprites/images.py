@@ -78,11 +78,11 @@ class imgDisplay(pygame.sprite.Sprite):
         self.curve_pos = 0 
         self.points = points
         self.curr_points = 0
-        print(path[:5])
+        # print(path[:5])
         
     def follow_bezier(self):
         if self.curve_pos < len(self.path):
-            print(self.points[self.curr_points], self.path[self.curve_pos])
+            # print(self.points[self.curr_points], self.path[self.curve_pos])
             if self.points[self.curr_points][1] > self.path[self.curve_pos][1]:
                 self.curr_points += 1
                 y_change = self.points[self.curr_points][1] - self.path[self.curve_pos][1]
@@ -93,7 +93,7 @@ class imgDisplay(pygame.sprite.Sprite):
             self.rect.centery = self.path[self.curve_pos][1]
             self.curve_pos += 1
             self.render_image(self.current_image)
-            print(self.heading)
+            # print(self.heading)
 
     def render_image(self, image):
         x, y = self.rect.centerx, self.rect.centery

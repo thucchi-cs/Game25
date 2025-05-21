@@ -226,11 +226,11 @@ def isWater():
         if pygame.mixer.Sound.get_num_channels(waterSound) == 0:
             pygame.mixer.Sound.set_volume(waterSound,0.2)
             pygame.mixer.Sound.play(waterSound,-1)
-            print("I am playing my wonderful water sound LOL")
+            # print("I am playing my wonderful water sound LOL")
     else:
         if pygame.mixer.Sound.get_num_channels(waterSound) > 0:
             pygame.mixer.Sound.stop(waterSound)
-            print("I am stopping my wonderful water sound LOL")
+            # print("I am stopping my wonderful water sound LOL")
 
 # def isFrog():
 #     print("I AM TRYING TO SEE IF THERE ARE ANY FROGS")
