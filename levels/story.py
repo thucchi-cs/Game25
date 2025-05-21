@@ -23,7 +23,7 @@ async def storyboard():
     text_on = False
     text_count = 0
 
-    frame_times = [75, 105, 75, 55, 75, 85, 45, 75, 100]
+    frame_times = [75, 105, 75, 55, 75, 100, 60, 75, 100]
         
     # Level loop
     while run:
@@ -46,7 +46,9 @@ async def storyboard():
                 #     run = False
                     
                 if event.key == pygame.K_SPACE and text_on:
+                    pygame.mixer.Sound.stop(board.currentSound)
                     run = False
+
                 
                 text_on = True
             

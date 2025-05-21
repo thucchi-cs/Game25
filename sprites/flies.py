@@ -47,6 +47,7 @@ class Flies(pygame.sprite.Sprite):
         self.deadx = -100
         self.hide = False
         self.end = False
+        
 
         # Movements variables
         self.angle = 90
@@ -57,6 +58,8 @@ class Flies(pygame.sprite.Sprite):
 
         # Stuck variable restricts movement when in web
         self.stuck = False
+        self.saving = False
+        self.saving_in_web = False
 
         # Keys for movements
         self.up_key = keys[0]
@@ -176,8 +179,11 @@ class Flies(pygame.sprite.Sprite):
         if collided_web and (math.dist(collided_web.rect.center, self.rect.center) <= (1/2)*collided_web.size) and pygame.sprite.collide_mask(collided_web, self):
             self.stuck = True
             self.render_image(self.dead, False)
+            return True
         else:
             self.render_image(self.current_image, False)
+            self.saving = False
+            return False
             
     def render_image(self, image, flipped):
         x, y = self.rect.centerx, self.rect.centery
@@ -275,18 +281,26 @@ class Flies(pygame.sprite.Sprite):
                     return
 
     # Save friend method for when fly gets stuck
-    def save_friend(self, flies):
+    def save_friend(self, flies,webs,tutorial=False):
         keys = pygame.key.get_pressed()
         close_friend = False
         for fly in flies:
             if math.sqrt((fly.rect.centerx - self.rect.centerx)**2 + (fly.rect.centery - self.rect.centery)**2) < 75 and not fly.stuck:
                 close_friend = fly
-        words = "Hold Space To Save Your Friend!" if close_friend else "Save Your Friend!"
+        words = "Hold Space To Save Your Friend!" if close_friend else "" if tutorial else "Save your friend!"
         constants.save_text.text = words
-        if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck:
+
+        if close_friend and keys[pygame.K_SPACE] and not close_friend.stuck and not self.saving:
+            self.saving = True
+            print("Saving")
+        if not keys[pygame.K_SPACE]:
+            self.saving = False 
+            print("Not Savin - No Space")
+
+        if self.saving:
             self.stuck = False
             self.render_image(self.current_image, False)
-
+        ## top three do unstuck 
 
     # Move to given coordinates, center is anchor
     def move_to(self, pos):

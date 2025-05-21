@@ -36,6 +36,8 @@ class StoryBoard(pygame.sprite.Sprite):
                           pygame.mixer.Sound("music/frame8.ogg"),
                           pygame.mixer.Sound("music/frame9.ogg"),
                           ]
+        self.currentSound = self.soundlist[0]
+
         pygame.mixer.Sound.play(self.soundlist[0])
     def draw(self):
         constants.SCREEN.blit(self.image, (self.rect.x, self.rect.y))
@@ -77,6 +79,7 @@ class StoryBoard(pygame.sprite.Sprite):
             self.curr_pt += 1
             pygame.mixer.Sound.stop(self.soundlist[self.counter])
             self.counter +=1
+            self.currentSound = self.soundlist[self.counter]
             pygame.mixer.Sound.play(self.soundlist[self.counter])
 
 

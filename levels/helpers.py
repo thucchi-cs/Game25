@@ -9,7 +9,7 @@ import sprites.curve as curve
 import random
 # Move all players
 pygame.mixer.init()
-def move_players(key):
+def move_players(key,tutorial=False):
     for fly in players:
         fly.move_arrows(key, pygame.sprite.Group(walls, gates, rocks, elevators, buttons, frogs))
         fly.elevator_move(elevators)
@@ -27,7 +27,7 @@ def move_players(key):
 
         if fly.stuck:
             other_flies = [i for i in players if i != fly]
-            fly.save_friend(other_flies)
+            fly.save_friend(other_flies,webs,tutorial)
 
         # Check if player reached the end
         if fly.check_end(ends):
