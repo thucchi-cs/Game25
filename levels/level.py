@@ -226,4 +226,5 @@ async def level(lvl):
         await h.fade_out_animation(clock)
         return "menu", math.floor(level_time)
     else:
+        constants.level_status.update({f"lvl{lvl}": "Played"})
         return "win", math.floor(level_time)

@@ -16,7 +16,7 @@ import levels.player_selection as play_select
 import levels.end as end
 import sprites.music as m
 import levels.tutorial as tutorial
-import math
+import levels.level_selection as level_select
 
 # Music
 pygame.mixer.init()
@@ -34,10 +34,10 @@ winSound = pygame.mixer.Sound("music/level_win.ogg")
 async def main():
 
     # Intro animation
-    menu_music.load()
-    status = await animation.animation()
-    if status == "quit":
-        return
+    # menu_music.load()
+    # status = await animation.animation()
+    # if status == "quit":
+    #     return
 
     while True:
         # show reference grid - comment / uncomment to show / hide reference grid 
@@ -50,25 +50,25 @@ async def main():
         all.add(fly1,fly2,fly3,fly4)
             
         # Main menu music
-        if not menu_music.playing:
-            menu_music.load()
+        # if not menu_music.playing:
+        #     menu_music.load()
 
-        # Run main menu
-        status = await title.menu()
-        if status == "quit":
-            return
-        # for i in range(100):     
-        #     menu_music.fade_out()
-        menu_music.unload()
+        # # Run main menu
+        # status = await title.menu()
+        # if status == "quit":
+        #     return
+        # # for i in range(100):     
+        # #     menu_music.fade_out()
+        # menu_music.unload()
 
-        # storyboard music
-        cutscene_music.load()
-        pygame.mixer.music.set_volume(0.1)
+        # # storyboard music
+        # cutscene_music.load()
+        # pygame.mixer.music.set_volume(0.1)
 
-        # Run cutscene
-        status = await story.storyboard()
-        if status == "quit":
-            return
+        # # Run cutscene
+        # status = await story.storyboard()
+        # if status == "quit":
+        #     return
         
         # Player selection
         status = await play_select.menu()
@@ -77,6 +77,16 @@ async def main():
         player_count = len(players)
         
         h.reset_sprites()
+
+        status = await level_select.menu()
+        if status == "quit":
+            return 
+        print(status)
+        to_play = level.level if status[1] >= 1 else tutorial.level
+        await to_play(status[1])
+        print(to_play)
+
+
         # Tutorial level
         status = "restart"
         # Play tutorial until win or skip
@@ -104,6 +114,7 @@ async def main():
         
         # Run levels 1-3
         for lvl in range(1, 4):
+            print(level_status)
             game_music.load()
             level_time = 0
             status = "restart"

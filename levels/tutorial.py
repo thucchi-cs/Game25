@@ -9,7 +9,7 @@ import sprites.pause as p
 import sprites.menuButtons as btns
 
 # Level 3 loop
-async def level():
+async def level(lvl=0):
     # Time
     clock = pygame.time.Clock()
     run = True
@@ -200,4 +200,5 @@ async def level():
     elif main_menu:
         return "menu"
     else:
+        constants.level_status.update({"tutorial": "Played"})
         return "win"

@@ -86,3 +86,5 @@ GROUPS = {'btn': buttons, 'wall': walls,
             'elevator': elevators, 'gate': gates, 'key': keys,
             'laser': lasers, 'rock': rocks,
             'water': waters, 'frog': frogs, 'web': webs, 'end': ends}
+
+level_status = {"lvl1": "NotPlayed", "lvl2": "NotPlayed", "lvl3": "NotPlayed", "tutorial": "NotPlayed"}
