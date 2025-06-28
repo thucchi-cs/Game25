@@ -87,4 +87,10 @@ GROUPS = {'btn': buttons, 'wall': walls,
             'laser': lasers, 'rock': rocks,
             'water': waters, 'frog': frogs, 'web': webs, 'end': ends}
 
-level_status = {"lvl1": "NotPlayed", "lvl2": "NotPlayed", "lvl3": "NotPlayed", "tutorial": "NotPlayed"}
+level_status = {"lvl1": "NotPlayed", "lvl2": "NotPlayed", "lvl3": "NotPlayed", "tutorial": "NotPlayed", "win": False}
+
+def reset_status():
+    level_status["win"] = False
+    level_status["tutorial"] = "NotPlayed"
+    for i in range(1,4):
+        level_status[f"lvl{i}"] = "NotPlayed"
