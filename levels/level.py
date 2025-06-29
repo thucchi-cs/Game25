@@ -167,7 +167,7 @@ async def level(lvl):
         last_sprite = constants.all.sprites()[-1]
         zero_pos += constants.SPEED if scroll else 0
         coor = (pygame.mouse.get_pos()[0],pygame.mouse.get_pos()[1]-zero_pos)
-        print(coor)
+        # print(coor)
         # Draw on screen
 
 

@@ -5,6 +5,7 @@ import sprites.flies as flies
 import pygame
 import levels.helpers as h
 import levels.end as end
+import sprites.images as img
 
 
 async def transition(level_num, player_count, level_tries, level_time):
@@ -45,6 +46,9 @@ async def transition(level_num, player_count, level_tries, level_time):
     continue_text = text.Text("fonts/COMIC.TTF", 20, continue_txt, (255,255,255), 250, 525)
     level_tries_text = text.Text("fonts/COMIC.TTF", 25, f"Attempts: {level_tries}", (255,255,255), 250, 200)
     level_time_text = text.Text("fonts/COMIC.TTF", 25, f"Time: {minutes} {seconds}", (255,255,255), 250, 250)
+    
+    stars = img.imgDisplay((125,165), (188,175), f"menu_buttons/{str(level_status[f"lvl{level_num-1}_stars"])}stars.png")
+    
     # Loop variables
     quit = False
     run = True
@@ -75,6 +79,7 @@ async def transition(level_num, player_count, level_tries, level_time):
         continue_text.blit_text(SCREEN)
         level_tries_text.blit_text(SCREEN)
         level_time_text.blit_text(SCREEN)
+        SCREEN.blit(stars.image, (stars.rect.x, stars.rect.y))
         display_flies.update()
         display_flies.draw(SCREEN)
 
