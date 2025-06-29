@@ -184,6 +184,7 @@ async def level(lvl):
 
         constants.all.draw(constants.SCREEN)
         constants.key_counter.draw(constants.SCREEN)
+        constants.star_counter.draw(constants.SCREEN)
 
         if save_display:
             constants.save_text.blit_text(constants.SCREEN)
@@ -227,4 +228,5 @@ async def level(lvl):
         return "menu", math.floor(level_time)
     else:
         constants.level_status.update({f"lvl{lvl}": "Played"})
+        constants.level_status.update({f"lvl{lvl}_stars": max(constants.star_counter.counter, constants.level_status[f"lvl{lvl}_stars"])})
         return "win", math.floor(level_time)

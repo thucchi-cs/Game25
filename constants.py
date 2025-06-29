@@ -13,6 +13,7 @@ import sprites.obstacles.webs as web
 import sprites.text as text
 import sprites.obstacles.end as end
 import sprites.obstacles.keys as key
+import sprites.obstacles.stars as star
 
 # Ronin Reminders (patent pending) - 1st value in size is width. 2nd is tall
 
@@ -53,6 +54,7 @@ fly4 = flies.Flies(325, 500, IJKL, 4)
 save_text = text.Text("fonts/COMIC.TTF", 30, "Test", (255,255,255), 250, 75)
 
 key_counter = key.KeyCounter()
+star_counter = star.StarCounter()
 
 # Sounds
 waterSound = pygame.mixer.Sound("music/waterfall.ogg")
@@ -64,6 +66,7 @@ buttons = pygame.sprite.Group()
 webs = pygame.sprite.Group()
 gates = pygame.sprite.Group()
 keys = pygame.sprite.Group()
+stars = pygame.sprite.Group()
 keys_collected = pygame.sprite.Group()
 rocks = pygame.sprite.Group()
 exclamations = pygame.sprite.Group()
@@ -79,18 +82,20 @@ preload = pygame.sprite.Group()
 # Sprites and groups dicts for json planning
 OBJECTS = {'btn': button.Buttons, 'wall': wall.Wall, 
             'elevator': elevator.Elevators, 'gate': gate.Gate, 'key': key.Key,
-            'laser': laser.Lasers, 'rock': rock.Rocks,
+            'star': star.Star, 'laser': laser.Lasers, 'rock': rock.Rocks,
             'water': water.Water, 'frog': frog.Frog, 'web': web.Web, 'end': end.End}
 
 GROUPS = {'btn': buttons, 'wall': walls, 
             'elevator': elevators, 'gate': gates, 'key': keys,
-            'laser': lasers, 'rock': rocks,
+            'star': stars,'laser': lasers, 'rock': rocks,
             'water': waters, 'frog': frogs, 'web': webs, 'end': ends}
 
-level_status = {"lvl1": "NotPlayed", "lvl2": "NotPlayed", "lvl3": "NotPlayed", "tutorial": "NotPlayed", "win": False}
+level_status = {"lvl1": "NotPlayed", "lvl2": "NotPlayed", "lvl3": "NotPlayed", "tutorial": "NotPlayed", "win": False,
+                "lvl1_stars": 0, "lvl2_stars": 0, "lvl3_stars": 0}
 
 def reset_status():
     level_status["win"] = False
     level_status["tutorial"] = "NotPlayed"
     for i in range(1,4):
         level_status[f"lvl{i}"] = "NotPlayed"
+        level_status[f"lvl{i}_stars"] = 0

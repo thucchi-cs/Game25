@@ -261,6 +261,9 @@ class Flies(pygame.sprite.Sprite):
                 return key
         return False
     
+    def check_stars(self, stars):
+        return self.check_keys(stars)
+    
     def check_gates(self, gates):
         for gate in gates:
             if pygame.sprite.collide_rect(self, gate.collide):

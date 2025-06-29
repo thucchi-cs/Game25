@@ -20,9 +20,9 @@ async def menu():
     l3_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 70), f'lvl3{level_status["lvl3"]}.png')
 
     # Stars
-    l1_stars = img.imgDisplay((125,165), (13,308), "menu_buttons/0stars.png")
-    l2_stars = img.imgDisplay((125,165), (188,308), "menu_buttons/0stars.png")
-    l3_stars = img.imgDisplay((125,165), (363,308), "menu_buttons/0stars.png")
+    l1_stars = img.imgDisplay((125,165), (13,308), f"menu_buttons/{str(level_status["lvl1_stars"])}stars.png")
+    l2_stars = img.imgDisplay((125,165), (188,308), f"menu_buttons/{str(level_status["lvl2_stars"])}stars.png")
+    l3_stars = img.imgDisplay((125,165), (363,308), f"menu_buttons/{str(level_status["lvl3_stars"])}stars.png")
 
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')

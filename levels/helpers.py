@@ -24,6 +24,14 @@ def move_players(fly, key, tutorial=False):
         all.remove(key_collect)
         all.add(key_collect)
 
+    star_collect = fly.check_stars(stars)
+    if star_collect:
+        path = curve.draw_Bezier([(star_collect.rect.centerx, star_collect.rect.centery), (WIDTH//2, 0), (star_counter.rect.centerx, star_counter.rect.centery)])
+        star_collect.following = True
+        star_collect.set_path(path)
+        all.remove(star_collect)
+        all.add(star_collect)
+
     if fly.stuck:
         other_flies = [i for i in players if i != fly]
         fly.save_friend(other_flies,webs,tutorial)
@@ -168,6 +176,7 @@ def reset_sprites():
     for player in players:
         player.reset()
     key_counter.counter = 0
+    star_counter.counter = 0
 
 def restart_transition(clock):
     restart_window = window.Window("graphics/restart.png")
