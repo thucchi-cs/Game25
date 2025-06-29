@@ -14,10 +14,15 @@ async def menu():
     quit = False
 
     # Create buttons
-    tut_option = btn.menuBtn((200, 75), (WIDTH//2, HEIGHT // 2+210), f'tutorial{level_status["tutorial"]}.png')
-    l1_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 100), f'lvl1{level_status["lvl1"]}.png')
-    l2_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 100), f'lvl2{level_status["lvl2"]}.png')
-    l3_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 100), f'lvl3{level_status["lvl3"]}.png')
+    tut_option = btn.menuBtn((200, 75), (WIDTH//2, HEIGHT // 2+230), f'tutorial{level_status["tutorial"]}.png')
+    l1_option = btn.menuBtn((125, 125), (75, HEIGHT // 2 + 70), f'lvl1{level_status["lvl1"]}.png')
+    l2_option = btn.menuBtn((125, 125), (WIDTH // 2, HEIGHT // 2 + 70), f'lvl2{level_status["lvl2"]}.png')
+    l3_option = btn.menuBtn((125, 125), (WIDTH - 75, HEIGHT // 2 + 70), f'lvl3{level_status["lvl3"]}.png')
+
+    # Stars
+    l1_stars = img.imgDisplay((125,165), (13,308), "menu_buttons/0stars.png")
+    l2_stars = img.imgDisplay((125,165), (188,308), "menu_buttons/0stars.png")
+    l3_stars = img.imgDisplay((125,165), (363,308), "menu_buttons/0stars.png")
 
     dirt = img.imgDisplay((1200,1200),(0,0),'menu_assets/dirt.jpg')
     dirt2 = img.imgDisplay((1200,1200),(0,-1200),'menu_assets/dirt.jpg')
@@ -32,7 +37,7 @@ async def menu():
     layer1 = pygame.sprite.Group()
 
     btns.add(l1_option, l2_option, l3_option, tut_option)
-    layer1.add(player_text)
+    layer1.add(player_text, l1_stars, l2_stars, l3_stars)
 
     level = 1
     

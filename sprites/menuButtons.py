@@ -17,6 +17,7 @@ class menuBtn(pygame.sprite.Sprite):
         self.w = size[0]
         self.h = size[1]
         self.pos = pos
+        print(img, self.rect.x, self.rect.y)
 
     # Check if is being clicked by mouse
     def is_clicked(self):
